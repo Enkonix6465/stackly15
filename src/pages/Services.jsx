@@ -14,357 +14,269 @@ import {
   FaClock,
   FaAward,
 } from 'react-icons/fa';
+import { useLanguage } from '../context.jsx/LanguageContext';
 
-
+const translations = {
+  en: {
+    pageTitle: "Our Services - ForStackly Business Solutions",
+    heroTitle: "Our Services",
+    heroParagraph: "From intimate gatherings to grand celebrations, we provide end-to-end event planning, design, and execution to make every occasion unforgettable.",
+    servicesHeading: "Premium Event Management Services",
+    servicesDescription: "We specialize in crafting unforgettable experiences from luxurious weddings to high-profile corporate galas. Our team takes care of every detail so you can focus on celebrating the moments that matter.With a seamless blend of creativity and precision, we design events that leave a lasting impression. Our trusted vendor network ensures premium venues, décor, and entertainment tailored to your vision.",
+    servicesFeatures: [
+      "End-to-end Event Planning",
+      "Luxury Venue Selection",
+      "Customized Décor & Styling",
+      "Entertainment & Guest Management",
+      "Seamless On-site Coordination"
+    ],
+    filterOptions: ["All", "Weddings", "Corporate", "Parties"],
+    portfolioHeader: "Our Portfolio",
+    portfolioDescription: "A glimpse of our premium event experiences",
+    portfolioItems: [
+      { id: 1, title: "Luxury Wedding", category: "Weddings", image: "images/portfolio2.jpg" },
+      { id: 2, title: "Corporate Gala", category: "Corporate", image: "images/corporate Gala copy.jpg" },
+      { id: 3, title: "Birthday Bash", category: "Parties", image: "images/portfolio1.jpg" },
+      { id: 4, title: "Destination Event", category: "Weddings", image: "images/portfolio.jpg" },
+      { id: 5, title: "Holiday Party", category: "Parties", image: "images/portfolio3.jpg" },
+      { id: 6, title: "Annual Conference", category: "Corporate", image: "images/portfolio4 copy.jpg" }
+    ],
+    processHeader: "Our Proven Process",
+    processDescription: "A systematic approach to delivering exceptional results",
+    processSteps: [
+      { step: "01", title: "Consultation & Visioning", description: "We collaborate closely to understand your event goals, preferences, and unique requirements, crafting a clear vision for success." },
+      { step: "02", title: "Creative Planning & Design", description: "Our team develops a comprehensive event plan, including theme, logistics, vendor coordination, and timeline to bring your vision to life." },
+      { step: "03", title: "Seamless Execution", description: "On the day of the event, we manage every detail with precision and professionalism, ensuring flawless delivery and guest satisfaction." },
+      { step: "04", title: "Post-Event Support & Review", description: "We provide follow-up services, gather feedback, and analyze outcomes to continuously enhance future events and build lasting partnerships." }
+    ],
+    reachOut: "Reach Out Today",
+    ctaTitle: "Ready to Transform Your Business?",
+    ctaParagraph: "Get started today with a free consultation and discover how we can help you achieve your goals.",
+    ctaButton: "Get Started",
+    ctaSecondaryButton: "Learn More",
+  },
+  ar: {
+    pageTitle: "خدماتنا - حلول الأعمال فورستاكلي",
+    heroTitle: "خدماتنا",
+    heroParagraph: "من اللقاءات الحميمة إلى الاحتفالات الكبرى، نوفر تخطيطًا كاملاً للفعالية، وتصميمًا، وتنفيذًا لجعل كل مناسبة لا تُنسى.",
+    servicesHeading: "خدمات إدارة الأحداث الفاخرة",
+    servicesDescription: "نتخصص في خلق تجارب لا تُنسى بدءًا من حفلات الزفاف الفاخرة وحتى الحفلات الرسمية الكبرى. يعتني فريقنا بكل التفاصيل لتتمكن من التركيز على الاحتفال باللحظات المهمة. بتوازن سلس بين الإبداع والدقة، نصمم فعاليات تترك انطباعًا دائمًا. يضمن شبكتنا الموثوقة من الموردين أماكن فاخرة، وزخارف، وترفيهًا مُخصصًا لرؤيتك.",
+    servicesFeatures: [
+      "تخطيط شامل للفعالية",
+      "اختيار أماكن فاخرة",
+      "زخرفة وتصميم حسب الطلب",
+      "الترفيه وإدارة الضيوف",
+      "تنسيق لا شمولي في الموقع"
+    ],
+    filterOptions: ["الكل", "حفلات زفاف", "شركة", "حفلات"],
+    portfolioHeader: "معرض أعمالنا",
+    portfolioDescription: "لمحة عن تجاربنا الفاخرة في تنظيم الفعاليات",
+    portfolioItems: [
+      { id: 1, title: "حفل زفاف فاخر", category: "حفلات زفاف", image: "images/portfolio2.jpg" },
+      { id: 2, title: "حفلة شركة", category: "شركة", image: "images/corporate Gala copy.jpg" },
+      { id: 3, title: "حفلة عيد ميلاد", category: "حفلات", image: "images/portfolio1.jpg" },
+      { id: 4, title: "فعالية في الوجهة", category: "حفلات زفاف", image: "images/portfolio.jpg" },
+      { id: 5, title: "حفلة عطلة", category: "حفلات", image: "images/portfolio3.jpg" },
+      { id: 6, title: "مؤتمر سنوي", category: "شركة", image: "images/portfolio4 copy.jpg" }
+    ],
+    processHeader: "عمليتنا الموثوقة",
+    processDescription: "نهج منهجي لتحقيق نتائج استثنائية",
+    processSteps: [
+      { step: "01", title: "الاستشارة ورسم الرؤية", description: "نتعاون عن كثب لفهم أهداف الفعالية وتفضيلاتك ومتطلباتك الفريدة، لصياغة رؤية واضحة للنجاح." },
+      { step: "02", title: "التخطيط الإبداعي والتصميم", description: "يطور فريقنا خطة فعالية شاملة، تشمل الموضوع واللوجستيات والتنسيق مع الموردين والجدول الزمني لتحقيق رؤيتك." },
+      { step: "03", title: "التنفيذ السلس", description: "في يوم الحدث، ندير كل التفاصيل بدقة واحتراف، لضمان تقديم مثالي ورضا الضيوف." },
+      { step: "04", title: "الدعم والمراجعة بعد الحدث", description: "نوفر خدمات متابعة، ونجمع التعليقات، ونحلل النتائج لتحسين فعاليات المستقبل وبناء شراكات مستدامة." }
+    ],
+    reachOut: "تواصل معنا",
+    ctaTitle: "هل أنت مستعد لتحويل عملك؟",
+    ctaParagraph: "ابدأ اليوم مع استشارة مجانية واكتشف كيف يمكننا مساعدتك في تحقيق أهدافك.",
+    ctaButton: "ابدأ الآن",
+    ctaSecondaryButton: "تعرف علينا أكثر",
+  },
+  he: {
+    pageTitle: "השירותים שלנו - פתרונות עסקיים פורסטאקלי",
+    heroTitle: "השירותים שלנו",
+    heroParagraph: "מפגישות אינטימיות לחגיגות גדולות אנו מספקים תכנון, עיצוב, וביצוע מלא לאירועים שיהפכו כל הזדמנות לבלתי נשכחת.",
+    servicesHeading: "שירותי ניהול אירועים יוקרתיים",
+    servicesDescription: "אנו מתמחים ביצירת חוויות בלתי נשכחות, מחתונות יוקרה ועד גאלה עסקית ברמה גבוהה. הצוות שלנו דואג לכל פרט כדי שתוכלו להתמקד בחגיגות הרגעים החשובים. בשילוב מושלם בין יצירתיות לדיוק, אנו מעצבים אירועים שמותירים רושם מתמשך. רשת הספקים האמינה שלנו מבטיחה מקומות יוקרה, עיצוב והנאות מותאמות לרצונך.",
+    servicesFeatures: [
+      "תכנון אירועים מקיף",
+      "בחירת מקומות יוקרתיים",
+      "עיצוב וקישוט מותאם אישית",
+      "ניהול אירוח ובידור",
+      "תיאום מושלם באתר"
+    ],
+    filterOptions: ["הכל", "חתונות", "עסק", "מסיבות"],
+    portfolioHeader: "תיק עבודות",
+    portfolioDescription: "הצצה לחוויות האירועים היוקרתיות שלנו",
+    portfolioItems: [
+      { id: 1, title: "חתונת יוקרה", category: "חתונות", image: "images/portfolio2.jpg" },
+      { id: 2, title: "אירוע חברה", category: "עסק", image: "images/corporate Gala copy.jpg" },
+      { id: 3, title: "מסיבת יום הולדת", category: "מסיבות", image: "images/portfolio1.jpg" },
+      { id: 4, title: "אירוע ייחודי", category: "חתונות", image: "images/portfolio.jpg" },
+      { id: 5, title: "מסיבת חגים", category: "מסיבות", image: "images/portfolio3.jpg" },
+      { id: 6, title: "ועידה שנתית", category: "עסק", image: "images/portfolio4 copy.jpg" }
+    ],
+    processHeader: "התהליך שלנו",
+    processDescription: "גישה שיטתית לאירוע מושלם ותוצאות מעולות",
+    processSteps: [
+      { step: "01", title: "ייעוץ והגדרת חזון", description: "שיתוף פעולה להבנת המטרות והדרישות ליצירת חזון ברור." },
+      { step: "02", title: "תכנון יצירתי ועיצוב", description: "צוותנו מפתח תכנית אירוע כוללת: עיצוב, לוגיסטיקה, תיאום." },
+      { step: "03", title: "הוצאה לפועל חלקה", description: "ביום האירוע אנו דואגים לכל פרט במקצועיות." },
+      { step: "04", title: "מעקב וביקורת לאחר האירוע", description: "מעקב ואיסוף תובנות לשיפור תמידי." }
+    ],
+    reachOut: "צור קשר",
+    ctaTitle: "מוכנים לשנות את העסק שלכם?",
+    ctaParagraph: "התחילו היום עם ייעוץ חינם וגלו כיצד נוכל לעזור לכם להשיג את היעדים שלכם.",
+    ctaButton: "התחל עכשיו",
+    ctaSecondaryButton: "למידע נוסף",
+  }
+};
 
 const Services = () => {
+  const { language } = useLanguage();
+  const [portfolioFilter, setPortfolioFilter] = useState(null);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const isRTL = language === "ar" || language === "he";
+  const t = translations[language] || translations['en'];
+
   useEffect(() => {
-    document.title = 'Our Services - ForStackly Business Solutions';
-  }, []);
+    document.title = t.pageTitle;
+    setPortfolioFilter(t.filterOptions[0]);
+  }, [language, t.pageTitle, t.filterOptions]);
 
-const portfolioItems = [
-  { id: 1, title: "Luxury Wedding", category: "Weddings", image: "images/portfolio2.jpg" },
-  { id: 2, title: "Corporate Gala", category: "Corporate", image: "images/corporate Gala copy.jpg" },
-  { id: 3, title: "Birthday Bash", category: "Parties", image: "images/portfolio1.jpg" },
-  { id: 4, title: "Destination Event", category: "Weddings", image: "images/portfolio.jpg" },
-  { id: 5, title: "Holiday Party", category: "Parties", image: "images/portfolio3.jpg" },
-  { id: 6, title: "Annual Conference", category: "Corporate", image: "images/portfolio4 copy.jpg" }
-];
-
-const [portfolioFilter, setPortfolioFilter] = useState("All");
-
-const filteredItems = portfolioFilter === "All"
-  ? portfolioItems
-  : portfolioItems.filter(item => item.category === portfolioFilter);
-
-
-  const services = [
-  {
-    id: 1,
-    title: 'Luxury Yacht Wedding',
-    description: 'A curated celebration on the water, blending elegant decor, tailored cuisine and expert planning.',
-    features: ['Custom Floral Arrangements', 'VIP Guest Services', 'Gourmet Catering', 'Onboard Entertainment'],
-    color: '#007bff',
-    image: 'images/lll.jpg'
-  },
-  {
-    id: 2,
-    title: 'Modern Corporate Gala',
-    description: 'A sophisticated business gathering with striking ambience, premium dining and seamless event coordination.',
-    features: ['Thematic Venue Styling', 'Interactive Branding Zones', 'Speaker & Panel Management', 'High-end Catering'],
-    color: '#28a745',
-    image: 'images/whoweare1.jpg'
-  },
-  {
-    id: 3,
-    title: 'Birthday Celebration',
-    description: 'A vibrant birthday experience, featuring playful themes, custom treats and attentive hosting throughout.',
-    features: ['Personalized Decor', 'Engaging Activities', 'Signature Cake Design', 'Party Coordination'],
-    color: '#6f42c1',
-    image: 'images/whoweare2.jpg'
-  },
-  {
-    id: 4,
-    title: 'Mountain Retreat',
-    description: 'A tranquil escape to the mountains, offering curated activities, luxury accommodation and flawless logistics.',
-    features: ['Travel & Accommodation Planning', 'Adventure Excursions', 'Exclusive Event Design', 'Local Experience Integration'],
-    color: '#dc3545',
-    image: 'images/whoweare3.jpg'
-  },
-  {
-    id: 5,
-    title: 'Festive Holiday Soiree',
-    description: 'A joyful holiday event delivered with seasonal styling, gourmet menus and impeccable guest experiences.',
-    features: ['Holiday-themed Styling', 'Seasonal Catering', 'Live Music & Activities', 'Family Coordination'],
-    color: '#fd7e14',
-    image: 'images/whoweare4.jpg'
-  },
-  {
-    id: 6,
-    title: 'Annual Conference',
-    description: 'An expertly managed conference, providing innovative programming, elegant and smooth operations.',
-    features: ['Registration & Guest Logistics', 'AV Production', 'Program Planning', 'Hospitality Services'],
-    color: '#17a2b8',
-    image: 'images/whoweare5.jpg'
-  }
-];
-
-
-const processSteps = [
-  {
-    step: '01',
-    title: 'Consultation & Visioning',
-    description: 'We collaborate closely to understand your event goals, preferences, and unique requirements, crafting a clear vision for success.'
-  },
-  {
-    step: '02',
-    title: 'Creative Planning & Design',
-    description: 'Our team develops a comprehensive event plan, including theme, logistics, vendor coordination, and timeline to bring your vision to life.'
-  },
-  {
-    step: '03',
-    title: 'Seamless Execution',
-    description: 'On the day of the event, we manage every detail with precision and professionalism, ensuring flawless delivery and guest satisfaction.'
-  },
-  {
-    step: '04',
-    title: 'Post-Event Support & Review',
-    description: 'We provide follow-up services, gather feedback, and analyze outcomes to continuously enhance future events and build lasting partnerships.'
-  }
-];
-
-
-
-  
+  useEffect(() => {
+    if (portfolioFilter === t.filterOptions[0]) {
+      setFilteredItems(t.portfolioItems);
+    } else {
+      setFilteredItems(t.portfolioItems.filter(item => item.category === portfolioFilter));
+    }
+  }, [portfolioFilter, t]);
 
   return (
-    <div className="services-page">
+    <div dir={isRTL ? "rtl" : "ltr"} className="services-page">
       {/* Hero Section */}
-             <section className="hero-section">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="hero-bg-video"
-              >
-                <source src="images/video41.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            
-              <div className="hero-overlay">
-                <div className="hero-content">
-                 <h1 className="hero-title animate-slide-in">Our Services</h1>
-<p className="hero-paragraph animate-fade-up">
-  From intimate gatherings to grand celebrations, we provide end-to-end event planning, design, and execution to make every occasion unforgettable.
-</p>
-                  <Link
-                    to="/contact"
-                    className="hero-button animate-fade-up-delayed"
-                  >
-                    Reach Out Today
-                  </Link>
-                </div>
-              </div>
-            </section>
-
-           <section className="services-section">
-      <h2 className="services-heading">Premium Event Management Services</h2>
-
-      <div className="services-grid">
-        {/* Left Image */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="services-image"
-        >
-          <img
-            src="images/luxury.jpg"
-            alt="Event Management"
-          />
-        </motion.div>
-
-        {/* Right Content */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="services-content"
-        >
-          <p className="services-text">
-            We specialize in crafting unforgettable experiences from luxurious
-            weddings to high-profile corporate galas. Our team takes care of
-            every detail so you can focus on celebrating the moments that matter.With a seamless blend of creativity and precision, we design events that leave a lasting impression.
-Our trusted vendor network ensures premium venues, décor, and entertainment tailored to your vision.
-          </p>
-
-          <ul className="services-list">
-            {[
-              "End-to-end Event Planning",
-              "Luxury Venue Selection",
-              "Customized Décor & Styling",
-              "Entertainment & Guest Management",
-              "Seamless On-site Coordination",
-            ].map((item, i) => (
-              <motion.li
-                key={i}
-                whileHover={{ scale: 1.05, x: 5 }}
-                transition={{ duration: 0.2 }}
-                className="services-item"
-              >
-                <span className="bullet"></span>
-                {item}
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
-      </div>
-    </section>
-
-      {/* Services Grid */}
-      <section className="section services-grid-section">
-        <div className="container">
-          <motion.div
-            className="section-header text-center"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2>What We Offer</h2>
-            <p>End-to-end solutions tailored to your business needs</p>
-          </motion.div>
-
-          <div className="services-grid">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.id}
-                className="service-card"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-              >
-                <div className="service-image">
-  <img src={service.image} alt={service.title} />
-  <div className="service-overlay">
-    {service.icon && (
-      <service.icon className="service-icon" style={{ color: service.color }} />
-    )}
-  </div>
-</div>
-
-                
-                <div className="service-content">
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                  
-                  <div className="service-features">
-                    {service.features.map((feature, idx) => (
-                      <div key={idx} className="feature-item">
-                        <FaCheck className="check-icon" />
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <Link 
-                    to={`/service${service.id}`} 
-                    className="service-link"
-                    style={{ color: service.color }}
-                  >
-                    Learn More <FaArrowRight />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+      <section className="hero-section">
+        <video autoPlay muted loop playsInline className="hero-video">
+          <source src="images/video41.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <h1 className="hero-title text-center">{t.heroTitle}</h1>
+            <p className="hero-paragraph text-center">{t.heroParagraph}</p>
+            <Link to="/contact" className="hero-button text-center">
+              {t.reachOut}
+            </Link>
           </div>
         </div>
       </section>
 
-     <section className="portfolio-section">
-  <div className="portfolio-header text-center">
-    <h2>Our Portfolio</h2>
-    <p>A glimpse of our premium event experiences</p>
-  </div>
+      {/* Services Section */}
+      <section className="services-section">
+        <h2 className="services-heading text-center">{t.servicesHeading}</h2>
+        <div className="services-grid">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="services-image"
+          >
+            <img src="images/luxury.jpg" alt="Luxury Event" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="services-content"
+          >
+            <p className="services-description">{t.servicesDescription}</p>
+            <ul className="services-features">
+              {t.servicesFeatures.map((feature, idx) => (
+                <li key={idx}>{feature}</li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+      </section>
 
-  <div className="portfolio-filters">
-    {["All", "Weddings", "Corporate", "Parties"].map(cat => (
-      <button
-        key={cat}
-        className={portfolioFilter === cat ? "active" : ""}
-        onClick={() => setPortfolioFilter(cat)}
-      >
-        {cat}
-      </button>
-    ))}
-  </div>
-
-  <div className="portfolio-grid">
-    {filteredItems.map(item => (
-      <div key={item.id} className="portfolio-card">
-        <img src={item.image} alt={item.title} />
-        <h3>{item.title}</h3>
-        <p>{item.category}</p>
-      </div>
-    ))}
-  </div>
-</section>
-
-
+      {/* Portfolio Section */}
+      <section className="portfolio-section">
+        <div className="portfolio-header text-center">
+          <h2>{t.portfolioHeader}</h2>
+          <p>{t.portfolioDescription}</p>
+        </div>
+        <div className="portfolio-filters text-center">
+          {t.filterOptions.map((cat, idx) => (
+            <button
+              key={idx}
+              className={portfolioFilter === cat ? "active" : ""}
+              onClick={() => setPortfolioFilter(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+        <div className="portfolio-grid">
+          {filteredItems.map(item => (
+            <div key={item.id} className="portfolio-card">
+              <img src={item.image} alt={item.title} />
+              <h3>{item.title}</h3>
+              <p>{item.category}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Process Section */}
-      <section className="section process-section">
-        <div className="container">
-          <motion.div
-            className="section-header text-center"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2>Our Proven Process</h2>
-            <p>A systematic approach to delivering exceptional results</p>
-          </motion.div>
+      <section className="process-section">
+        <div className="process-header text-center">
+          <h2>{t.processHeader}</h2>
+          <p>{t.processDescription}</p>
+        </div>
+        <div className="process-steps">
+          {t.processSteps.map((step, idx) => (
+            <motion.div
+              key={idx}
+              className="process-step"
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+            >
+              <div className="step-number">{step.step}</div>
+              <div className="step-content">
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-          <div className="process-steps">
-            {processSteps.map((step, index) => (
-              <motion.div
-                key={index}
-                className="process-step"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="step-number">{step.step}</div>
-                <div className="step-content">
-                  <h4>{step.title}</h4>
-                  <p>{step.description}</p>
-                </div>
-              </motion.div>
-            ))}
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-overlay">
+          <div className="cta-content text-center">
+            <h2>{t.ctaTitle}</h2>
+            <p>{t.ctaParagraph}</p>
+            <div className="cta-buttons">
+              <Link to="/contact" className="btn btn-primary">
+                {t.ctaButton} <FaArrowRight />
+              </Link>
+              <Link to="/about" className="btn btn-outline">
+                {t.ctaSecondaryButton}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-
-      {/* CTA Section */}
-           <section className="cta-section">
-             <div className="cta-overlay">
-               <div className="container">
-                 <motion.div
-                   className="cta-content text-center"
-                   initial={{ opacity: 0, y: 50 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   transition={{ duration: 0.8 }}
-                   viewport={{ once: true }}
-                 >
-                   <h2>Ready to Transform Your Business?</h2>
-                   <p>
-                     Get started today with a free consultation and discover how we can help you achieve your goals.
-                   </p>
-                   <div className="cta-buttons">
-                     <Link to="/contact" className="btn btn-primary btn-large">
-                       Start Your Journey <FaArrowRight />
-                     </Link>
-                     <Link to="/about" className="btn btn-outline btn-large">
-                       Learn More About Us
-                     </Link>
-                   </div>
-                 </motion.div>
-               </div>
-             </div>
-           </section>
-
       <style jsx>{`
-        .home2-page {
-          padding-top: 80px;
-        }
+  .home-page {
+  padding-top: 80px;
+}
 
-         .hero-section {
+.hero-section {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -376,7 +288,7 @@ Our trusted vendor network ensures premium venues, décor, and entertainment tai
   justify-content: center;
 }
 
-.hero-bg-video {
+.hero-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -385,6 +297,7 @@ Our trusted vendor network ensures premium venues, décor, and entertainment tai
   object-fit: cover;
   z-index: -1;
 }
+
 
 .hero-overlay {
   position: absolute;
@@ -403,30 +316,41 @@ Our trusted vendor network ensures premium venues, décor, and entertainment tai
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;   /* ensures vertical centering inside overlay */
+  justify-content: center; /* vertical centering */
   text-align: center;
   color: #fff;
   max-width: 800px;
   z-index: 2;
-  gap: 28px; /* space between title, text, and button */
+  gap: 28px; /* spacing between elements */
+  padding: 0 20px; /* base horizontal padding */
+  box-sizing: border-box;
 }
 
 .hero-title {
-  color: #fff; /* ✅ force white text so it’s visible on dark video background in light mode */
   font-size: 2.8rem;
   font-weight: bold;
   line-height: 1.1;
   margin-bottom: 0;
   opacity: 0;
   animation: slideIn 1s ease-out forwards 0.5s;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  max-width: 100%;
+  word-wrap: break-word;
 }
-
 
 .hero-paragraph {
   font-size: 1.25rem;
   margin: 0;
   opacity: 0;
   animation: fadeUp 1s ease-out forwards 1s;
+  max-width: 100%;
+  word-wrap: break-word;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .hero-button {
@@ -442,6 +366,9 @@ Our trusted vendor network ensures premium venues, décor, and entertainment tai
   transition: background-color 0.3s, transform 0.3s;
   opacity: 0;
   animation: fadeUp 1s ease-out forwards 1.5s;
+  cursor: pointer;
+  min-width: 160px;
+  box-sizing: border-box;
 }
 
 .hero-button:hover {
@@ -449,23 +376,118 @@ Our trusted vendor network ensures premium venues, décor, and entertainment tai
   transform: scale(1.05);
 }
 
-/* Responsive adjustments */
-@media (max-width: 700px) {
+/* Tablet view */
+@media (max-width: 1024px) {
   .hero-content {
-    max-width: 95vw;
-    padding: 0 10px;
-    gap: 18px;
+    max-width: 90vw;
+    gap: 22px;
+    padding: 0 18px;
   }
+
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    line-height: 1.15;
   }
+
   .hero-paragraph {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
   }
+  
   .hero-button {
+    padding: 12px 32px;
     font-size: 1rem;
   }
 }
+
+/* Mobile view */
+@media (max-width: 700px) {
+  .hero-content {
+    max-width: 95vw;
+    padding: 0 12px;
+    gap: 18px;
+  }
+
+   .hero-video {
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.25;
+  }
+
+  .hero-paragraph {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .hero-button {
+    font-size: 1rem;
+    padding: 12px 28px;
+    min-width: 140px;
+  }
+}
+
+/* Small Mobile view */
+@media (max-width: 480px) {
+  .hero-content {
+    max-width: 100vw;
+    padding: 0 14px;
+    gap: 14px;
+  }
+
+   .hero-video {
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .hero-paragraph {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .hero-button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+              html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+              header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+    html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+    header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+  }
+
 
 /* Animations */
 @keyframes slideIn {
@@ -475,6 +497,88 @@ Our trusted vendor network ensures premium venues, décor, and entertainment tai
 @keyframes fadeUp {
   0% { opacity: 0; transform: translateY(20px);}
   100% { opacity: 1; transform: translateY(0);}
+}
+
+/* Additional hero-text styling */
+.hero-text h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: white;
+  max-width: 100%;
+  word-wrap: break-word;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.4);
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, #ffd700, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  max-width: 100%;
+  word-wrap: break-word;
+  hyphens: auto;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-visual {
+  position: relative;
+}
+
+.hero-image {
+  position: relative;
+  border-radius: 200px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  width: 300px;
+  height: 300px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Card styles */
+.card-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.card-content h4 {
+  color: var(--heading-color);
+  margin: 0 0 5px 0;
+  font-size: 1rem;
+}
+
+.card-content p {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 0.9rem;
 }
 
 
@@ -543,6 +647,7 @@ color: var(--text-color);
   color: var(--text-color);
 }
 
+
 .services-item .bullet {
   display: inline-block;
   width: 10px;
@@ -551,6 +656,40 @@ color: var(--text-color);
   border-radius: 50%;
   margin-right: 10px;
 }
+
+@media (max-width: 480px) {
+  .services-content {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .services-description {
+    max-width: 95vw;
+    margin: 0 0 1.4rem 0;
+    text-align: left;
+    font-size: 0.98rem;
+    line-height: 1.38;
+  }
+  .services-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    font-size: 0.99rem;
+    text-align: left;
+    color: #fff;
+  }
+  .services-features li {
+    width: 100%;
+    padding: 2px 0;
+    border-radius: 6px;
+  }
+}
+
+
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -688,6 +827,63 @@ color: var(--text-color);
   padding: 0 1rem 1rem 1rem;
   margin: 0;
 }
+  @media (max-width: 1024px) {
+  .portfolio-section {
+    padding: 2rem 0.8rem;
+  }
+  .portfolio-header h2 {
+    font-size: 2rem;
+  }
+  .portfolio-grid {
+    gap: 1rem;
+  }
+  .portfolio-filters {
+    gap: 0.6rem;
+  }
+  .portfolio-filters button {
+    padding: 0.4rem 1.1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .portfolio-section {
+    padding: 1.3rem 0.2rem;
+  }
+  .portfolio-header h2 {
+    font-size: 1.32rem;
+  }
+  .portfolio-filters {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+    padding: 0 2vw;
+  }
+  .portfolio-filters button {
+    font-size: 0.97rem;
+    padding: 0.38rem 0.9rem;
+    min-width: 90px;
+    margin-bottom: 5px;
+    border-radius: 25px;
+  }
+  .portfolio-grid {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .portfolio-header h2 {
+    font-size: 1rem;
+  }
+  .portfolio-filters button {
+    font-size: 0.94rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 68px;
+  }
+}
+
 
 .services-grid-section {
   background: var(--bg-color);

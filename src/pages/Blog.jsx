@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   FaCalendar,
   FaUser,
@@ -10,155 +10,322 @@ import {
   FaSearch,
   FaFilter,
   FaBookmark,
-  FaShare
-} from 'react-icons/fa';
+  FaShare,
+} from "react-icons/fa";
+import { useLanguage } from "../context.jsx/LanguageContext";
+
+const translations = {
+  en: {
+    pageTitle: "Blog - ForStackly Business Solutions",
+    heroTitle: "Blog",
+    heroParagraph:
+      "Welcome to our blog—a curated hub of insights, inspiration, and expert perspectives. Discover the latest trends, practical tips, and stories designed to inform, empower, and spark your curiosity on everything from innovation to lifestyle.",
+    heroReachOut: "Reach Out Today",
+    searchPlaceholder: "Search blog posts...",
+    searchTitle: "Search Articles",
+    categoriesTitle: "Categories",
+    allPostsLabel: "All Posts",
+    recentTitle: "Recent Posts",
+    featuredLabel: "Featured",
+    readMore: "Read More",
+    postsHeaderAll: "Latest Articles",
+    postsHeaderCategory: " Articles",
+    articlesFound: "articles found",
+    trendingTitle: "Trending Now",
+    trendingPosts: [
+      {
+        id: 1,
+        title: "How AI is Transforming Guest Experiences",
+        description: "Discover how AI enhances personalization and engagement.",
+        image: "images/trending1.jpg",
+        alt: "AI Transforming Guests",
+      },
+      {
+        id: 2,
+        title: "Top Event Security Practices",
+        description: "Tips to ensure guest safety and smooth operations.",
+        image: "images/trending2.jpg",
+        alt: "Event Security Tips",
+      },
+      {
+        id: 3,
+        title: "Automating Event Workflows",
+        description: "Streamline registrations and scheduling with automation.",
+        image: "images/trending3.jpg",
+        alt: "Event Automation",
+      },
+    ],
+    ctaTitle: "Ready to Transform Your Business?",
+    ctaParagraph:
+      "Get started today with a free consultation and discover how we can help you achieve your goals.",
+    ctaPrimary: "Start Your Journey",
+    ctaSecondary: "Learn More About Us",
+    categories: [
+      "all",
+      "Event Management",
+      "Event Security",
+      "Event Technology",
+      "Event Planning",
+      "Event Automation",
+      "Event Analytics",
+    ],
+  },
+  ar: {
+    pageTitle: "المدونة - حلول فورستلي للأعمال",
+    heroTitle: "المدونة",
+    heroParagraph:
+      "مرحبًا بكم في مدونتنا—مركز مخصص للرؤى، والإلهام، وآراء الخبراء. اكتشفوا أحدث الاتجاهات، والنصائح العملية، والقصص التي تهدف لتثقيفكم وتمكينكم وتحفيز فضولكم حول كل شيء من الابتكار إلى نمط الحياة.",
+    heroReachOut: "تواصل معنا اليوم",
+    searchPlaceholder: "ابحث في مقالات المدونة...",
+    searchTitle: "ابحث في المقالات",
+    categoriesTitle: "الفئات",
+    allPostsLabel: "كل المقالات",
+    recentTitle: "المشاركات الحديثة",
+    featuredLabel: "مميز",
+    readMore: "اقرأ المزيد",
+    postsHeaderAll: "آخر المقالات",
+    postsHeaderCategory: " مقالات",
+    articlesFound: "مقالات",
+    trendingTitle: "الرائج الآن",
+    trendingPosts: [
+      {
+        id: 1,
+        title: "كيف يحول الذكاء الاصطناعي تجربة الضيوف",
+        description:
+          "اكتشف كيف يعزز الذكاء الاصطناعي التخصيص والمشاركة.",
+        image: "images/trending1.jpg",
+        alt: "الذكاء الاصطناعي يحول الضيوف",
+      },
+      {
+        id: 2,
+        title: "أفضل ممارسات أمان الفعاليات",
+        description:
+          "نصائح لضمان سلامة الضيوف وسير الفعالية بسلاسة.",
+        image: "images/trending2.jpg",
+        alt: "نصائح أمان الفعاليات",
+      },
+      {
+        id: 3,
+        title: "أتمتة سير العمل في الفعاليات",
+        description:
+          "تبسيط التسجيلات والجدولة باستخدام الأتمتة.",
+        image: "images/trending3.jpg",
+        alt: "أتمتة الفعاليات",
+      },
+    ],
+    ctaTitle: "هل أنت مستعد لتحويل عملك؟",
+    ctaParagraph:
+      "ابدأ اليوم باستشارة مجانية واكتشف كيف نساعدك في تحقيق أهدافك.",
+    ctaPrimary: "ابدأ رحلتك",
+    ctaSecondary: "تعرف علينا أكثر",
+    categories: [
+      "all",
+      "إدارة الفعاليات",
+      "أمن الفعاليات",
+      "تكنولوجيا الفعاليات",
+      "تخطيط الفعاليات",
+      "أتمتة الفعاليات",
+      "تحليلات الفعاليات",
+    ],
+  },
+  he: {
+    pageTitle: "בלוג - פתרונות עסקים פורסטלי",
+    heroTitle: "בלוג",
+    heroParagraph:
+      "ברוכים הבאים לבלוג שלנו — מרכז תפיסות, השראה ודעות מומחים. גלו את הטרנדים העדכניים, טיפים פרקטיים, וסיפורים המיועדים לחנך, לעורר ולרתק את סקרנותכם בנושאי חדשנות וסגנון חיים.",
+    heroReachOut: "צור קשר היום",
+    searchPlaceholder: "חפש פוסטים בבלוג...",
+    searchTitle: "חפש מאמרים",
+    categoriesTitle: "קטגוריות",
+    allPostsLabel: "כל הפוסטים",
+    recentTitle: "פוסטים אחרונים",
+    featuredLabel: "מומלץ",
+    readMore: "קרא עוד",
+    postsHeaderAll: "המאמרים האחרונים",
+    postsHeaderCategory: " מאמרים",
+    articlesFound: "מאמרים",
+    trendingTitle: "פופולרי עכשיו",
+    trendingPosts: [
+      {
+        id: 1,
+        title: "איך AI משנה את חוויית האורחים",
+        description: "גלה איך AI משפר התאמה אישית ומעורבות באירועים.",
+        image: "images/trending1.jpg",
+        alt: "AI משנה חוויות אורחים",
+      },
+      {
+        id: 2,
+        title: "שיטות אבטחת אירועים מובילות",
+        description: "טיפים להבטחת ביטחון האורחים והפעלת אירועים חלקה.",
+        image: "images/trending2.jpg",
+        alt: "שיטות אבטחה",
+      },
+      {
+        id: 3,
+        title: "אוטומציה של זרימת עבודה באירועים",
+        description: "למד כיצד כלי אוטומציה משפרים הרשמות ולוח זמנים.",
+        image: "images/trending3.jpg",
+        alt: "אוטומציה באירועים",
+      },
+    ],
+    ctaTitle: "מוכנים לשנות את העסק שלכם?",
+    ctaParagraph:
+      "התחילו היום עם ייעוץ חינם וגלו כיצד נוכל לעזור לכם להשיג את מטרותיכם.",
+    ctaPrimary: "התחילו את המסע",
+    ctaSecondary: "למדו עוד עלינו",
+    categories: [
+      "all",
+      "ניהול אירועים",
+      "אבטחת אירועים",
+      "טכנולוגיה לאירועים",
+      "תכנון אירועים",
+      "אוטומציה לאירועים",
+      "אנליטיקה לאירועים",
+    ],
+  },
+};
 
 const Blog = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const { language } = useLanguage();
+  const t = translations[language] || translations["en"];
+
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    document.title = 'Blog - ForStackly Business Solutions';
-  }, []);
+    document.title = t.pageTitle;
+  }, [t.pageTitle]);
 
+  // Blog posts localized content
   const blogPosts = [
-  {
-    id: 1,
-    title: 'The Future of Event Management in a Digital Era',
-    excerpt: 'Discover how virtual platforms, AI, and data-driven insights are transforming event planning and attendee engagement in 2024 and beyond.',
-    author: 'Emily Carter',
-    date: '2025-01-15',
-    readTime: '6 min read',
-    category: 'Event Management',
-    image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=250&fit=crop',
-    featured: true
-  },
-{
-  id: 2,
-  title: 'Top Event Security Practices Every Planner Should Know',
-  excerpt: 'From crowd management to digital check-ins, explore essential security strategies to ensure safe and seamless events.',
-  author: 'James Morgan',
-  date: '2025-01-12',
-  readTime: '6 min read',
-  category: 'Event Security',
-  image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=250&fit=crop',
-  featured: false
-},
-{
-  id: 3,
-  title: 'How AI is Transforming Guest Experiences at Events',
-  excerpt: 'Learn how artificial intelligence is being used to personalize attendee journeys, enhance engagement, and optimize event success.',
-  author: 'Sophia Bennett',
-  date: '2025-01-10',
-  readTime: '10 min read',
-  category: 'Event Technology',
-  image: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=400&h=250&fit=crop',
-  featured: false
-},
-{
-  id: 4,
-  title: 'Scaling Event Management: From Small Gatherings to Mega Conferences',
-  excerpt: 'Discover strategies for designing flexible event infrastructures that adapt to any size, ensuring flawless execution every time.',
-  author: 'Daniel Hughes',
-  date: '2025-01-08',
-  readTime: '12 min read',
-  category: 'Event Planning',
-  image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop',
-  featured: true
-}
+    {
+      id: 1,
+      title:
+        language === "en"
+          ? "The Future of Event Management in a Digital Era"
+          : language === "ar"
+            ? "مستقبل إدارة الفعاليات في العصر الرقمي"
+            : "עתיד ניהול האירועים בעידן הדיגיטלי",
+      excerpt:
+        language === "en"
+          ? "Discover how AI is transforming event planning and attendee engagement."
+          : language === "ar"
+            ? "اكتشف كيف يعزز الذكاء الاصطناعي تخطيط الفعاليات ومشاركة الحضور."
+            : "גלה כיצד AI משנה את תכנון האירועים ומעורבות המשתתפים.",
+      author: "Emily Carter",
+      date: "2025-01-15",
+      readTime: "6 min read",
+      category: t.categories[1],
+      image: "images/blog4.jpg",
+      featured: true,
+    },
+    {
+      id: 2,
+      title:
+        language === "en"
+          ? "Top Event Security Practices"
+          : language === "ar"
+            ? "أفضل ممارسات أمن الفعاليات"
+            : "שיטות אבטחת אירועים מובילות",
+      excerpt:
+        language === "en"
+          ? "Tips to ensure guest safety and smooth event flow."
+          : language === "ar"
+            ? "نصائح لضمان سلامة الضيوف وسير الفعالية بسلاسة."
+            : "טיפים להבטחת ביטחון האורחים והפעלת אירועים חלקה.",
+      author: "James Morgan",
+      date: "2025-01-12",
+      readTime: "6 min read",
+      category: t.categories[2],
+      image: "images/blog5.jpg",
+      featured: false,
+    },
+    {
+      id: 3,
+      title:
+        language === "en"
+          ? "How AI is Transforming Guest Experiences"
+          : language === "ar"
+            ? "كيف يحوّل الذكاء الاصطناعي تجربة الضيوف"
+            : "איך AI משנה את חוויית האורחים",
+      excerpt:
+        language === "en"
+          ? "Explore AI’s role in personalizing attendee journeys."
+          : language === "ar"
+            ? "اكتشف كيف يخصّص الذكاء الاصطناعي رحلة الحضور."
+            : "גלה את תפקיד ה-AI בהתאמה אישית של המשתתפים.",
+      author: "Sophia Bennett",
+      date: "2025-01-10",
+      readTime: "10 min read",
+      category: t.categories[3],
+      image: "images/blog6.jpg",
+      featured: false,
+    },
+    {
+      id: 4,
+      title:
+        language === "en"
+          ? "Scaling Event Management to Mega Conferences"
+          : language === "ar"
+            ? "توسيع إدارة الفعاليات للمؤتمرات الكبرى"
+            : "הגדלת ניהול אירועים לכנסים גדולים",
+      excerpt:
+        language === "en"
+          ? "Learn strategies for managing large-scale events seamlessly."
+          : language === "ar"
+            ? "تعلم استراتيجيات إدارة الفعاليات الكبيرة بسلاسة."
+            : "למד אסטרטגיות לניהול אירועים גדולים בקלות.",
+      author: "Daniel Hughes",
+      date: "2025-01-08",
+      readTime: "12 min read",
+      category: t.categories[4],
+      image: "images/blog7.jpg",
+      featured: true,
+    },
   ];
 
-  const categories = [
-  'all',
-  'Event Management',
-  'Event Security',
-  'Event Technology',
-  'Event Planning',
-  'Event Automation',
-  'Event Analytics'
-];
-const trendingPosts = [
-  {
-    id: 1,
-    title: "10 Event Planning Trends for 2025",
-    category: "Trends",
-    author: "Emily Parker",
-    date: "Feb 12, 2025",
-    image:
-      "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=500&h=350&fit=crop",
-  },
-  {
-    id: 2,
-    title: "Mastering Corporate Event Branding",
-    category: "Branding",
-    author: "David Lee",
-    date: "Jan 28, 2025",
-    image:
-      "https://images.unsplash.com/photo-1503424886302-f7f06a7ba05c?w=500&h=350&fit=crop",
-  },
-  {
-    id: 3,
-    title: "How to Maximize ROI in Conferences",
-    category: "Business",
-    author: "Sophia Miller",
-    date: "Feb 02, 2025",
-    image:
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=500&h=350&fit=crop",
-  },
-];
+  // Filtering logic
+  const filteredPosts = blogPosts.filter(
+    (post) =>
+      (selectedCategory === "all" || post.category === selectedCategory) &&
+      (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
+  const featuredPost =
+    selectedCategory === "all" && searchTerm === ""
+      ? blogPosts.find((post) => post.featured)
+      : null;
 
- const filteredPosts = blogPosts.filter(post => {
-  const matchesCategory =
-    selectedCategory === 'all' || post.category === selectedCategory;
-  const matchesSearch =
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-  return matchesCategory && matchesSearch;
-});
-
-// Show featured post only if no search & category = all
-const featuredPost =
-  selectedCategory === 'all' && searchTerm === ''
-    ? blogPosts.find(post => post.featured)
-    : null;
-
-// Regular posts = everything that matches filter
-const regularPosts = filteredPosts;
+  const regularPosts = filteredPosts;
 
   return (
     <div className="blog-page">
       {/* Hero Section */}
-            <section className="hero-section">
+      <section className="hero-section">
         <video
           autoPlay
           muted
           loop
           playsInline
           className="hero-bg-video"
+          src="images/video111.mp4"
         >
-           <source src="images/video111.mp4" type="video/mp4" /> 
+          <source src="images/video111.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1 className="hero-title animate-slide-in">Blog</h1>
-<p className="hero-paragraph animate-fade-up">
-  Welcome to our blog—a curated hub of insights, inspiration, and expert perspectives. Discover the latest trends, practical tips, and stories designed to inform, empower, and spark your curiosity on everything from innovation to lifestyle.
-</p>
-
-            <Link
-              to="/contact"
-              className="hero-button animate-fade-up-delayed"
-            >
-              Reach Out Today
+            <h1 className="hero-title">{t.heroTitle}</h1>
+            <p className="hero-paragraph">{t.heroParagraph}</p>
+            <Link to="/contact" className="hero-button">
+              {t.heroReachOut}
             </Link>
           </div>
         </div>
       </section>
-      
 
+      {/* Blog Main Content */}
       <div className="blog-main">
         <div className="container">
           <div className="blog-grid">
@@ -171,14 +338,14 @@ const regularPosts = filteredPosts;
             >
               {/* Search */}
               <div className="search-widget">
-                <h3>Search Articles</h3>
+                <h3>{t.searchTitle}</h3>
                 <div className="search-box">
                   <input
                     type="text"
-                    placeholder="Search blog posts..."
+                    placeholder={t.searchPlaceholder}
+                    className="search-input"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input"
                   />
                   <FaSearch className="search-icon" />
                 </div>
@@ -186,13 +353,15 @@ const regularPosts = filteredPosts;
 
               {/* Categories */}
               <div className="categories-widget">
-                <h3>Categories</h3>
+                <h3>{t.categoriesTitle}</h3>
                 <div className="categories-list">
-                  {categories.map((category, index) => (
+                  {t.categories.map((cat, index) => (
                     <motion.button
-                      key={category}
-                      className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-                      onClick={() => setSelectedCategory(category)}
+                      key={cat}
+                      className={`category-btn ${
+                        selectedCategory === cat ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedCategory(cat)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       initial={{ opacity: 0, y: 20 }}
@@ -200,7 +369,7 @@ const regularPosts = filteredPosts;
                       transition={{ delay: index * 0.1 }}
                     >
                       <FaFilter className="category-icon" />
-                      {category === 'all' ? 'All Posts' : category}
+                      {cat === "all" ? t.allPostsLabel : cat}
                     </motion.button>
                   ))}
                 </div>
@@ -208,15 +377,14 @@ const regularPosts = filteredPosts;
 
               {/* Recent Posts */}
               <div className="recent-widget">
-                <h3>Recent Posts</h3>
+                <h3>{t.recentTitle}</h3>
                 <div className="recent-list">
-                  {blogPosts.slice(0, 3).map((post, index) => (
+                  {blogPosts.slice(0, 3).map((post) => (
                     <motion.div
                       key={post.id}
                       className="recent-item"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
                     >
                       <Link to={`/blog${post.id}`} className="recent-link">
                         <img src={post.image} alt={post.title} />
@@ -231,7 +399,7 @@ const regularPosts = filteredPosts;
               </div>
             </motion.aside>
 
-            {/* Main Content */}
+            {/* Posts Content */}
             <motion.main
               className="blog-content"
               initial={{ opacity: 0, x: 50 }}
@@ -239,7 +407,7 @@ const regularPosts = filteredPosts;
               transition={{ duration: 0.8 }}
             >
               {/* Featured Post */}
-              {selectedCategory === 'all' && featuredPost && (
+              {featuredPost && (
                 <motion.article
                   className="featured-post"
                   initial={{ opacity: 0, y: 50 }}
@@ -247,7 +415,7 @@ const regularPosts = filteredPosts;
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}
                 >
-                  <div className="featured-badge">Featured</div>
+                  <div className="featured-badge">{t.featuredLabel}</div>
                   <div className="post-image">
                     <img src={featuredPost.image} alt={featuredPost.title} />
                     <div className="post-overlay">
@@ -269,8 +437,11 @@ const regularPosts = filteredPosts;
                     <h2>{featuredPost.title}</h2>
                     <p>{featuredPost.excerpt}</p>
                     <div className="post-actions">
-                      <Link to={`/blog${featuredPost.id}`} className="btn btn-primary">
-                        Read More <FaArrowRight />
+                      <Link
+                        to={`/blog${featuredPost.id}`}
+                        className="btn btn-primary"
+                      >
+                        {t.readMore} <FaArrowRight />
                       </Link>
                       <div className="post-buttons">
                         <button className="action-btn">
@@ -289,19 +460,22 @@ const regularPosts = filteredPosts;
               <div className="posts-section">
                 <div className="section-header">
                   <h2>
-                    {selectedCategory === 'all' ? 'Latest Articles' : `${selectedCategory} Articles`}
+                    {selectedCategory === "all"
+                      ? t.postsHeaderAll
+                      : selectedCategory + t.postsHeaderCategory}
                   </h2>
-                  <p>{filteredPosts.length} articles found</p>
+                  <p>
+                    {filteredPosts.length} {t.articlesFound}
+                  </p>
                 </div>
-
                 <div className="posts-grid">
-                  {regularPosts.map((post, index) => (
+                  {regularPosts.map((post, idx) => (
                     <motion.article
                       key={post.id}
                       className="post-card"
                       initial={{ opacity: 0, y: 50 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      transition={{ duration: 0.6, delay: idx * 0.1 }}
                       viewport={{ once: true }}
                       whileHover={{ y: -10 }}
                     >
@@ -328,8 +502,11 @@ const regularPosts = filteredPosts;
                         <h3>{post.title}</h3>
                         <p>{post.excerpt}</p>
                         <div className="post-actions">
-                          <Link to={`/blog${post.id}`} className="read-more">
-                            Read More <FaArrowRight />
+                          <Link
+                            to={`/blog${post.id}`}
+                            className="read-more"
+                          >
+                            {t.readMore} <FaArrowRight />
                           </Link>
                           <div className="post-buttons">
                             <button className="action-btn">
@@ -344,61 +521,60 @@ const regularPosts = filteredPosts;
                     </motion.article>
                   ))}
                 </div>
+                {regularPosts.length === 0 && (
+                  <p style={{ textAlign: "center", marginTop: 30 }}>
+                    {language === "ar"
+                      ? "لا توجد مقالات تطابق بحثك"
+                      : language === "he"
+                      ? "אין מאמרים התואמים לחיפוש שלך"
+                      : "No articles match your search"}
+                  </p>
+                )}
               </div>
-              
             </motion.main>
           </div>
         </div>
       </div>
 
       {/* Trending Section */}
-<div className="trending-section">
-  <h2 className="trending-title">Trending Now</h2>
-  <div className="trending-container">
-    <div className="trending-card">
-      <img src="images/trending1.jpg" alt="Trending Blog 1" />
-      <h3>How AI is Transforming Guest Experiences at Events</h3>
-      <p>Discover how artificial intelligence is enhancing personalization and engagement in events.</p>
-    </div>
-    <div className="trending-card">
-      <img src="images/trending2.jpg" alt="Trending Blog 2" />
-      <h3>Top Event Security Practices Every Planner Should Know</h3>
-      <p>Security tips to ensure guest safety and smooth event operations.</p>
-    </div>
-    <div className="trending-card">
-      <img src="images/trending3.jpg" alt="Trending Blog 3" />
-      <h3>Automating Event Workflows for Maximum Efficiency</h3>
-      <p>See how automation tools streamline registrations and scheduling.</p>
-    </div>
-  </div>
-</div>
-{/* CTA Section */}
-            <section className="cta-section">
-              <div className="cta-overlay">
-                <div className="container">
-                  <motion.div
-                    className="cta-content text-center"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                  >
-                    <h2>Ready to Transform Your Business?</h2>
-                    <p>
-                      Get started today with a free consultation and discover how we can help you achieve your goals.
-                    </p>
-                    <div className="cta-buttons">
-                      <Link to="/contact" className="btn btn-primary btn-large">
-                        Start Your Journey <FaArrowRight />
-                      </Link>
-                      <Link to="/about" className="btn btn-outline btn-large">
-                        Learn More About Us
-                      </Link>
-                    </div>
-                  </motion.div>
-                </div>
+      <div className="trending-section">
+        <h2 className="trending-title">{t.trendingTitle}</h2>
+        <div className="trending-container">
+          {t.trendingPosts.map((post) => (
+            <div key={post.id} className="trending-card">
+              <img src={post.image} alt={post.alt} />
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-overlay">
+          <div className="container">
+            <motion.div
+              className="cta-content"
+              style={{ textAlign: "center" }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2>{t.ctaTitle}</h2>
+              <p>{t.ctaParagraph}</p>
+              <div className="cta-buttons">
+                <Link to="/contact" className="btn btn-primary btn-large">
+                  {t.ctaPrimary} <FaArrowRight />
+                </Link>
+                <Link to="/about" className="btn btn-outline btn-large">
+                  {t.ctaSecondary}
+                </Link>
               </div>
-            </section>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
 
       <style jsx>{`
@@ -569,6 +745,32 @@ const regularPosts = filteredPosts;
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
         }
+
+           @media (max-width: 480px) {
+              html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+              header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+    html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+    header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+  }
+
+
+  
 
         .card-icon {
           font-size: 2rem;

@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -11,97 +12,150 @@ import {
   FaCameraRetro,
   FaPalette
 } from 'react-icons/fa';
+import { useLanguage } from '../context.jsx/LanguageContext';
+
+const translations = {
+  en: {
+    pageTitle: 'Festive Holiday Soiree - Stackly Events',
+    heroTitle: 'Festive Holiday Soiree',
+    heroParagraph: 'Celebrate the magic of the season with a sparkling, joy-filled event designed for laughter, warmth, and lasting memories.',
+    featuresTitle: 'Holiday Party Highlights',
+    featuresDescription: 'Joyful moments, delicious food, and sparkling entertainment for all.',
+    luxuryFeatures: [
+      { icon: FaPalette, title: 'Enchanting Holiday Décor', description: 'Sparkling fairy lights, festive centerpieces, and customized seasonal styling for a magical setting.' },
+      { icon: FaUtensils, title: 'Seasonal Culinary Delights', description: 'A gourmet dining experience with classic favorites and creative twists from our chefs.' },
+      { icon: FaUsers, title: 'Warm Hospitality', description: 'Attentive guest services for all ages, ensuring everyone feels welcome and merry.' },
+      { icon: FaMusic, title: 'Live Holiday Entertainment', description: 'Carolers, jazz ensembles, DJs or bands to set a joyful holiday mood.' },
+      { icon: FaCogs, title: 'Interactive Festive Activities', description: 'Cookie decorating, gift exchange, themed games and fun photo booths.' },
+      { icon: FaCameraRetro, title: 'Professional Event Photography', description: 'Capture every magical moment with our team of holiday photographers.' }
+    ],
+    benefitsTitle: 'Why Choose a Holiday Soiree With Us?',
+    benefitsDescription: 'From elegant affairs to family-friendly fun, we handle every detail—so you can celebrate the season, stress-free.',
+    benefitsList: [
+      'Celebrate the season with a sophisticated, joy-filled event',
+      'Personalized party planning ensures a seamless, memorable gathering',
+      'All-inclusive décor, catering, and entertainment options',
+      'Activities and culinary experiences that delight every guest',
+      'Create lasting memories with immersive holiday ambiance',
+      'Friendly, professional coordination means you enjoy your own party'
+    ],
+    galleryTitle: 'Discover Our Stunning Properties',
+    gallerySubtitle: 'Step into a world of architectural elegance and modern living. Our handpicked collection of homes blends style, comfort, and functionality to create spaces you’ll love to call your own.',
+    faqsTitle: 'FAQs',
+    faqsSubtitle: 'Need help planning your holiday party? Here are some quick answers!',
+    faqs: [
+      { question: 'How early should I book my festive holiday soiree?', answer: 'Booking 3–6 months in advance ensures the best choice of venues and entertainment for busy holiday dates.' },
+      { question: 'Can we customize the holiday theme and activities?', answer: 'Yes! We offer full customization including décor, menus, music, and interactive activities to match your vision.' },
+      { question: 'Do you offer special menus for dietary needs?', answer: 'Our chefs can create delicious seasonal dishes that are gluten-free, vegan, kid-friendly, or anything else needed.' },
+      { question: 'What entertainment options do you provide?', answer: 'Options include live music, DJs, carolers, magic acts, photo booths, and holiday crafts.' }
+    ],
+    ctaTitle: 'Ready for a Festive Holiday Soiree?',
+    ctaParagraph: 'Let us turn your holiday vision into a sparkling reality. Contact us today to book your holiday celebration!',
+    ctaButton: 'Book Now',
+    reachOut: 'Start Planning'
+  },
+  ar: {
+    pageTitle: 'حفل العيد الاحتفالي - فعاليات ستاكلي',
+    heroTitle: 'حفل العيد الاحتفالي',
+    heroParagraph: 'احتفل بسحر الموسم مع حدث متلألئ مليء بالفرح مصمم للضحك والدفء والذكريات الدائمة.',
+    featuresTitle: 'أبرز مميزات حفلة العيد',
+    featuresDescription: 'لحظات مفرحة، طعام شهي وترفيه متلألئ للجميع.',
+    luxuryFeatures: [
+      { icon: FaPalette, title: 'ديكور عيد ساحر', description: 'أضواء حالمة متلألئة، مركَّزات احتفالية، وتصاميم موسمية مخصصة لإعداد سحري.' },
+      { icon: FaUtensils, title: 'أطباق لذيذة موسمية', description: 'تجربة طعام راقية مع أطباق كلاسيكية ولمسات مبتكرة من طهاتنا.' },
+      { icon: FaUsers, title: 'ضيافة دافئة', description: 'خدمات ضيافة منتبهة لكل الأعمار لضمان شعور الجميع بالترحيب والفرح.' },
+      { icon: FaMusic, title: 'ترفيه حي للعطلات', description: 'غناؤون، فرق الجاز، دي جي أو فرق لتوفير مزاج العطلة المفرح.' },
+      { icon: FaCogs, title: 'أنشطة احتفالية تفاعلية', description: 'تزيين الكعك، تبادل الهدايا، ألعاب ثيمية وأكشاك تصوير مرحة.' },
+      { icon: FaCameraRetro, title: 'تصوير احترافي للفعاليات', description: 'التقط كل لحظة سحرية مع فريق مصوري العطلات.' }
+    ],
+    benefitsTitle: 'لماذا تختار حفلة العيد معنا؟',
+    benefitsDescription: 'من اللقاءات الأنيقة إلى المرح العائلي، نتولى كل التفاصيل — حتى تحتفل بالموسم بدون ضغط.',
+    benefitsList: [
+      'احتفل بالموسم مع حدث راقٍ ملؤه الفرح',
+      'تخطيط حفلة مخصص لضمان تجمع سلس ولا يُنسى',
+      'تزيين وتموين وترفيه شامل',
+      'نشاطات وتجارب طهي تُسعد كل ضيف',
+      'اصنع ذكريات دائمة مع أجواء العيد الغامرة',
+      'تنسيق ودود ومحترف لتمتعك بحفلتك'
+    ],
+    galleryTitle: 'اكتشف ممتلكاتنا المبهرة',
+    gallerySubtitle: 'انطلق إلى عالم الأناقة المعمارية والعيش العصري. مجموعتنا المختارة تمزج الأسلوب والراحة والوظائف لخلق مساحات تحب أن تسميها منزلك.',
+    faqsTitle: 'الأسئلة الشائعة',
+    faqsSubtitle: 'هل تحتاج مساعدة في التخطيط لحفلة العيد؟ إليك بعض الإجابات السريعة!',
+    faqs: [
+      { question: 'كم مبكرًا يجب أن أحجز لحفلة العيد الاحتفالية؟', answer: 'الحجز من 3 إلى 6 أشهر مقدمًا يضمن أفضل اختيار للأماكن والترفيه لمواعيد العطلات المزدحمة.' },
+      { question: 'هل يمكن تخصيص ثيم العيد والأنشطة؟', answer: 'نعم! نحن نقدم تخصيصًا كاملاً يشمل الديكور، القوائم، الموسيقى، والأنشطة التفاعلية لتلائم رؤيتك.' },
+      { question: 'هل تقدمون قوائم خاصة للاحتياجات الغذائية؟', answer: 'يمكن لطهاتنا إعداد أطباق موسمية لذيذة خالية من الغلوتين، نباتية، مناسبة للأطفال، أو أي حاجات خاصة.' },
+      { question: 'ما هي خيارات الترفيه المتوفرة؟', answer: 'الخيارات تشمل الموسيقى الحية، المنسقين، المغنين، عروض السحر، أكشاك التصوير، والحرف اليدوية للعطلات.' }
+    ],
+    ctaTitle: 'هل أنت مستعد لحفلة العيد الاحتفالية؟',
+    ctaParagraph: 'دعنا نحول رؤيتك للعطلة إلى واقع متلألئ. اتصل بنا اليوم لحجز احتفالك!',
+    ctaButton: 'احجز الآن',
+    reachOut: 'ابدأ التخطيط'
+  },
+  he: {
+    pageTitle: 'מסיבת חג עם קסם - אירועי סטאקלי',
+    heroTitle: 'מסיבת חג עם קסם',
+    heroParagraph: 'חגגו את קסם העונה עם אירוע נוצץ, מלא בשמחה, צחוק וזיכרונות מתמשכים.',
+    featuresTitle: 'הדגשים למסיבת החג',
+    featuresDescription: 'רגעים שמחים, אוכל טעים ובידור נוצץ לכולם.',
+    luxuryFeatures: [
+      { icon: FaPalette, title: 'עיצוב חג קסום', description: 'אורות פיות נוצצים, מרכזי שולחן חגיגיים ועיצוב עונתי מותאם כקסם.' },
+      { icon: FaUtensils, title: 'מטעמי חג עונתיים', description: 'חוויית אוכל גורמה עם מנות קלאסיות ויצירתיות שף.' },
+      { icon: FaUsers, title: 'אירוח חם', description: 'שירותי אורחים קשובים לכל הגילאים, להבטיח שכולם ירגישו מוזמנים ושמחים.' },
+      { icon: FaMusic, title: 'בידור חג חי', description: 'זמרים, הרכבי ג’אז, די.ג’ייז או להקות ליצירת אווירת חג שמחה.' },
+      { icon: FaCogs, title: 'פעילויות חג אינטראקטיביות', description: 'קישוט עוגיות, חילופי מתנות, משחקים עונתיים ואקססוריז לצילום.' },
+      { icon: FaCameraRetro, title: 'צילום מקצועי לאירועים', description: 'לתעד כל רגע קסום עם צוות הצלמים שלנו לחג.' }
+    ],
+    benefitsTitle: 'למה לבחור במסיבת חג איתנו?',
+    benefitsDescription: 'מאירועים אלגנטיים ועד לכיף משפחתי, אנו מטפלים בכל פרט כדי שתוכלו ליהנות מהעונה ללא דאגות.',
+    benefitsList: [
+      'חגגו את העונה באירוע מתוחכם ומלא בשמחה',
+      'תכנון מותאם אישית להבטיח אירוע חלק ובלתי נשכח',
+      'עיצוב, קייטרינג ובידור כלולים',
+      'פעילויות וחוויות קולינריות שיבדרו כל אורח',
+      'צרו זיכרונות מתמשכים עם אווירת חג עוטפת',
+      'תיאום מקצועי וידידותי שיאפשר לכם ליהנות מהמסיבה שלכם',
+    ],
+    galleryTitle: 'גלו את הנכסים המרהיבים שלנו',
+    gallerySubtitle: 'היכנסו לעולם של אלגנטיות ארכיטקטונית ומגורים מודרניים. הקולקציה שלנו משלבת סגנון, נוחות ופונקציונליות ליצירת מרחבים שתרצו לקרוא להם בית.',
+    faqsTitle: 'שאלות נפוצות',
+    faqsSubtitle: 'זקוקים לעזרה בתכנון מסיבת החג? הנה כמה תשובות מהירות!',
+    faqs: [
+      { question: 'כמה זמן מראש מומלץ להזמין מסיבת חג?', answer: 'הזמנה 3-6 חודשים מראש מבטיחה את הבחירה הטובה ביותר של מקומות ובידור לתאריכי החג העמוסים.' },
+      { question: 'האם ניתן להתאים את נושא ופעילויות החג?', answer: 'כן! אנו מציעים התאמה אישית מלאה הכוללת עיצוב, תפריטים, מוזיקה ופעילויות אינטראקטיביות שמתאימות לחזונכם.' },
+      { question: 'האם קיימים תפריטים מיוחדים לצרכים תזונתיים?', answer: 'השפים שלנו יכולים להכין מנות עונתיות טעימות ללא גלוטן, טבעוניות, ידידותיות לילדים ועוד.' },
+      { question: 'אילו אפשרויות בידור זמינות?', answer: 'אפשרויות כוללות מוזיקה חיה, די.ג’יי, זמרים, קוסמים, דוכני צילום ומלאכות חגים.' },
+    ],
+    ctaTitle: 'מוכנים למסיבת חג קסומה?',
+    ctaParagraph: 'תנו לנו להפוך את חזון החג שלכם למציאות נוצצת. צרו קשר עוד היום להזמנת המסיבה שלכם!',
+    ctaButton: 'הזמינו עכשיו',
+    reachOut: 'התחילו לתכנן',
+  }
+};
 
 const Service1 = () => {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   useEffect(() => {
-    document.title = 'Festive Holiday Soiree - Stackly Events';
-  }, []);
-
-  const luxuryFeatures = [
-    {
-      icon: FaPalette,
-      title: "Enchanting Holiday Décor",
-      description: "Sparkling fairy lights, festive centerpieces, and customized seasonal styling for a magical setting."
-    },
-    {
-      icon: FaUtensils,
-      title: "Seasonal Culinary Delights",
-      description: "A gourmet dining experience with classic favorites and creative twists from our chefs."
-    },
-    {
-      icon: FaUsers,
-      title: "Warm Hospitality",
-      description: "Attentive guest services for all ages, ensuring everyone feels welcome and merry."
-    },
-    {
-      icon: FaMusic,
-      title: "Live Holiday Entertainment",
-      description: "Carolers, jazz ensembles, DJs or bands to set a joyful holiday mood."
-    },
-    {
-      icon: FaCogs,
-      title: "Interactive Festive Activities",
-      description: "Cookie decorating, gift exchange, themed games and fun photo booths."
-    },
-    {
-      icon: FaCameraRetro,
-      title: "Professional Event Photography",
-      description: "Capture every magical moment with our team of holiday photographers."
-    }
-  ];
-
-  const benefits = [
-    'Celebrate the season with a sophisticated, joy-filled event',
-    'Personalized party planning ensures a seamless, memorable gathering',
-    'All-inclusive décor, catering, and entertainment options',
-    'Activities and culinary experiences that delight every guest',
-    'Create lasting memories with immersive holiday ambiance',
-    'Friendly, professional coordination means you enjoy your own party'
-  ];
-
-  const faqs = [
-    {
-      question: 'How early should I book my festive holiday soiree?',
-      answer: 'Booking 3–6 months in advance ensures the best choice of venues and entertainment for busy holiday dates.'
-    },
-    {
-      question: 'Can we customize the holiday theme and activities?',
-      answer: 'Yes! We offer full customization including décor, menus, music, and interactive activities to match your vision.'
-    },
-    {
-      question: 'Do you offer special menus for dietary needs?',
-      answer: 'Our chefs can create delicious seasonal dishes that are gluten-free, vegan, kid-friendly, or anything else needed.'
-    },
-    {
-      question: 'What entertainment options do you provide?',
-      answer: 'Options include live music, DJs, carolers, magic acts, photo booths, and holiday crafts.'
-    }
-  ];
+    document.title = t.pageTitle;
+  }, [t.pageTitle]);
 
   return (
     <div className="service-page">
       <div className="home-page">
         {/* Hero Section */}
         <section className="hero-section">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="hero-bg-video"
-          >
+          <video autoPlay muted loop playsInline className="hero-bg-video">
             <source src="images/video91.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="hero-overlay">
             <div className="hero-content">
-              <h1 className="hero-title">Festive Holiday Soiree</h1>
-              <p className="hero-paragraph">
-                Celebrate the magic of the season with a sparkling, joy-filled event designed for laughter, warmth, and lasting memories.
-              </p>
-              <Link to="/contact" className="hero-button">
-                Start Planning
-              </Link>
+              <h1 className="hero-title">{t.heroTitle}</h1>
+              <p className="hero-paragraph">{t.heroParagraph}</p>
+              <Link to="/contact" className="hero-button">{t.reachOut}</Link>
             </div>
           </div>
         </section>
@@ -109,27 +163,16 @@ const Service1 = () => {
         {/* Features Section */}
         <section className="section features-section">
           <div className="container">
-            <motion.div
-              className="section-header text-center"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2>Holiday Party Highlights</h2>
-              <p>Joyful moments, delicious food, and sparkling entertainment for all.</p>
+            <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+              <h2>{t.featuresTitle}</h2>
+              <p>{t.featuresDescription}</p>
             </motion.div>
             <div className="features-grid">
-              {luxuryFeatures.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  className="feature-card premium-card"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10, scale: 1.03 }}
-                >
+              {t.luxuryFeatures.map((feature, idx) => (
+                <motion.div key={idx} className="feature-card premium-card" initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: idx * 0.1 }} viewport={{ once: true }}
+                  whileHover={{ y: -10, scale: 1.03 }}>
                   <div className="feature-icon">
                     <feature.icon />
                   </div>
@@ -139,51 +182,29 @@ const Service1 = () => {
               ))}
             </div>
             <div className="btn-learn-wrapper">
-              <Link to="/contact" className="btn-learn">
-                Learn More <FaArrowRight />
-              </Link>
+              <Link to="/contact" className="btn-learn">{t.ctaButton} <FaArrowRight /></Link>
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="section">
+        <section className="section benefits-section">
           <div className="container">
             <div className="grid-2">
-              <motion.div
-                className="benefits-content"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2>Why Choose a Holiday Soiree With Us?</h2>
-                <p>From elegant affairs to family-friendly fun, we handle every detail—so you can celebrate the season, stress-free.</p>
+              <motion.div className="benefits-content" initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+                <h2>{t.benefitsTitle}</h2>
+                <p>{t.benefitsDescription}</p>
                 <div className="benefits-list">
-                  {benefits.map((benefit, index) => (
-                    <motion.div
-                      key={index}
-                      className="benefit-item"
-                      initial={{ opacity: 0, x: -30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
+                  {t.benefitsList.map((benefit, idx) => (
+                    <motion.div key={idx} className="benefit-item" initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: idx * 0.1 }} viewport={{ once: true }}>
                       <FaCheck className="check-icon" />
                       <span>{benefit}</span>
                     </motion.div>
                   ))}
                 </div>
-                <Link to="/contact" className="btn btn-primary">
-                  Book Your Holiday Party <FaArrowRight />
-                </Link>
+                <Link to="/contact" className="btn btn-primary">{t.ctaButton} <FaArrowRight /></Link>
               </motion.div>
-              <motion.div
-                className="benefits-visual"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
+              <motion.div className="benefits-visual" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
                 <div className="benefits-image">
                   <img src="images/service5.jpg" alt="Holiday Soiree" />
                 </div>
@@ -192,79 +213,48 @@ const Service1 = () => {
           </div>
         </section>
 
-       <section className="gallery-wrapper">
-      {/* Heading & Content */}
-      <div className="gallery-header">
-        <h2 className="gallery-title">Discover Our Stunning Properties</h2>
-        <p className="gallery-subtitle">
-          Step into a world of architectural elegance and modern living. 
-          Our handpicked collection of homes blends style, comfort, and 
-          functionality to create spaces you’ll love to call your own.
-        </p>
-      </div>
-
-      {/* Gallery Rows */}
-      <div className="gallery-container">
-        
-        {/* Row 1 */}
-        <div className="gallery-row">
-          <div className="gallery-big">
-            <img
-              src="images/wedding3.png"
-              alt="Luxury Property"
-            />
+        {/* Gallery Section */}
+        <section className="gallery-wrapper">
+          <div className="gallery-header">
+            <h2>{t.galleryTitle}</h2>
+            <p>{t.gallerySubtitle}</p>
           </div>
-          <div className="gallery-grid">
-            <img src="images/row12.jpg" alt="Interior 1" />
-            <img src="images/row1.jpg" alt="Interior 2" />
-            <img src="images/row11.jpg" alt="Interior 3" />
-            <img src="images/row13.jpg" alt="Interior 4" />
+          <div className="gallery-container">
+            <div className="gallery-row">
+              <div className="gallery-big">
+                <img src="images/wedding11.jpg" alt="Luxury Property" />
+              </div>
+              <div className="gallery-grid">
+                <img src="images/row12.jpg" alt="Interior 1" />
+                <img src="images/row1.jpg" alt="Interior 2" />
+                <img src="images/row11.jpg" alt="Interior 3" />
+                <img src="images/row13.jpg" alt="Interior 4" />
+              </div>
+            </div>
+            <div className="gallery-row reverse">
+              <div className="gallery-big">
+                <img src="images/wedding12.jpg" alt="Modern Home" />
+              </div>
+              <div className="gallery-grid">
+                <img src="images/row2.jpg" alt="Interior 5" />
+                <img src="images/row21.jpg" alt="Interior 6" />
+                <img src="images/row22.jpg" alt="Interior 7" />
+                <img src="images/row23.jpg" alt="Interior 8" />
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Row 2 (Zig Zag) */}
-        <div className="gallery-row reverse">
-          <div className="gallery-big">
-            <img
-              src="images/wedding2.png"
-              alt="Modern Home"
-            />
-          </div>
-          <div className="gallery-grid">
-            <img src="images/row2.jpg" alt="Interior 5" />
-            <img src="images/row21.jpg" alt="Interior 6" />
-            <img src="images/row22.jpg" alt="Interior 7" />
-            <img src="images/row23.jpg" alt="Interior 8" />
-          </div>
-        </div>
-
-      </div>
-    </section>
-
+        </section>
 
         {/* FAQ Section */}
         <section className="section faq-section">
           <div className="container">
-            <motion.div
-              className="section-header text-center"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2>FAQs</h2>
-              <p>Need help planning your holiday party? Here are some quick answers!</p>
+            <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+              <h2>{t.faqsTitle}</h2>
+              <p>{t.faqsSubtitle}</p>
             </motion.div>
             <div className="faq-list">
-              {faqs.map((faq, index) => (
-                <motion.div
-                  key={index}
-                  className="faq-item"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+              {t.faqs.map((faq, idx) => (
+                <motion.div key={idx} className="faq-item" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: idx * 0.1 }} viewport={{ once: true }}>
                   <h4>{faq.question}</h4>
                   <p>{faq.answer}</p>
                 </motion.div>
@@ -277,19 +267,11 @@ const Service1 = () => {
         <section className="cta-section">
           <div className="cta-overlay">
             <div className="container">
-              <motion.div
-                className="cta-content"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2>Ready for a Festive Holiday Soiree?</h2>
-                <p>Let us turn your holiday vision into a sparkling reality. Contact us today to book your holiday celebration!</p>
+              <motion.div className="cta-content" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+                <h2>{t.ctaTitle}</h2>
+                <p>{t.ctaParagraph}</p>
                 <div className="cta-buttons">
-                  <Link to="/contact" className="btn btn-primary">
-                    Book Now <FaArrowRight />
-                  </Link>
+                  <Link to="/contact" className="btn btn-primary">{t.ctaButton} <FaArrowRight /></Link>
                 </div>
               </motion.div>
             </div>
@@ -482,6 +464,32 @@ const Service1 = () => {
           margin: 0;
           font-size: 0.9rem;
         }
+
+           @media (max-width: 480px) {
+              html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+              header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+    html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+    header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+  }
+
+
+  
 
 .features-section {
   background: var(--sidebar-bg);
@@ -747,17 +755,85 @@ body.dark .check-icon {
   transform: scale(1.03);
 }
 
-/* Responsive */
+/* Tablet (medium screens) */
 @media (max-width: 992px) {
-  .gallery-row,
-  .gallery-row.reverse {
-    flex-direction: column;
+  .gallery-wrapper {
+    padding: 60px 20px;
   }
   .gallery-big img {
-    height: 350px;
+    height: 350px; /* already present, keeps height smaller */
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr; /* two columns (unchanged) */
+    gap: 15px;
   }
   .gallery-grid img {
     height: 180px;
+  }
+  /* Stack gallery rows vertically */
+  .gallery-row,
+  .gallery-row.reverse {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Mobile (small screens) */
+@media (max-width: 600px) {
+  .gallery-wrapper {
+    padding: 40px 12px;
+  }
+
+  .gallery-header {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  .gallery-title {
+    font-size: 1.8rem;
+  }
+  .gallery-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+
+  .gallery-big img {
+    height: 250px;
+    border-radius: 12px;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr; /* single column grid */
+    gap: 12px;
+  }
+  .gallery-grid img {
+    height: 200px;
+    border-radius: 10px;
+  }
+
+  /* Stack gallery rows vertically */
+  .gallery-row,
+  .gallery-row.reverse {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 400px) {
+  .gallery-wrapper {
+    padding: 30px 8px;
+  }
+  .gallery-title {
+    font-size: 1.5rem;
+  }
+  .gallery-subtitle {
+    font-size: 0.95rem;
+  }
+  .gallery-big img {
+    height: 200px;
+  }
+  .gallery-grid img {
+    height: 160px;
   }
 }
 
@@ -781,14 +857,17 @@ body.dark .check-icon {
 }
 
 .cta-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color:#fff;
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: center;
 }
-
 .cta-content p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+  font-size: 1.19rem;
+  margin-bottom: 28px;
+  color: #fff;
+  text-align: center;
 }
 
 .cta-buttons {

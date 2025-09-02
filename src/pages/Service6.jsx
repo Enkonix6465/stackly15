@@ -12,97 +12,154 @@ import {
   FaPalette,
   FaChartLine
 } from 'react-icons/fa';
+import { useLanguage } from '../context.jsx/LanguageContext';
+
+const translations = {
+  en: {
+    pageTitle: 'Annual Conference - Stackly Events',
+    heroTitle: 'Annual Conference',
+    heroParagraph: 'Bring your industry together for insight, connection, and innovation at a flawlessly executed annual event.',
+    featuresTitle: 'Conference Features',
+    featuresDescription: 'Modern organization, inspiring programming, and seamless logistics for your annual meeting.',
+    luxuryFeatures: [
+      { icon: FaUsers, title: 'Professional Networking', description: 'Dedicated spaces and networking events to connect industry leaders and professionals.' },
+      { icon: FaChartLine, title: 'Keynote Speakers & Panels', description: 'Inspiring presentations and panels from renowned thought leaders.' },
+      { icon: FaCogs, title: 'Cutting-Edge Venue & Tech', description: 'Seamless AV, digital signage, and attendee management in world-class venues.' },
+      { icon: FaUtensils, title: 'Catering & Refreshments', description: 'All-day coffee, gourmet dining, and themed networking breaks to keep energy high.' },
+      { icon: FaPalette, title: 'Branded Event Styling', description: 'Custom conference branding, signage, and creative décor to elevate your message.' },
+      { icon: FaCameraRetro, title: 'Comprehensive Event Coverage', description: 'Photography and video content creation to document every moment and session.' },
+    ],
+    benefitsTitle: 'Why Trust Us With Your Annual Conference?',
+    benefitsDescription: 'We combine flawless logistics, creative vision, and industry know-how for an engaging, motivating conference from registration to closing ceremony.',
+    benefitsList: [
+      'Connect your organization with industry leaders, clients, and talent',
+      'Expert planning for smooth registration, logistics, and on-site execution',
+      'Custom branding and communications amplify your message and mission',
+      'Memorable social events and networking foster real relationships',
+      'Detailed analytics, feedback, and media assets post-conference',
+      'All logistics—so you can focus on your delegates and vision',
+    ],
+    galleryTitle: 'Discover Our Stunning Properties',
+    gallerySubtitle: 'Step into a world of architectural elegance and modern living. Our handpicked collection of homes blends style, comfort, and functionality to create spaces you’ll love to call your own.',
+    faqsTitle: 'FAQs',
+    faqsSubtitle: 'Answers to your most common conference planning questions.',
+    faqs: [
+      { question: 'How far in advance should an annual conference be planned?', answer: 'We recommend beginning planning 6–12 months ahead to secure the best venues and speakers.' },
+      { question: 'Can you handle virtual or hybrid conferences?', answer: 'Yes! We offer in-person, hybrid, and fully virtual conference experiences with robust tech and support.' },
+      { question: 'What branding opportunities are available?', answer: 'We offer full-scale event branding: signage, stage design, introductions, swag, and digital assets.' },
+      { question: 'How are meals and dietary needs handled?', answer: 'Our catering partners offer diverse and customizable menu options for all dietary restrictions and preferences.' },
+    ],
+    ctaTitle: 'Plan Your Next Conference',
+    ctaParagraph: 'Partner with Stackly for an annual conference that inspires, connects, and propels your community forward.',
+    ctaPrimaryButton: 'Start Planning',
+    ctaSecondaryButton: 'Learn about our process',
+    reachOut: 'Start Planning',
+  },
+  ar: {
+    pageTitle: 'المؤتمر السنوي - فعاليات ستاكلي',
+    heroTitle: 'المؤتمر السنوي',
+    heroParagraph: 'اجمع صناعتك معًا للرؤية، الاتصال، والابتكار في حدث سنوي يتم تنفيذه بلا عيوب.',
+    featuresTitle: 'مميزات المؤتمر',
+    featuresDescription: 'تنظيم حديث، برامج ملهمة، ولوجستيات سلسة لاجتماعك السنوي.',
+    luxuryFeatures: [
+      { icon: FaUsers, title: 'شبكات احترافية', description: 'مساحات مخصصة وفعاليات للتواصل بين قادة الصناعة والمحترفين.' },
+      { icon: FaChartLine, title: 'المتحدثون الأساسيون واللجان', description: 'عروض ملهمة ولجان من قادة الفكر المعروفين.' },
+      { icon: FaCogs, title: 'مكان وتقنية متطورة', description: 'صوت وصورة لا مثيل لهما، لافتات رقمية وإدارة الحضور في أماكن عالمية المستوى.' },
+      { icon: FaUtensils, title: 'التموين والمرطبات', description: 'قهوة طوال اليوم، طعام ذواقة وفواصل شبكات ذات طابع للحفاظ على الطاقة.' },
+      { icon: FaPalette, title: 'تصميم بعلامة تجارية للحدث', description: 'علامة مؤتمرات مخصصة، لافتات وديكور إبداعي لرفع رسالتك.' },
+      { icon: FaCameraRetro, title: 'تغطية شاملة للحدث', description: 'تصوير فوتوغرافي وفيديو لتوثيق كل لحظة وجلسة.' },
+    ],
+    benefitsTitle: 'لماذا تثق بنا لمؤتمرك السنوي؟',
+    benefitsDescription: 'نجمع بين اللوجستيات المثالية والرؤية الإبداعية والخبرة في الصناعة لمؤتمر محفز من التسجيل حتى حفل الختام.',
+    benefitsList: [
+      'ربط مؤسستك بقادة الصناعة والعملاء والمواهب',
+      'تخطيط خبير لتسجيل وتنفيذ ميداني سلس',
+      'علامات تجارية واتصالات مخصصة تضخم رسالتك ومهمتك',
+      'فعاليات اجتماعية وشبكات لا تُنسى لتعزيز العلاقات الحقيقية',
+      'تحليلات مفصلة، تعليقات ومواد إعلامية بعد المؤتمر',
+      'جميع اللوجستيات—حتى تركز على مندوبينك ورؤيتك',
+    ],
+    galleryTitle: 'اكتشف ممتلكاتنا المذهلة',
+    gallerySubtitle: 'ادخل عالم الأناقة المعمارية والعيش العصري. مجموعتنا المختارة تمزج الأسلوب والراحة والوظائف لإنشاء مساحات تحب تسميتها منزلك.',
+    faqsTitle: 'الأسئلة الشائعة',
+    faqsSubtitle: 'إجابات على الأسئلة الأكثر شيوعًا لتخطيط المؤتمرات.',
+    faqs: [
+      { question: 'كم من الوقت يجب التخطيط للمؤتمر السنوي؟', answer: 'ننصح ببدء التخطيط من 6 إلى 12 شهرًا لضمان أفضل الأماكن والمتحدثين.' },
+      { question: 'هل تستطيع التعامل مع المؤتمرات الافتراضية أو الهجينة؟', answer: 'نعم! نقدم تجارب مؤتمرات شخصية، هجينة وافتراضية كاملة مع دعم وتقنية قوية.' },
+      { question: 'ما فرص العلامات التجارية المتوفرة؟', answer: 'نوفر علامات تجارية شاملة: لافتات، تصميم المسرح، مقدمات، هدايا ومواد رقمية.' },
+      { question: 'كيف يتم التعامل مع الوجبات والاحتياجات الغذائية؟', answer: 'شركاؤنا للتموين يقدمون خيارات قائمة متنوعة وقابلة للتخصيص لجميع القيود والتفضيلات الغذائية.' },
+    ],
+    ctaTitle: 'خطط لمؤتمرك القادم',
+    ctaParagraph: 'شارك مع ستاكلي لمؤتمر سنوي يلهم ويجمع ويدفع הקהילה שלך קדימה.',
+    ctaPrimaryButton: 'ابدأ التخطيط',
+    ctaSecondaryButton: 'تعرف على عمليتنا',
+    reachOut: 'ابدأ التخطيط',
+  },
+  he: {
+    pageTitle: 'ועידה שנתית - אירועי סטאקלי',
+    heroTitle: 'ועידה שנתית',
+    heroParagraph: 'הביאו את התעשייה שלכם יחד לתובנות, חיבורים וחדשנות באירוע שנתי מתוקתק ומושלם.',
+    featuresTitle: 'מאפייני הוועידה',
+    featuresDescription: 'ארגון מודרני, תכנות מעורר השראה ולוגיסטיקה חלקה לפגישתכם השנתית.',
+    luxuryFeatures: [
+      { icon: FaUsers, title: 'רישות מקצועי', description: 'מרחבים ייעודיים ואירועי רישות לחיבור בין מנהיגי תעשייה ומקצוענים.' },
+      { icon: FaChartLine, title: 'דוברים מרכזיים ופאנלים', description: 'הרצאות ופאנלים מעוררי השראה ממובילי דעה ידועים.' },
+      { icon: FaCogs, title: 'מקום מתקדם וטכנולוגיה', description: 'מערכות AV חלקות, שילוט דיגיטלי וניהול משתתפים במקומות ברמה עולמית.' },
+      { icon: FaUtensils, title: 'קייטרינג ומרעננים', description: 'קפה כל היום, אוכל גורמה והפסקות נטוורקינג עם נושא לשימור האנרגיה.' },
+      { icon: FaPalette, title: 'עיצוב מותג לאירוע', description: 'מיתוג כנסים מותאם אישית, שילוט ויצירת דקורציה להעצמת המסר שלך.' },
+      { icon: FaCameraRetro, title: 'תיעוד אירוע מקיף', description: 'צילום ותוכן וידאו לתיעוד כל רגע ומפגש.' },
+    ],
+    benefitsTitle: 'למה לסמוך עלינו עם הוועידה השנתית שלך?',
+    benefitsDescription: 'אנו משלבים לוגיסטיקה מושלמת, חזון יצירתי וידע תעשייתי לכנס מלהיב ומניע מהרישום ועד טקס הסיום.',
+    benefitsList: [
+      'קשרו את הארגון שלכם עם מנהיגי תעשייה, לקוחות וכשרונות',
+      'תכנון מומחה לרישום חלק, לוגיסטיקה וביצוע בשטח',
+      'מיתוג ותקשורת מותאמים להגברת המסר והמשימה שלכם',
+      'אירועים חברתיים בלתי נשכחים ורישותים לבניית קשרים אמיתיים',
+      'אנליזות מפורטות, משוב ונכסי מדיה לאחר הכנס',
+      'כל הלוגיסטיקה—כדי שתוכלו להתמקד במשלחים ובחזון שלכם',
+    ],
+    galleryTitle: 'גלו את הנכסים המרהיבים שלנו',
+    gallerySubtitle: 'היכנסו לעולם של אלגנטיות ארכיטקטונית ומגורים מודרניים. קולקציית הבתים שבחרנו משלבת סגנון, נוחות ופונקציונליות ליצירת מרחבים שתרצו לקרוא להם בית.',
+    faqsTitle: 'שאלות נפוצות',
+    faqsSubtitle: 'תשובות לשאלות נפוצות ביותר לתכנון כנסים.',
+    faqs: [
+      { question: 'כמה זמן מראש צריך לתכנן ועידה שנתית?', answer: 'מומלץ להתחיל בתכנון 6–12 חודשים מראש כדי להבטיח את המקומות והדוברים הטובים ביותר.' },
+      { question: 'האם אתם מטפלים בכנסים וירטואליים או היברידיים?', answer: 'כן! אנו מציעים חוויות כנס פרונטליות, היברידיות ווירטואליות עם תמיכה וטכנולוגיה מתקדמת.' },
+      { question: 'אילו הזדמנויות מיתוג זמינות?', answer: 'אנו מציעים מיתוג מלא לאירועים: שילוט, עיצוב במה, מבואות, מתנות ונכסים דיגיטליים.' },
+      { question: 'כיצד מטפלים בארוחות וצרכים תזונתיים?', answer: 'שותפי הקייטרינג שלנו מציעים תפריטים מגוונים הניתנים להתאמה לכל המגבלות והעדפות התזונה.' },
+    ],
+    ctaTitle: 'תכננו את הכנס הבא שלכם',
+    ctaParagraph: 'שתפו פעולה עם סטאקלי לכנס שנתי שמעורר השראה, מחבר ומניע את הקהילה שלכם קדימה.',
+    ctaPrimaryButton: 'התחל לתכנן',
+    ctaSecondaryButton: 'למד על התהליך שלנו',
+    reachOut: 'התחל לתכנן',
+  }
+};
 
 const Service1 = () => {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   useEffect(() => {
-    document.title = 'Annual Conference - Stackly Events';
-  }, []);
-
-  const luxuryFeatures = [
-    {
-      icon: FaUsers,
-      title: "Professional Networking",
-      description: "Dedicated spaces and networking events to connect industry leaders and professionals."
-    },
-    {
-      icon: FaChartLine,
-      title: "Keynote Speakers & Panels",
-      description: "Inspiring presentations and panels from renowned thought leaders."
-    },
-    {
-      icon: FaCogs,
-      title: "Cutting-Edge Venue & Tech",
-      description: "Seamless AV, digital signage, and attendee management in world-class venues."
-    },
-    {
-      icon: FaUtensils,
-      title: "Catering & Refreshments",
-      description: "All-day coffee, gourmet dining, and themed networking breaks to keep energy high."
-    },
-    {
-      icon: FaPalette,
-      title: "Branded Event Styling",
-      description: "Custom conference branding, signage, and creative décor to elevate your message."
-    },
-    {
-      icon: FaCameraRetro,
-      title: "Comprehensive Event Coverage",
-      description: "Photography and video content creation to document every moment and session."
-    }
-  ];
-
-  const benefits = [
-    'Connect your organization with industry leaders, clients, and talent',
-    'Expert planning for smooth registration, logistics, and on-site execution',
-    'Custom branding and communications amplify your message and mission',
-    'Memorable social events and networking foster real relationships',
-    'Detailed analytics, feedback, and media assets post-conference',
-    'All logistics—so you can focus on your delegates and vision'
-  ];
-
-  const faqs = [
-    {
-      question: 'How far in advance should an annual conference be planned?',
-      answer: 'We recommend beginning planning 6–12 months ahead to secure the best venues and speakers.'
-    },
-    {
-      question: 'Can you handle virtual or hybrid conferences?',
-      answer: 'Yes! We offer in-person, hybrid, and fully virtual conference experiences with robust tech and support.'
-    },
-    {
-      question: 'What branding opportunities are available?',
-      answer: 'We offer full-scale event branding: signage, stage design, introductions, swag, and digital assets.'
-    },
-    {
-      question: 'How are meals and dietary needs handled?',
-      answer: 'Our catering partners offer diverse and customizable menu options for all dietary restrictions and preferences.'
-    }
-  ];
+    document.title = t.pageTitle;
+  }, [t.pageTitle]);
 
   return (
     <div className="service-page">
       <div className="home-page">
+        
         {/* Hero Section */}
         <section className="hero-section">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="hero-bg-video"
-          >
+          <video autoPlay muted loop playsInline className="hero-bg-video">
             <source src="images/video101.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="hero-overlay">
             <div className="hero-content">
-              <h1 className="hero-title">Annual Conference</h1>
-              <p className="hero-paragraph">
-                Bring your industry together for insight, connection, and innovation at a flawlessly executed annual event.
-              </p>
-              <Link to="/contact" className="hero-button">
-                Start Planning
-              </Link>
+              <h1 className="hero-title">{t.heroTitle}</h1>
+              <p className="hero-paragraph">{t.heroParagraph}</p>
+              <Link to="/contact" className="hero-button">{t.reachOut}</Link>
             </div>
           </div>
         </section>
@@ -117,40 +174,36 @@ const Service1 = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2>Conference Features</h2>
-              <p>
-                Modern organization, inspiring programming, and seamless logistics for your annual meeting.
-              </p>
+              <h2>{t.featuresTitle}</h2>
+              <p>{t.featuresDescription}</p>
             </motion.div>
+
             <div className="features-grid">
-              {luxuryFeatures.map((feature, index) => (
+              {t.luxuryFeatures.map((feature, idx) => (
                 <motion.div
-                  key={index}
+                  key={idx}
                   className="feature-card premium-card"
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -10, scale: 1.03 }}
                 >
-                  <div className="feature-icon">
-                    <feature.icon />
-                  </div>
+                  <div className="feature-icon"><feature.icon /></div>
                   <h3>{feature.title}</h3>
                   <p>{feature.description}</p>
                 </motion.div>
               ))}
             </div>
+
             <div className="btn-learn-wrapper">
-              <Link to="/contact" className="btn-learn">
-                Learn More <FaArrowRight />
-              </Link>
+              <Link to="/contact" className="btn-learn">{t.ctaPrimaryButton} <FaArrowRight /></Link>
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="section">
+        <section className="section benefits-section">
           <div className="container">
             <div className="grid-2">
               <motion.div
@@ -160,27 +213,24 @@ const Service1 = () => {
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
               >
-                <h2>Why Trust Us With Your Annual Conference?</h2>
-                <p>
-                  We combine flawless logistics, creative vision, and industry know-how for an engaging, motivating conference from registration to closing ceremony.
-                </p>
+                <h2>{t.benefitsTitle}</h2>
+                <p>{t.benefitsDescription}</p>
                 <div className="benefits-list">
-                  {benefits.map((benefit, index) => (
+                  {t.benefitsList.map((benefit, idx) => (
                     <motion.div
-                      key={index}
+                      key={idx}
                       className="benefit-item"
                       initial={{ opacity: 0, x: -30 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      transition={{ duration: 0.5, delay: idx * 0.1 }}
+                      viewport={{ once: true }}
                     >
                       <FaCheck className="check-icon" />
                       <span>{benefit}</span>
                     </motion.div>
                   ))}
                 </div>
-                <Link to="/contact" className="btn btn-primary">
-                  Book Your Conference <FaArrowRight />
-                </Link>
+                <Link to="/contact" className="btn btn-primary">{t.ctaPrimaryButton} <FaArrowRight /></Link>
               </motion.div>
               <motion.div
                 className="benefits-visual"
@@ -197,54 +247,38 @@ const Service1 = () => {
           </div>
         </section>
 
+
+        {/* Gallery Section */}
         <section className="gallery-wrapper">
-      {/* Heading & Content */}
-      <div className="gallery-header">
-        <h2 className="gallery-title">Discover Our Stunning Properties</h2>
-        <p className="gallery-subtitle">
-          Step into a world of architectural elegance and modern living. 
-          Our handpicked collection of homes blends style, comfort, and 
-          functionality to create spaces you’ll love to call your own.
-        </p>
-      </div>
-
-      {/* Gallery Rows */}
-      <div className="gallery-container">
-        
-        {/* Row 1 */}
-        <div className="gallery-row">
-          <div className="gallery-big">
-            <img
-              src="images/wedding3.png"
-              alt="Luxury Property"
-            />
+          <div className="gallery-header">
+            <h2>{t.galleryTitle}</h2>
+            <p>{t.gallerySubtitle}</p>
           </div>
-          <div className="gallery-grid">
-            <img src="images/row12.jpg" alt="Interior 1" />
-            <img src="images/row1.jpg" alt="Interior 2" />
-            <img src="images/row11.jpg" alt="Interior 3" />
-            <img src="images/row13.jpg" alt="Interior 4" />
+          <div className="gallery-container">
+            <div className="gallery-row">
+              <div className="gallery-big">
+                <img src="images/wedding11.jpg" alt="Luxury Property" />
+              </div>
+              <div className="gallery-grid">
+                <img src="images/row12.jpg" alt="Interior 1" />
+                <img src="images/row1.jpg" alt="Interior 2" />
+                <img src="images/row11.jpg" alt="Interior 3" />
+                <img src="images/row13.jpg" alt="Interior 4" />
+              </div>
+            </div>
+            <div className="gallery-row reverse">
+              <div className="gallery-big">
+                <img src="images/wedding12.jpg" alt="Modern Home" />
+              </div>
+              <div className="gallery-grid">
+                <img src="images/row2.jpg" alt="Interior 5" />
+                <img src="images/row21.jpg" alt="Interior 6" />
+                <img src="images/row22.jpg" alt="Interior 7" />
+                <img src="images/row23.jpg" alt="Interior 8" />
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Row 2 (Zig Zag) */}
-        <div className="gallery-row reverse">
-          <div className="gallery-big">
-            <img
-              src="images/wedding2.png"
-              alt="Modern Home"
-            />
-          </div>
-          <div className="gallery-grid">
-            <img src="images/row2.jpg" alt="Interior 5" />
-            <img src="images/row21.jpg" alt="Interior 6" />
-            <img src="images/row22.jpg" alt="Interior 7" />
-            <img src="images/row23.jpg" alt="Interior 8" />
-          </div>
-        </div>
-
-      </div>
-    </section>
+        </section>
 
 
         {/* FAQ Section */}
@@ -257,17 +291,17 @@ const Service1 = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2>FAQs</h2>
-              <p>Answers to your most common conference planning questions.</p>
+              <h2>{t.faqsTitle}</h2>
+              <p>{t.faqsSubtitle}</p>
             </motion.div>
             <div className="faq-list">
-              {faqs.map((faq, index) => (
+              {t.faqs.map((faq, idx) => (
                 <motion.div
-                  key={index}
+                  key={idx}
                   className="faq-item"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: true }}
                 >
                   <h4>{faq.question}</h4>
@@ -280,33 +314,30 @@ const Service1 = () => {
 
         {/* CTA Section */}
         <section className="cta-section">
-          <div className="cta-overlay">
-            <div className="container">
-              <motion.div
-                className="cta-content"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2>Plan Your Next Conference</h2>
-                <p>
-                  Partner with Stackly for an annual conference that inspires, connects, and propels your community forward.
-                </p>
-                <div className="cta-buttons">
-                  <Link to="/contact" className="btn btn-primary">
-                    Start Planning <FaArrowRight />
-                  </Link>
-                  <Link to="/about" className="btn btn-outline">
-                    Learn about our process
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+                  <div className="cta-overlay">
+                    <div className="container">
+                      <motion.div
+                        className="cta-content text-center"
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                      >
+                        <h2>{t.ctaTitle}</h2>
+                        <p>{t.ctaParagraph}</p>
+                        <div className="cta-buttons">
+                          <Link to="/contact" className="btn btn-primary btn-large">
+                            {t.ctaPrimaryButton} <FaArrowRight />
+                          </Link>
+                          <Link to="/about" className="btn btn-outline btn-large">
+                            {t.ctaSecondaryButton}
+                          </Link>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </section>
 
-export default Service1;
 
       <style jsx>{`
         .home-page {
@@ -493,6 +524,32 @@ export default Service1;
           margin: 0;
           font-size: 0.9rem;
         }
+
+           @media (max-width: 480px) {
+              html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+              header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+    html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+    header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+  }
+
+
+  
 
 .features-section {
   background: var(--sidebar-bg);
@@ -757,19 +814,88 @@ body.dark .check-icon {
   transform: scale(1.03);
 }
 
-/* Responsive */
+/* Tablet (medium screens) */
 @media (max-width: 992px) {
-  .gallery-row,
-  .gallery-row.reverse {
-    flex-direction: column;
+  .gallery-wrapper {
+    padding: 60px 20px;
   }
   .gallery-big img {
-    height: 350px;
+    height: 350px; /* already present, keeps height smaller */
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr; /* two columns (unchanged) */
+    gap: 15px;
   }
   .gallery-grid img {
     height: 180px;
   }
+  /* Stack gallery rows vertically */
+  .gallery-row,
+  .gallery-row.reverse {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
+
+/* Mobile (small screens) */
+@media (max-width: 600px) {
+  .gallery-wrapper {
+    padding: 40px 12px;
+  }
+
+  .gallery-header {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  .gallery-title {
+    font-size: 1.8rem;
+  }
+  .gallery-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+
+  .gallery-big img {
+    height: 250px;
+    border-radius: 12px;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr; /* single column grid */
+    gap: 12px;
+  }
+  .gallery-grid img {
+    height: 200px;
+    border-radius: 10px;
+  }
+
+  /* Stack gallery rows vertically */
+  .gallery-row,
+  .gallery-row.reverse {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 400px) {
+  .gallery-wrapper {
+    padding: 30px 8px;
+  }
+  .gallery-title {
+    font-size: 1.5rem;
+  }
+  .gallery-subtitle {
+    font-size: 0.95rem;
+  }
+  .gallery-big img {
+    height: 200px;
+  }
+  .gallery-grid img {
+    height: 160px;
+  }
+}
+
 
 
 .cta-section {

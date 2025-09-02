@@ -1,317 +1,366 @@
-  import React, { useEffect } from 'react';
-  import { motion } from 'framer-motion';
-  import { Link } from 'react-router-dom';
-  import { FaEye, FaBullseye, FaUsers, FaAward, FaGlobe, FaHandshake, FaLinkedin, FaTwitter, FaGithub,FaArrowRight } from 'react-icons/fa';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import {
+  FaEye, FaBullseye, FaUsers, FaAward, FaHandshake,
+  FaLinkedin, FaTwitter, FaGithub, FaArrowRight
+} from 'react-icons/fa';
+import { useLanguage } from '../context.jsx/LanguageContext';
 
-  const AboutUs = () => {
-    useEffect(() => {
-      document.title = 'About Us - DreamNest Real Estate';
-    }, []);
-
-    const values = [
-      {
-        icon: FaBullseye,
-        title: 'Transparency',
-        description: 'Clear pricing, honest advisories, and total openness at every step.'
-      },
-      {
-        icon: FaHandshake,
-        title: 'Client-First',
-        description: 'We tailor every search and negotiation around your goals.'
-      },
-      {
-        icon: FaUsers,
-        title: 'Community',
-        description: 'We connect people with homes and neighborhoods that truly fit their life.'
-      },
-      {
-        icon: FaAward,
-        title: 'Excellence',
-        description: 'Top-tier service from first viewing to final closing and beyond.'
-      }
-    ];
-
-    const team = [
+const translations = {
+  en: {
+    pageTitle: 'About Us - DreamNest Real Estate',
+    heroTitle: 'About Us',
+    heroParagraph: 'Our mission is rooted in trust, transparency, and delivering value at every step of your property journey.',
+    reachOut: 'Reach Out Today',
+    storyTitle: 'Our Story',
+    storyParagraphs: [
+      'DreamNest was born from a simple idea: finding a home should feel as welcoming, honest, and rewarding as living in one. Since our beginning in 2015, we’ve helped thousands—from first-time buyers to seasoned investors—navigate clarity in the complex world of real estate.',
+      'Our journey started with a commitment to eliminate the stress from property decisions. We put transparency and expert guidance at the heart of every relationship, so you can focus on what truly matters—discovering the space where your future unfolds.',
+      'Whether you’re buying, selling, or investing, each step is supported by data-driven insight, personalized service, and a genuine care for your aspirations. Today, DreamNest serves communities across India with an unwavering promise: to make every move effortless, memorable, and truly yours.'
+    ],
+    visionTitle: 'Our Vision',
+    visionDescription: 'To be the most trusted real estate partner—blending technology and human insight to make property moves effortless.',
+    missionTitle: 'Our Mission',
+    missionDescription: 'To help people buy, sell, rent, and invest with confidence through transparent guidance, strong negotiation, and reliable after-sales support.',
+    valuesTitle: 'Our Core Values',
+    valuesSubtitle: 'The principles that shape every deal',
+    values: [
+      { icon: FaBullseye, title: 'Transparency', description: 'Clear pricing, honest advisories, and total openness at every step.' },
+      { icon: FaHandshake, title: 'Client-First', description: 'We tailor every search and negotiation around your goals.' },
+      { icon: FaUsers, title: 'Community', description: 'We connect people with homes and neighborhoods that truly fit their life.' },
+      { icon: FaAward, title: 'Excellence', description: 'Top-tier service from first viewing to final closing and beyond.' },
+    ],
+    teamTitle: 'Meet Our Team',
+    teamSubtitle: 'Advisors committed to your property journey',
+    team: [
       {
         name: 'Aarav Sharma',
         role: 'Founder & CEO',
         bio: 'Two decades in residential and commercial real estate across major Indian cities.',
         image: 'images/professional6.jpg',
-        social: { linkedin: 'https://www.linkedin.com/', twitter: 'https://x.com/login', github: 'https://github.com/' }
       },
       {
         name: 'Priya Mehta',
         role: 'Head of Sales',
         bio: 'Skilled negotiator focused on getting buyers the right homes at the right price.',
         image: 'images/professional4.jpg',
-        social: { linkedin: 'https://www.linkedin.com/', twitter: 'https://x.com/login', github: 'https://github.com/' }
       },
       {
         name: 'Rahul Verma',
         role: 'Operations Director',
         bio: 'Leads property onboarding, inspections, and closing coordination for a smooth journey.',
         image: 'images/professional5.jpg',
-        social: { linkedin: 'https://www.linkedin.com/', twitter: 'https://x.com/login', github: 'https://github.com/' }
       },
       {
         name: 'Ananya Iyer',
         role: 'Marketing Head',
         bio: 'Showcases listings with data-backed market insights and digital-first storytelling.',
         image: 'images/professional3.jpg',
-        social: { linkedin: 'https://www.linkedin.com/', twitter: 'https://x.com/login', github: 'https://github.com/' }
       }
-    ];
-
-    const milestones = [
+    ],
+    milestonesTitle: 'Our Journey',
+    milestonesSubtitle: 'Key milestones in our growth',
+    milestones: [
       { year: '2015', event: 'DreamNest Founded', description: 'Started to make buying, selling, and renting truly transparent.' },
       { year: '2017', event: '100 Families Housed', description: 'Helped our first 100 families find homes they love.' },
       { year: '2019', event: 'Luxury & Villas', description: 'Expanded into premium apartments, villas, and gated communities.' },
       { year: '2021', event: 'Pan-India Presence', description: 'Operations across multiple metros and emerging realty hubs.' },
-      { year: '2023', event: 'Smart Tools Launch', description: 'Introduced AI search, price trends, and ROI calculators.' }
-    ];
+      { year: '2023', event: 'Smart Tools Launch', description: 'Introduced AI search, price trends, and ROI calculators.' },
+    ],
+    ctaTitle: 'Ready to Transform Your Business?',
+    ctaDescription: 'Get started today with a free consultation and discover how we can help you achieve your goals.',
+    ctaBtnStart: 'Start Your Journey',
+    ctaBtnLearn: 'Learn More About Us',
+  },
+  ar: {
+    pageTitle: 'معلومات عنا - دريم نيست للعقارات',
+    heroTitle: 'معلومات عنا',
+    heroParagraph: 'مهمتنا تعتمد على الثقة والشفافية وتقديم القيمة في كل خطوة من رحلتك العقارية.',
+    reachOut: 'تواصل معنا اليوم',
+    storyTitle: 'قصتنا',
+    storyParagraphs: [
+      'تأسست دريم نيست من فكرة بسيطة: العثور على منزل يجب أن يكون مرحبًا وواضحًا ومجزياً مثل العيش فيه. منذ عام 2015، ساعدنا آلاف الأفراد - من المشترين لأول مرة إلى المستثمرين المتمرسين - على فهم سوق العقارات.',
+      'بدأت رحلتنا بالتزام إزالة التوتر من قرارات العقارات. وضعنا الشفافية والخبرة في قلب كل علاقة، لتتمكن من التركيز على ما يهم - العثور على مساحتك المستقبلية.',
+      'سواء كنت تشتري أو تبيع أو تستثمر، يدعم كل خطوة رؤى مستندة إلى البيانات، وخدمة شخصية، واهتمام حقيقي بطموحاتك. اليوم، تخدم دريم نيست مجتمعات في جميع أنحاء الهند مع وعد لا يتزعزع: جعل كل خطوة سهلة ومميزة وخاصة.'
+    ],
+    visionTitle: 'رؤيتنا',
+    visionDescription: 'أن نكون الشريك العقاري الأكثر ثقة - مع مزج التكنولوجيا والبصيرة البشرية لتسهيل كل خطوة عقارية.',
+    missionTitle: 'مهمتنا',
+    missionDescription: 'مساعدتك على الشراء والبيع والتأجير والاستثمار بثقة من خلال التوجيه الواضح، والتفاوض القوي، والدعم الممتاز بعد البيع.',
+    valuesTitle: 'قيمنا الأساسية',
+    valuesSubtitle: 'المبادئ التي تشكل كل صفقة',
+    values: [
+      { icon: FaBullseye, title: 'الشفافية', description: 'تسعير واضح، نصائح صادقة وانفتاح تام في كل خطوة.' },
+      { icon: FaHandshake, title: 'العميل أولاً', description: 'نخصص كل بحث وتفاوض وفقًا لأهدافك.' },
+      { icon: FaUsers, title: 'المجتمع', description: 'نربط الناس بالمنازل والأحياء التي تناسب حياتهم.' },
+      { icon: FaAward, title: 'التميز', description: 'خدمة عالية الجودة من العرض الأول وحتى الإغلاق النهائي.' },
+    ],
+    teamTitle: 'تعرف على فريقنا',
+    teamSubtitle: 'المستشارون المكرسون لرحلة ممتلكاتك',
+    team: [
+      {
+        name: 'آاراف شارما',
+        role: 'المؤسس والرئيس التنفيذي',
+        bio: 'عشرون عامًا في العقارات السكنية والتجارية عبر مدن الهند الكبرى.',
+        image: 'images/professional6.jpg',
+      },
+      {
+        name: 'بريا ميهتا',
+        role: 'رئيسة قسم المبيعات',
+        bio: 'مفاوضة ماهرة تركز على حصول المشترين على البيوت المناسبة بالسعر المناسب.',
+        image: 'images/professional4.jpg',
+      },
+      {
+        name: 'راهول فيرما',
+        role: 'مدير العمليات',
+        bio: 'يقود عملية إدخال العقارات، والفحص، والتنسيق للإغلاق لتجربة سلسة.',
+        image: 'images/professional5.jpg',
+      },
+      {
+        name: 'أنانيا إيير',
+        role: 'رئيسة التسويق',
+        bio: 'تعرض القوائم بخبرة قائمة على البيانات ورواية القصص الرقمية أولًا.',
+        image: 'images/professional3.jpg',
+      }
+    ],
+    milestonesTitle: 'رحلتنا',
+    milestonesSubtitle: 'أهم الإنجازات في نمونا',
+    milestones: [
+      { year: '2015', event: 'تأسيس دريم نيست', description: 'بدأنا لجعل الشراء والبيع والتأجير واضحًا.' },
+      { year: '2017', event: 'مئة عائلة حصلت على منزل', description: 'ساعدنا أول 100 عائلة في العثور على منازلهم.' },
+      { year: '2019', event: 'الفيلات والفخامة', description: 'قمنا بتوسيع الخدمة إلى الشقق الفاخرة والفيلات والمجمعات المغلقة.' },
+      { year: '2021', event: 'حضور على مستوى الهند', description: 'عمليات في عدة ميتروهات ومراكز عقارية ناشئة.' },
+      { year: '2023', event: 'إطلاق الأدوات الذكية', description: 'أدخلنا البحث الآلي وحاسبات العوائد الاستثمارية.' },
+    ],
+    ctaTitle: 'هل أنت مستعد لتحويل عملك؟',
+    ctaDescription: 'ابدأ اليوم مع استشارة مجانية واكتشف كيف يمكننا مساعدتك في تحقيق أهدافك.',
+    ctaBtnStart: 'ابدأ رحلتك',
+    ctaBtnLearn: 'تعرف علينا أكثر',
+  },
+  he: {
+    pageTitle: 'אודותינו - DreamNest נדל"ן',
+    heroTitle: 'אודותינו',
+    heroParagraph: 'המשימה שלנו מושרשת באמון, שקיפות ומתן ערך בכל שלב במסע הנדל"ן שלך.',
+    reachOut: 'צור קשר היום',
+    storyTitle: 'הסיפור שלנו',
+    storyParagraphs: [
+      'DreamNest נוסדה מתוך רעיון פשוט: למצוא בית צריך להרגיש כמו שהיית גר בו באמת. מאז 2015, עזרנו לאלפי אנשים - מקונים ראשוניים ועד משקיעים מנוסים - לנווט בשוק הנדל"ן המורכב.',
+      'המסע שלנו התחיל עם מחויבות להקל על התהליך ולקבל החלטות בלי לחץ. שמנו את השקיפות וההנחיה המומחית במרכז כל מערכת יחסים.',
+      'בין אם אתה קונה, מוכר או משקיע, כל שלב מלווה בתובנות מונחות נתונים, שירות מותאם ואכפתיות אמיתית. כיום, DreamNest משרתת קהילות ברחבי הודו עם הבטחה ברורה: להפוך כל מעבר לקל, בלתי נשכח ואישי.'
+    ],
+    visionTitle: 'החזון שלנו',
+    visionDescription: 'להיות השותף האיכותי ביותר בנדל"ן, המשולב בטכנולוגיה ובתובנות אנושיות להקלה על התהליך.',
+    missionTitle: 'המשימה שלנו',
+    missionDescription: 'לעזור לאנשים לקנות, למכור, לשכור ולהשקיע בביטחון עם הדרכה שקופה, ניהול מו"מ חזק ותמיכה אמינה לאחר המכירה.',
+    valuesTitle: 'ערכי הליבה שלנו',
+    valuesSubtitle: 'העקרונות שמעצבים כל עסקה',
+    values: [
+      { icon: FaBullseye, title: 'שקיפות', description: 'תמחור ברור, ייעוץ כנה ופתיחות מלאה בכל שלב.' },
+      { icon: FaHandshake, title: 'הלקוח קודם כל', description: 'אנחנו מתאימים כל חיפוש ומשא ומתן למטרות שלך.' },
+      { icon: FaUsers, title: 'קהילה', description: 'אנחנו מחברים אנשים לבתים וקהילות שמתאימות לחייהם.' },
+      { icon: FaAward, title: 'מצוינות', description: 'שירות ברמה הגבוהה ביותר מהצפייה הראשונה ועד הסגירה הסופית.' },
+    ],
+    teamTitle: 'הכירו את הצוות שלנו',
+    teamSubtitle: 'יועצים שמוקדשים למסע הנדל"ן שלכם',
+    team: [
+      {
+        name: 'אאראב שרמה',
+        role: 'מייסד ומנכ"ל',
+        bio: 'שני עשורים בנדל"ן למגורים ומסחר בערי הודו המרכזיות.',
+        image: 'images/professional6.jpg',
+      },
+      {
+        name: 'פריה מהטה',
+        role: 'ראש מחלקת מכירות',
+        bio: 'מנהלת מו"מ מוכשרת המתמקדת בהשגת הבית הנכון במחיר הנכון.',
+        image: 'images/professional4.jpg',
+      },
+      {
+        name: 'רהול ורמה',
+        role: 'מנהל תפעול',
+        bio: 'מוביל את שילוב הנכסים, הבדיקות והתיאום לסגירה לחוויה חלקה.',
+        image: 'images/professional5.jpg',
+      },
+      {
+        name: 'אנניה אייר',
+        role: 'ראש מחלקת שיווק',
+        bio: 'מציגה נכסים בתובנות שוק מבוססות נתונים וסיפורי דיגיטל.',
+        image: 'images/professional3.jpg',
+      }
+    ],
+    milestonesTitle: 'המסע שלנו',
+    milestonesSubtitle: 'אבני דרך מרכזיות בצמיחתנו',
+    milestones: [
+      { year: '2015', event: 'הקמת דרימנסט', description: 'התחלנו לעשות את קניית, מכירת והשכרת נכסים לשקופים באמת.' },
+      { year: '2017', event: '100 משפחות התיישבו', description: 'עזרתנו ל-100 משפחות הראשונות למצוא בתי חלומותיהן.' },
+      { year: '2019', event: 'דירות יוקרה ווילות', description: 'התרחבנו לדירות פרימיום, וילות וקהילות סגורות.' },
+      { year: '2021', event: 'נוכחות בכל הודו', description: 'פעילות במטרו ובמרכזי נדל"ן מתפתחים.' },
+      { year: '2023', event: 'השקת כלים חכמים', description: 'הכנסנו חיפוש עם בינה מלאכותית ומחשבי החזר השקעה.' }
+    ],
+    ctaTitle: 'מוכנים לשנות את העסק שלכם?',
+    ctaDescription: 'התחילו היום עם ייעוץ חינם וגלו כיצד נוכל לעזור לכם להשיג את היעדים שלכם.',
+    ctaBtnStart: 'התחילו את המסע שלכם',
+    ctaBtnLearn: 'למדו עוד עלינו',
+  }
+};
 
-    return (
-      <div className="home-page">
-            {/* Hero Section */}
-            <section className="hero-section">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="hero-bg-video"
-        >
+const AboutUs = () => {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
+  useEffect(() => {
+    document.title = t.pageTitle;
+  }, [t.pageTitle]);
+
+  const values = t.values;
+  const milestones = t.milestones;
+  const team = t.team;
+
+  const isRTL = language === "ar" || language === "he";
+
+  return (
+    <div className="home-page">
+      {/* Hero Section */}
+      <section className="hero-section">
+        <video autoPlay muted loop playsInline className="hero-bg-video">
           <source src="images/video11.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      
         <div className="hero-overlay">
           <div className="hero-content">
-            <h1 className="hero-title animate-slide-in">About Us</h1>
-            <p className="hero-paragraph animate-fade-up">
-              Our mission is rooted in trust, transparency, and delivering value at every step of your property journey.
-            </p>
-
-            <Link
-              to="/contact"
-              className="hero-button animate-fade-up-delayed"
-            >
-              Reach Out Today
-            </Link>
+            <h1 className="hero-title animate-slide-in">{t.heroTitle}</h1>
+            <p className="hero-paragraph animate-fade-up">{t.heroParagraph}</p>
+            <Link to="/contact" className="hero-button animate-fade-up-delayed">{t.reachOut}</Link>
           </div>
         </div>
       </section>
 
-        {/* Story Section (Full Width) */}
-        <section className="section story-section full-width">
-          <div className="grid-2">
-            <motion.div
-              className="story-content"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            ><h2>Our Story</h2>
-  <p>
-    DreamNest was born from a simple idea: finding a home should feel as welcoming, honest, and rewarding as living in one. Since our beginning in 2015, we’ve helped thousands—from first-time buyers to seasoned investors—navigate clarity in the complex world of real estate.
-    Our journey started with a commitment to eliminate the stress from property decisions. We put transparency and expert guidance at the heart of every relationship, so you can focus on what truly matters—discovering the space where your future unfolds.
-  </p>
-  <p>
-    Whether you’re buying, selling, or investing, each step is supported by data-driven insight, personalized service, and a genuine care for your aspirations. Today, DreamNest serves communities across India with an unwavering promise: to make every move effortless, memorable, and truly yours.
-  </p>
-
-            </motion.div>
-
-            <motion.div
-              className="story-visual"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="story-image">
-                <img
-                  src="images/about1.jpg"
-                  alt="Handshake at a new home"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Vision & Mission (Full Width) */}
-        <section className="section vision-mission full-width">
-          <div className="grid-2">
-            <motion.div
-              className="vision-card"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="card-header">
-                <FaEye className="card-icon" />
-                <h3>Our Vision</h3>
-              </div>
-              <p>
-                To be the most trusted real estate partner—blending technology and human insight to make property moves effortless.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="mission-card"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <div className="card-header">
-                <FaBullseye className="card-icon" />
-                <h3>Our Mission</h3>
-              </div>
-              <p>
-                To help people buy, sell, rent, and invest with confidence through transparent guidance, strong negotiation, and reliable after-sales support.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Values (Full Width) */}
-        <section className="section values-section full-width">
-          <motion.div
-            className="section-header text-center"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2>Our Core Values</h2>
-            <p>The principles that shape every deal</p>
+      {/* Story Section */}
+      <section className="section story-section full-width">
+        <div className="grid-2">
+          <motion.div className="story-content" initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+            <h2>{t.storyTitle}</h2>
+            {t.storyParagraphs.map((para, idx) => <p key={idx}>{para}</p>)}
           </motion.div>
-
-          <div className="values-grid">
-            {values.map((value, index) => (
-              <motion.div
-                key={index}
-                className="value-card"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-              >
-                <value.icon className="value-icon" />
-                <h4>{value.title}</h4>
-                <p>{value.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Team (Full Width) */}
-        <section className="section team-section full-width">
-          <motion.div
-            className="section-header text-center"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2>Meet Our Team</h2>
-            <p>Advisors committed to your property journey</p>
-          </motion.div>
-
-          <div className="team-grid">
-            {team.map((member, index) => (
-              <motion.div
-                key={index}
-                className="team-card"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-              >
-                <div className="team-image">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div className="team-info">
-                  <h4>{member.name}</h4>
-                  <p className="team-role">{member.role}</p>
-                  <p className="team-bio">{member.bio}</p>
-                  <div className="team-social">
-                    <a href={member.social.linkedin} aria-label="LinkedIn"><FaLinkedin /></a>
-                    <a href={member.social.twitter} aria-label="Twitter"><FaTwitter /></a>
-                    <a href={member.social.github} aria-label="GitHub"><FaGithub /></a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Timeline (Full Width) */}
-        <section className="section timeline-section full-width">
-          <motion.div
-            className="section-header text-center"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2>Our Journey</h2>
-            <p>Key milestones in our growth</p>
-          </motion.div>
-
-          <div className="timeline">
-            {milestones.map((milestone, index) => (
-              <motion.div
-                key={index}
-                className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="timeline-content">
-                  <div className="timeline-year">{milestone.year}</div>
-                  <h4>{milestone.event}</h4>
-                  <p>{milestone.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-          {/* CTA Section */}
-        <section className="cta-section">
-          <div className="cta-overlay">
-            <div className="container">
-              <motion.div
-                className="cta-content text-center"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2>Ready to Transform Your Business?</h2>
-                <p>
-                  Get started today with a free consultation and discover how we can help you achieve your goals.
-                </p>
-                <div className="cta-buttons">
-                  <Link to="/contact" className="btn btn-primary btn-large">
-                    Start Your Journey <FaArrowRight />
-                  </Link>
-                  <Link to="/about" className="btn btn-outline btn-large">
-                    Learn More About Us
-                  </Link>
-                </div>
-              </motion.div>
+          <motion.div className="story-visual" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+            <div className="story-image">
+              <img src="images/about1.jpg" alt="Handshake at a new home" />
             </div>
-          </div>
-        </section>
-        
+          </motion.div>
+        </div>
+      </section>
 
+      {/* Vision & Mission */}
+      <section className="section vision-mission full-width">
+        <div className="grid-2">
+          <motion.div className="vision-card" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+            <div className="card-header">
+              <FaEye className="card-icon" />
+              <h3>{t.visionTitle}</h3>
+            </div>
+            <p>{t.visionDescription}</p>
+          </motion.div>
+          <motion.div className="mission-card" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}>
+            <div className="card-header">
+              <FaBullseye className="card-icon" />
+              <h3>{t.missionTitle}</h3>
+            </div>
+            <p>{t.missionDescription}</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="section values-section full-width">
+        <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+          <h2>{t.valuesTitle}</h2>
+          <p>{t.valuesSubtitle}</p>
+        </motion.div>
+        <div className="values-grid">
+          {values.map(({ icon: Icon, title, description }, idx) => (
+            <motion.div key={idx} className="value-card" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} viewport={{ once: true }} whileHover={{ y: -10 }}>
+              <Icon className="value-icon" />
+              <h4>{title}</h4>
+              <p>{description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="section team-section full-width">
+        <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+          <h2>{t.teamTitle}</h2>
+          <p>{t.teamSubtitle}</p>
+        </motion.div>
+        <div className="team-grid">
+          {team.map(({ name, role, bio, image }, idx) => (
+            <motion.div key={idx} className="team-card" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} viewport={{ once: true }} whileHover={{ y: -10 }}>
+              <div className="team-image">
+                <img src={image} alt={name} />
+              </div>
+              <div className="team-info">
+                <h4>{name}</h4>
+                <p className="team-role">{role}</p>
+                <p className="team-bio">{bio}</p>
+                <div className="team-social">
+                  <a href="https://www.linkedin.com/" aria-label="LinkedIn"><FaLinkedin /></a>
+                  <a href="https://x.com/login" aria-label="Twitter"><FaTwitter /></a>
+                  <a href="https://github.com/" aria-label="GitHub"><FaGithub /></a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Timeline Section - Zigzag in all languages */}
+      <section className="section timeline-section full-width">
+        <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+          <h2>{t.milestonesTitle}</h2>
+          <p>{t.milestonesSubtitle}</p>
+        </motion.div>
+       <div className="timeline" dir="ltr">
+  {milestones.map(({ year, event, description }, idx) => {
+    // Zigzag logic (unchanged)
+    const side = isRTL ? (idx % 2 === 0 ? "right" : "left") : (idx % 2 === 0 ? "left" : "right");
+    return (
+      <motion.div
+        key={idx}
+        className={`timeline-item ${side}`}
+        initial={{ opacity: 0, x: side === "left" ? -50 : 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ delay: idx * 0.1 }}
+        viewport={{ once: true }}
+      >
+        <div className="timeline-content" dir={isRTL ? "rtl" : "ltr"}>
+          <div className="timeline-year">{year}</div>
+          <h4>{event}</h4>
+          <p>{description}</p>
+        </div>
+      </motion.div>
+    );
+  })}
+</div>
+
+      </section>
+
+      {/* CTA Section */}
+      <section className="cta-section">
+        <div className="cta-overlay">
+          <div className="container">
+            <motion.div className="cta-content text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+              <h2>{t.ctaTitle}</h2>
+              <p>{t.ctaDescription}</p>
+              <div className="cta-buttons">
+                <Link to="/contact" className="btn btn-primary btn-large">{t.ctaBtnStart} <FaArrowRight /></Link>
+                <Link to="/about" className="btn btn-outline btn-large">{t.ctaBtnLearn}</Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       
         <style jsx>{`
           /* ===== Base & Utilities ===== */
@@ -504,6 +553,30 @@
             margin: 0;
             font-size: 0.9rem;
           }
+         @media (max-width: 480px) {
+              html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+              header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+    html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+    header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+  }
+
+
 
         /* ===== Two Column Grid (equal height) ===== */
   .grid-2 {
@@ -810,6 +883,8 @@
 
         /* ===== Timeline ===== */
   /* ===== Timeline Section (Theme-Based) ===== */
+
+  
   .timeline-section {
     background: var(--card-bg);
     padding: 80px 0;
@@ -948,6 +1023,46 @@
     margin-bottom: 20px;
     color:#fff;
   }
+            @media (max-width: 480px) {
+              .cta-section {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+              }
+              .cta-overlay {
+                padding: 40px 0;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              .cta-content {
+                padding: 24px 12px;
+                border-radius: 16px;
+                background: rgba(0,0,0,0.55);
+                box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+                text-align: center;
+              }
+              .cta-content h2 {
+                font-size: 1.5rem;
+                margin-bottom: 14px;
+              }
+              .cta-content p {
+                font-size: 1rem;
+                margin-bottom: 18px;
+              }
+              .cta-buttons {
+                flex-direction: column;
+                gap: 10px;
+              }
+              .btn {
+                width: 100%;
+                font-size: 1rem;
+                padding: 10px 0;
+              }
+            }
 
   .cta-content p {
     font-size: 1.2rem;

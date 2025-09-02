@@ -1,20 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaShieldAlt } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+const translations = {
+  en: {
+    signIn: "Sign In",
+    signUp: "Sign Up",
+    createAccount: "Create your account",
+    enterCredentials: "Enter your credentials to access your account",
+    dontHaveAccount: "Don't have an account?",
+    alreadyHaveAccount: "Already have an account?",
+    forgotPassword: "Forgot Password?",
+    resetPassword: "Reset Password",
+    enterNewPassword: "Enter your email and a new password",
+    cancel: "Cancel",
+    firstName: "First Name",
+    lastName: "Last Name",
+    email: "Email",
+    phone: "Phone",
+    password: "Password",
+    confirmPassword: "Confirm Password",
+    newPassword: "New Password",
+    confirmNewPassword: "Confirm New Password",
+  },
+  ar: {
+    signIn: "تسجيل الدخول",
+    signUp: "إنشاء حساب",
+    createAccount: "أنشئ حسابك",
+    enterCredentials: "أدخل بيانات الدخول الخاصة بك",
+    dontHaveAccount: "ليس لديك حساب؟",
+    alreadyHaveAccount: "هل لديك حساب؟",
+    forgotPassword: "نسيت كلمة المرور؟",
+    resetPassword: "إعادة تعيين كلمة المرور",
+    enterNewPassword: "أدخل بريدك الإلكتروني وكلمة المرور الجديدة",
+    cancel: "إلغاء",
+    firstName: "الاسم الأول",
+    lastName: "اسم العائلة",
+    email: "البريد الإلكتروني",
+    phone: "رقم الهاتف",
+    password: "كلمة المرور",
+    confirmPassword: "تأكيد كلمة المرور",
+    newPassword: "كلمة المرور الجديدة",
+    confirmNewPassword: "تأكيد كلمة المرور الجديدة",
+  },
+  he: {
+    signIn: "התחברות",
+    signUp: "הרשמה",
+    createAccount: "צור את החשבון שלך",
+    enterCredentials: "הזן את אישורי הגישה שלך",
+    dontHaveAccount: "אין לך חשבון?",
+    alreadyHaveAccount: "כבר יש לך חשבון?",
+    forgotPassword: "שכחתי סיסמה?",
+    resetPassword: "אפס סיסמה",
+    enterNewPassword: "הזן את האימייל והסיסמה החדשה שלך",
+    cancel: "בטל",
+    firstName: "שם פרטי",
+    lastName: "שם משפחה",
+    email: "אימייל",
+    phone: "טלפון",
+    password: "סיסמה",
+    confirmPassword: "אישור סיסמה",
+    newPassword: "סיסמה חדשה",
+    confirmNewPassword: "אישור סיסמה חדשה",
+  }
+};
 
 const Login = () => {
   const navigate = useNavigate();
-
-  // mode toggles
+  const [language, setLanguage] = useState('en');
+  const t = translations[language];
   const [showSignup, setShowSignup] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
-
-  // login state
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-
-  // signup state
   const [signupData, setSignupData] = useState({
     firstName: '',
     lastName: '',
@@ -23,20 +82,14 @@ const Login = () => {
     password: '',
     confirmPassword: ''
   });
-
-  // forgot password state
   const [forgotEmail, setForgotEmail] = useState('');
   const [forgotPassword, setForgotPassword] = useState('');
   const [forgotConfirm, setForgotConfirm] = useState('');
-
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-
   useEffect(() => {
     document.title = 'Login - ForStackly Business Solutions';
   }, []);
-
-  // ---- welcome.jsx parity: LOGIN ----
   const handleLogin = (e) => {
     e.preventDefault();
     if (loginEmail === 'admin@enkonix.in' && loginPassword === 'admin123') {
@@ -59,8 +112,6 @@ const Login = () => {
       setError('Invalid email or password.');
     }
   };
-
-  // ---- welcome.jsx parity: SIGNUP ----
   const handleSignup = (e) => {
     e.preventDefault();
     if (signupData.password !== signupData.confirmPassword) {
@@ -92,8 +143,6 @@ const Login = () => {
     });
     setError('');
   };
-
-  // ---- welcome.jsx parity: FORGOT ----
   const handleForgotPassword = (e) => {
     e.preventDefault();
     if (forgotPassword !== forgotConfirm) {
@@ -115,38 +164,45 @@ const Login = () => {
     setForgotConfirm('');
     setError('');
   };
-
   return (
     <div className="login-page">
       <div className="login-container">
         <div className="login-grid">
-         <motion.div
-  className="login-branding"
-  initial={{ opacity: 0, x: -50 }}
-  animate={{ opacity: 1, x: 0 }}
-  transition={{ duration: 0.8 }}
->
-  <img 
-    src="images/signin.png"
-    alt="Login visual"
-    className="login-image"
-    style={{
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      borderRadius: '20px'
-    }}
-  />
-</motion.div>
-
-
-          {/* Right Side - Forms (modes) */}
           <motion.div
-            className="login-form-section"
+            className="login-branding"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <img
+              src="images/login.jpg"
+              alt="Login visual"
+              className="login-image"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '20px'
+              }}
+            />
+          </motion.div>
+          <motion.div
+            className="form-card login-form-section"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
+            {/* Language selector at TOP RIGHT */}
+            <div className="lang-dropdown">
+              <select
+                value={language}
+                onChange={e => setLanguage(e.target.value)}
+              >
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+                <option value="he">עברית</option>
+              </select>
+            </div>
             <div className="form-container">
               {error && (
                 <motion.div
@@ -157,37 +213,34 @@ const Login = () => {
                   {error}
                 </motion.div>
               )}
-
               {/* LOGIN MODE */}
               {!showSignup && !showForgot && (
                 <>
                   <div className="form-header">
-                    <h2>Sign In</h2>
-                    <p>Enter your credentials to access your account</p>
+                    <h2>{t.signIn}</h2>
+                    <p>{t.enterCredentials}</p>
                   </div>
-
                   <form onSubmit={handleLogin} className="login-form">
                     <div className="form-group">
-                      <label>Email Address</label>
+                      <label>{t.email}</label>
                       <input
                         type="email"
                         className="form-control"
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
-                        placeholder="Enter your email address"
+                        placeholder={t.email}
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Password</label>
+                      <label>{t.password}</label>
                       <div className="password-field">
                         <input
                           type={showPassword ? 'text' : 'password'}
                           className="form-control"
                           value={loginPassword}
                           onChange={(e) => setLoginPassword(e.target.value)}
-                          placeholder="Enter your password"
+                          placeholder={t.password}
                           required
                         />
                         <button
@@ -200,7 +253,6 @@ const Login = () => {
                         </button>
                       </div>
                     </div>
-
                     <div className="form-options">
                       <button
                         type="button"
@@ -210,23 +262,21 @@ const Login = () => {
                           setShowForgot(true);
                         }}
                       >
-                        Forgot Password?
+                        {t.forgotPassword}
                       </button>
                     </div>
-
                     <motion.button
                       type="submit"
                       className="btn btn-primary btn-block"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Sign In
+                      {t.signIn}
                     </motion.button>
                   </form>
-
                   <div className="signup-link">
                     <p>
-                      Don&apos;t have an account?{' '}
+                      {t.dontHaveAccount}{' '}
                       <button
                         type="button"
                         className="inline-link"
@@ -235,24 +285,22 @@ const Login = () => {
                           setShowSignup(true);
                         }}
                       >
-                        Sign up
+                        {t.signUp}
                       </button>
                     </p>
                   </div>
                 </>
               )}
-
               {/* SIGNUP MODE */}
               {showSignup && !showForgot && (
                 <>
                   <div className="form-header">
-                    <h2>Create your account</h2>
+                    <h2>{t.createAccount}</h2>
                     <p>It only takes a minute</p>
                   </div>
-
                   <form onSubmit={handleSignup} className="login-form">
                     <div className="form-group">
-                      <label>First Name</label>
+                      <label>{t.firstName}</label>
                       <input
                         type="text"
                         className="form-control"
@@ -263,9 +311,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Last Name</label>
+                      <label>{t.lastName}</label>
                       <input
                         type="text"
                         className="form-control"
@@ -276,9 +323,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Email</label>
+                      <label>{t.email}</label>
                       <input
                         type="email"
                         className="form-control"
@@ -289,9 +335,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Phone</label>
+                      <label>{t.phone}</label>
                       <input
                         type="tel"
                         className="form-control"
@@ -302,9 +347,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Password</label>
+                      <label>{t.password}</label>
                       <input
                         type="password"
                         className="form-control"
@@ -315,9 +359,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Confirm Password</label>
+                      <label>{t.confirmPassword}</label>
                       <input
                         type="password"
                         className="form-control"
@@ -328,20 +371,18 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <motion.button
                       type="submit"
                       className="btn btn-primary btn-block"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Sign Up
+                      {t.signUp}
                     </motion.button>
                   </form>
-
                   <div className="signup-link">
                     <p>
-                      Already have an account?{' '}
+                      {t.alreadyHaveAccount}{' '}
                       <button
                         type="button"
                         className="inline-link"
@@ -350,24 +391,22 @@ const Login = () => {
                           setShowSignup(false);
                         }}
                       >
-                        Login
+                        {t.signIn}
                       </button>
                     </p>
                   </div>
                 </>
               )}
-
               {/* FORGOT PASSWORD MODE */}
               {showForgot && (
                 <>
                   <div className="form-header">
-                    <h2>Reset Password</h2>
-                    <p>Enter your email and a new password</p>
+                    <h2>{t.resetPassword}</h2>
+                    <p>{t.enterNewPassword}</p>
                   </div>
-
                   <form onSubmit={handleForgotPassword} className="login-form">
                     <div className="form-group">
-                      <label>Email</label>
+                      <label>{t.email}</label>
                       <input
                         type="email"
                         className="form-control"
@@ -376,9 +415,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>New Password</label>
+                      <label>{t.newPassword}</label>
                       <input
                         type="password"
                         className="form-control"
@@ -387,9 +425,8 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <div className="form-group">
-                      <label>Confirm New Password</label>
+                      <label>{t.confirmNewPassword}</label>
                       <input
                         type="password"
                         className="form-control"
@@ -398,14 +435,13 @@ const Login = () => {
                         required
                       />
                     </div>
-
                     <motion.button
                       type="submit"
                       className="btn btn-primary btn-block"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Reset Password
+                      {t.resetPassword}
                     </motion.button>
                     <button
                       type="button"
@@ -415,7 +451,7 @@ const Login = () => {
                         setShowForgot(false);
                       }}
                     >
-                      Cancel
+                      {t.cancel}
                     </button>
                   </form>
                 </>
@@ -424,7 +460,6 @@ const Login = () => {
           </motion.div>
         </div>
       </div>
-
       {/* ====== PREMIUM STYLES ====== */}
       <style jsx>{`
         :root {
@@ -439,16 +474,6 @@ const Login = () => {
           --sidebar-bg: #f9fafb;
           --danger-color: #ef4444;
         }
-        body.dark {
-          --card-bg: #111827;
-          --heading-color: #f9fafb;
-          --text-color: #e5e7eb;
-          --text-muted: #9ca3af;
-          --border-color: #374151;
-          --input-bg: #0b1220;
-          --sidebar-bg: #0b1220;
-        }
-
         .login-page {
           min-height: 100vh;
           background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -458,13 +483,11 @@ const Login = () => {
           padding: 20px;
           box-sizing: border-box;
         }
-
         .login-container {
           width: 100%;
           max-width: 1200px;
           margin: 0 auto;
         }
-
         .login-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -475,133 +498,59 @@ const Login = () => {
           min-height: 600px;
           max-width: 100%;
         }
-
-       .login-branding {
-  padding: 0;
-  background: none;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  height: 100%;
-}
-
-.login-image {
+        .login-branding {
+          padding: 0;
+          background: none;
+          display: flex;
+          align-items: stretch;
+          justify-content: center;
+          height: 100%;
+        }
+        .login-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 20px;
+          display: block;
+        }
+        .form-card {
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  display: block;
+  /* Add/adjust these lines: */
+  padding: 48px 36px 32px 36px;
+  box-sizing: border-box;
 }
-
-
-        .login-branding::before {
-          content: '';
+        .lang-dropdown {
           position: absolute;
-          inset: 0;
-          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="30" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-          opacity: 0.3;
+          top: 24px;
+          right: 24px;
+          z-index: 10;
         }
-
-        .branding-content {
-          position: relative;
-          z-index: 2;
+        .lang-dropdown select {
+          padding: 8px 20px 8px 12px;
+          font-size: 1rem;
+          border-radius: 8px;
+          border: 1px solid #c9c9c9;
+          background: #fff;
+          color: #222;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+          min-width: 115px;
+          font-weight: 500;
         }
-
-        .brand-logo {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          margin-bottom: 40px;
-        }
-
-        .logo-icon {
-          font-size: 2.5rem;
-          color: white;
-        }
-
-        .brand-logo h2 {
-          font-size: 2rem;
-          font-weight: 700;
-          color: white;
-        }
-
-        .branding-content h1 {
-          font-size: 3rem;
-          font-weight: 800;
-          margin-bottom: 20px;
-          color: white;
-        }
-
-        .branding-content p {
-          font-size: 1.1rem;
-          line-height: 1.6;
-          margin-bottom: 40px;
-          opacity: 0.9;
-        }
-
-        .features-list {
-          display: flex;
-          flex-direction: column;
-          gap: 25px;
-        }
-
-        .feature-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 20px;
-        }
-
-        .feature-icon {
-          width: 50px;
-          height: 50px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.2rem;
-        }
-
-        .feature-content h4 {
-          color: white;
-          font-size: 1.1rem;
-          margin-bottom: 5px;
-        }
-
-        .feature-content p {
-          color: rgba(255, 255, 255, 0.8);
-          font-size: 0.95rem;
-          margin: 0;
-        }
-
-        .login-form-section {
-          padding: 60px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .form-container {
-          width: 100%;
-          max-width: 420px;
-        }
-
         .form-header {
           text-align: center;
           margin-bottom: 28px;
         }
-
         .form-header h2 {
           font-size: 2rem;
           color: var(--heading-color);
           margin-bottom: 8px;
         }
-
         .form-header p {
           color: var(--text-muted);
           font-size: 0.98rem;
         }
-
         .error-message {
           background: var(--danger-color);
           color: white;
@@ -611,22 +560,18 @@ const Login = () => {
           text-align: center;
           font-size: 0.9rem;
         }
-
         .login-form {
           margin-bottom: 20px;
         }
-
         .form-group {
           margin-bottom: 16px;
         }
-
         .form-group label {
           display: block;
           margin-bottom: 8px;
           font-weight: 600;
           color: var(--text-color);
         }
-
         .form-control {
           width: 100%;
           padding: 14px 16px;
@@ -634,20 +579,17 @@ const Login = () => {
           border-radius: 12px;
           font-size: 1rem;
           transition: all 0.25s ease;
-          background: var(--input-bg);
+          background: #f3f6fd;
           color: var(--text-color);
         }
-
         .form-control:focus {
           outline: none;
           border-color: var(--primary-color);
           box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
         }
-
         .password-field {
           position: relative;
         }
-
         .password-toggle {
           position: absolute;
           right: 12px;
@@ -657,21 +599,15 @@ const Login = () => {
           border: none;
           color: var(--text-muted);
           cursor: pointer;
-          font-size: 1.1rem;
+          font-size: 1.2rem;
           padding: 2px;
-          transition: color 0.2s ease;
         }
-        .password-toggle:hover {
-          color: var(--primary-color);
-        }
-
         .form-options {
           display: flex;
           justify-content: flex-end;
           align-items: center;
           margin: 6px 0 22px;
         }
-
         .forgot-link,
         .inline-link {
           background: none;
@@ -683,11 +619,10 @@ const Login = () => {
           cursor: pointer;
         }
         .forgot-link:hover,
-        .inline-link:hover {  
+        .inline-link:hover {
           color: var(--secondary-color);
           text-decoration: underline;
         }
-
         .btn {
           border: none;
           border-radius: 12px;
@@ -721,12 +656,10 @@ const Login = () => {
         .btn-block {
           width: 100%;
         }
-
         .signup-link {
           text-align: center;
           color: var(--text-color);
         }
-
         @media (max-width: 1024px) {
           .login-grid {
             grid-template-columns: 1fr;
@@ -735,16 +668,7 @@ const Login = () => {
             padding: 40px;
             text-align: center;
           }
-          .branding-content h1 {
-            font-size: 2.5rem;
-          }
-          .features-list {
-            flex-direction: row;
-            justify-content: center;
-            flex-wrap: wrap;
-          }
         }
-
         @media (max-width: 768px) {
           .login-form-section {
             padding: 40px;
@@ -752,27 +676,17 @@ const Login = () => {
           .login-branding {
             padding: 30px;
           }
-          .branding-content h1 {
-            font-size: 2rem;
-          }
-          .form-header h2 {
-            font-size: 1.8rem;
-          }
         }
 
+        @media (max-width: 600px) {
+  .form-card {
+    padding: 24px 10px 12px 10px;
+  }
+}
         @media (max-width: 480px) {
-          .login-page {
-            padding: 10px;
-          }
-          .login-form-section {
-            padding: 20px;
-          }
-          .login-branding {
-            padding: 20px;
-          }
-          .features-list {
-            flex-direction: column;
-          }
+          .login-page { padding: 10px; }
+          .login-form-section { padding: 20px; }
+          .login-branding { padding: 20px; }
         }
       `}</style>
     </div>

@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { 
-  FaUsers, 
-  FaRocket, 
-  FaShieldAlt, 
-  FaCogs, 
-  FaCalendarCheck, 
-  FaBuilding, 
-  FaHeart, 
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  FaUsers,
+  FaRocket,
+  FaShieldAlt,
+  FaCogs,
+  FaCalendarCheck,
+  FaBuilding,
+  FaHeart,
   FaAward,
   FaArrowRight,
   FaCheck,
@@ -18,127 +18,345 @@ import {
   FaPalette,
   FaUtensils,
   FaMusic,
-  FaTrophy
-} from 'react-icons/fa';
-
-
-
-
-
-
+  FaTrophy,
+} from "react-icons/fa";
+import { useLanguage } from "../context.jsx/LanguageContext";
 
 const Home1 = () => {
+  const { language } = useLanguage();
+
+  const translations = {
+    en: {
+      pageTitle: "ForStackly - Professional Business Solutions",
+      heroTitle: "Creating Unforgettable Experiences",
+      heroParagraph:
+        "From weddings and corporate gatherings to private celebrations, we design and manage events that leave lasting impressions. Your vision, our expertise — together we make moments memorable.",
+      reachOut: "Reach Out Today",
+      featureTitle: "Why Choose ForStackly?",
+      featureSubtitle:
+        "We deliver comprehensive business solutions tailored to your unique needs",
+      features: [
+        {
+          icon: FaRing,
+          title: "Wedding Planning",
+          description:
+            "Plan and coordinate unforgettable weddings with personalized themes and flawless execution.",
+          color: "#007bff",
+        },
+        {
+          icon: FaBriefcase,
+          title: "Event Management",
+          description: "Organize impactful corporate events, product launches, and conferences that impress.",
+          color: "#007bff",
+        },
+        {
+          icon: FaPalette,
+          title: "Event Design & Decor",
+          description:
+            "Create stunning event aesthetics with customized decorations, lighting, and staging.",
+          color: "#007bff",
+        },
+        {
+          icon: FaUtensils,
+          title: "Catering & Hospitality",
+          description:
+            "Deliver exceptional catering experiences with gourmet menus and impeccable service.",
+          color: "#007bff",
+        },
+        {
+          icon: FaMusic,
+          title: "Entertainment",
+          description:
+            "Bring events to life with electrifying live music, talented DJs, and captivating cultural performances.",
+          color: "#007bff",
+        },
+        {
+          icon: FaTrophy,
+          title: "Award-Winning Events",
+          description:
+            "Recognized for creativity, punctuality, disciplined and unforgettable experiences.",
+          color: "#007bff",
+        },
+      ],
+      stats: [
+        { number: "300+", label: "Successful Events", icon: FaCalendarCheck },
+        { number: "150+", label: "Corporate Clients", icon: FaBuilding },
+        { number: "50+", label: "Wedding Ceremonies", icon: FaHeart },
+        { number: "10+", label: "Years of Experience", icon: FaAward },
+      ],
+      testimonialsTitle: "What Our Clients Say",
+      testimonialsSubtitle: "Trusted by industry leaders worldwide",
+      testimonials: [
+        {
+          name: "Joel Johnson",
+          company: "GlobalCorp",
+          role: "Event Coordinator",
+          content:
+            "Evently turned our annual gala into an unforgettable evening. Their meticulous planning impressed every guest in attendance.",
+          rating: 5,
+          image: "images/professional.jpg",
+        },
+        {
+          name: "Michael Chen",
+          company: "Innovations",
+          role: "Marketing Manager",
+          content:
+            "Our product launch was a flawless success thanks to Evently’s team. Their dedication and creativity exceeded our expectations.",
+          rating: 5,
+          image: "images/professional1.jpg",
+        },
+        {
+          name: "Emily Davis",
+          company: "Helping Hands",
+          role: "Director",
+          content:
+            "From venue to entertainment, Evently perfected every detail of the festival. Their expertise ensured a seamless, memorable event.",
+          rating: 5,
+          image: "images/Professional2.jpg",
+        },
+      ],
+      ctaTitle: "Ready to Transform Your Business?",
+      ctaParagraph:
+        "Get started today with a free consultation and discover how we can help you achieve your goals.",
+      ctaBtnLearnMore: "Learn More About Us",
+      ctaBtnStart: "Start Your Journey",
+      arrowIcon: <FaArrowRight />,
+    },
+    ar: {
+      pageTitle: "ForStackly - حلول الأعمال المهنية",
+      heroTitle: "صنع تجارب لا تُنسى",
+      heroParagraph:
+        "من حفلات الزفاف والتجمعات الشركاتية إلى الاحتفالات الخاصة، نصمم وندير فعاليات تترك انطباعات دائمة. رؤيتك، خبرتنا - معاً نصنع لحظات لا تُنسى.",
+      reachOut: "تواصل معنا اليوم",
+      featureTitle: "لماذا تختار ForStackly؟",
+      featureSubtitle: "نقدم حلول أعمال شاملة مصممة خصيصًا لاحتياجاتك الفريدة",
+      features: [
+        {
+          icon: FaRing,
+          title: "تخطيط حفلات الزفاف",
+          description:
+            "خطط ونظم حفلات زفاف لا تُنسى مع مواضيع مخصصة وتنفيذ flawless.",
+          color: "#007bff",
+        },
+        {
+          icon: FaBriefcase,
+          title: "إدارة الفعاليات",
+          description:
+            "نظم فعاليات شركاتية ناجحة، إطلاقات منتجات، ومؤتمرات تعجب الجميع.",
+          color: "#007bff",
+        },
+        {
+          icon: FaPalette,
+          title: "تصميم وديكور الفعالية",
+          description:
+            "أبدع في تصميم الفعاليات مع ديكورات مخصصة، إضاءة، وتنسيق متميز.",
+          color: "#007bff",
+        },
+        {
+          icon: FaUtensils,
+          title: "التموين والضيافة",
+          description:
+            "نوفر خدمات تموين مميزة مع قوائم طعام فاخرة وخدمة بلا أخطاء.",
+          color: "#007bff",
+        },
+        {
+          icon: FaMusic,
+          title: "الترفيه",
+          description:
+            "أنشط فعاليات مع موسيقى حية، منسقي أغاني موهوبين، وعروض ثقافية جذابة.",
+          color: "#007bff",
+        },
+        {
+          icon: FaTrophy,
+          title: "فعاليات حائزة على جوائز",
+          description:
+            "معروفة بالإبداع والدقة والانضباط، وتجارب لا تُنسى.",
+          color: "#007bff",
+        },
+      ],
+      stats: [
+        {
+          number: "300+",
+          label: "فعاليات ناجحة",
+          icon: FaCalendarCheck,
+        },
+        {
+          number: "150+",
+          label: "عملاء شركات",
+          icon: FaBuilding,
+        },
+        { number: "50+", label: "حفلات زفاف", icon: FaHeart },
+        {
+          number: "10+",
+          label: "سنوات خبرة",
+          icon: FaAward,
+        },
+      ],
+      testimonialsTitle: "ماذا يقول عملاؤنا",
+      testimonialsSubtitle: "تحظى بثقة قادة الصناعة في جميع أنحاء العالم",
+      testimonials: [
+        {
+          name: "جويل جونسون",
+          company: "GlobalCorp",
+          role: "منسق فعاليات",
+          content:
+            "حولت Evently حفلنا السنوي إلى أمسية لا تُنسى. كانت خطتهم المتقنة مبهرة لكل الحاضرين.",
+          rating: 5,
+          image: "images/professional.jpg",
+        },
+        {
+          name: "مايكل تشن",
+          company: "Innovations",
+          role: "مدير تسويق",
+          content:
+            "كان إطلاق منتجنا ناجحًا بلا أخطاء بفضل فريق Evently. تجاوزت تفانيهم وإبداعهم توقعاتنا.",
+          rating: 5,
+          image: "images/professional1.jpg",
+        },
+        {
+          name: "إميلي ديفيس",
+          company: "Helping Hands",
+          role: "مدير",
+          content:
+            "من المكان إلى الترفيه، أتقنت Evently كل تفصيل. ضمنت خبرتهم حدثاً سلساً ولا يُنسى.",
+          rating: 5,
+          image: "images/Professional2.jpg",
+        },
+      ],
+      ctaTitle: "هل أنت مستعد لتحويل عملك؟",
+      ctaParagraph:
+        "ابدأ اليوم مع استشارة مجانية واكتشف كيف يمكننا مساعدتك في تحقيق أهدافك.",
+      ctaBtnLearnMore: "تعرف علينا أكثر",
+      ctaBtnStart: "ابدأ رحلتك",
+      arrowIcon: <FaArrowRight />,
+    },
+    he: {
+      pageTitle: "ForStackly - פתרונות עסקיים מקצועיים",
+      heroTitle: "יוצרים חוויות בלתי נשכחות",
+      heroParagraph:
+        "מחתונות ואירועים עסקיים ועד חגיגות פרטיות, אנו מעצבים ומנהלים אירועים שמשאירים רושם מתמשך. החזון שלך, המומחיות שלנו - יחד יוצרים רגעים בלתי נשכחים.",
+      reachOut: "צרו קשר היום",
+      featureTitle: "למה לבחור ב-ForStackly?",
+      featureSubtitle:
+        "אנו מספקים פתרונות עסקיים מקיפים המותאמים לצרכים הייחודיים שלך",
+      features: [
+        {
+          icon: FaRing,
+          title: "תכנון חתונות",
+          description:
+            "תכנן ותאם חתונות בלתי נשכחות עם נושאים מותאמים אישית וביצוע ללא דופי.",
+          color: "#007bff",
+        },
+        {
+          icon: FaBriefcase,
+          title: "ניהול אירועים",
+          description: "ארגן אירועים עסקיים, השקות מוצרים וכנסים שישאירו רושם.",
+          color: "#007bff",
+        },
+        {
+          icon: FaPalette,
+          title: "עיצוב וקישוט אירועים",
+          description:
+            "צור עיצובי אירועים מרהיבים עם קישוטים, תאורה ובמה מותאמים.",
+          color: "#007bff",
+        },
+        {
+          icon: FaUtensils,
+          title: "קייטרינג ואירוח",
+          description:
+            "ספק חוויות קייטרינג יוצאות דופן עם תפריטים גורמה ושירות יוצא דופן.",
+          color: "#007bff",
+        },
+        {
+          icon: FaMusic,
+          title: "בידור",
+          description:
+            "הפוך את האירועים לחיים עם מוזיקה חיה סוחפת, דיג'ייז מוכשרים והופעות תרבותיות מרתקות.",
+          color: "#007bff",
+        },
+        {
+          icon: FaTrophy,
+          title: "אירועים זוכי פרסים",
+          description: "מוכרים על יצירתיות, דיוק, משמעת וחוויות בלתי נשכחות.",
+          color: "#007bff",
+        },
+      ],
+      stats: [
+        { number: "300+", label: "אירועים מוצלחים", icon: FaCalendarCheck },
+        { number: "150+", label: "לקוחות עסקיים", icon: FaBuilding },
+        { number: "50+", label: "חופות חתונה", icon: FaHeart },
+        { number: "10+", label: "שנות ניסיון", icon: FaAward },
+      ],
+      testimonialsTitle: "מה הלקוחות שלנו אומרים",
+      testimonialsSubtitle: "מהימנים על ידי מובילי תעשייה ברחבי העולם",
+      testimonials: [
+        {
+          name: "ג'ואל ג'ונסון",
+          company: "GlobalCorp",
+          role: "רכז אירועים",
+          content:
+            "Evently הפכה את הגאלה השנתית שלנו לערב בלתי נשכח. התכנון המדויק שלהם הרשיב את כל האורחים.",
+          rating: 5,
+          image: "images/professional.jpg",
+        },
+        {
+          name: "מייקל צ'ן",
+          company: "Innovations",
+          role: "מנהל שיווק",
+          content:
+            "השקת המוצר שלנו הייתה מושלמת בזכות צוות Evently. המחויבות והיצירתיות שלהם עברו את הציפיות.",
+          rating: 5,
+          image: "images/professional1.jpg",
+        },
+        {
+          name: "אמילי דיוויס",
+          company: "Helping Hands",
+          role: "מנהלת",
+          content:
+            "מהמקום ועד הבידור, Evently שלטה בכל פרט. המומחיות שלהם הבטיחה אירוע הרמוני ובלתי נשכח.",
+          rating: 5,
+          image: "images/Professional2.jpg",
+        },
+      ],
+      ctaTitle: "מוכנים לשנות את העסק שלכם?",
+      ctaParagraph: "התחילו היום עם ייעוץ חינם וגלו כיצד נוכל לעזור לכם להשיג את היעדים שלכם.",
+      ctaBtnLearnMore: "למידע נוסף עלינו",
+      ctaBtnStart: "התחל את המסע",
+      arrowIcon: <FaArrowRight />,
+    },
+  };
+
   useEffect(() => {
-    document.title = 'ForStackly - Professional Business Solutions';
-  }, []);
+    document.title = translations[language].pageTitle;
+    document.documentElement.dir = language === "ar" || language === "he" ? "rtl" : "ltr";
+  }, [language]);
 
-  const features = [
-    {
-      icon:FaRing,
-      title: 'Wedding Planning',
-      description: 'Plan and coordinate unforgettable weddings with personalized themes and flawless execution.',
-      color: '#007bff'
-    },
-    {
-      icon:FaBriefcase,
-      title: 'Event Management',
-      description: ' Organize impactful corporate events, product launches, and conferences that impress.',
-      color: '#007bff'
-    },
-    {
-      icon:FaPalette,
-      title: 'Event Design & Decor',
-      description: 'Create stunning event aesthetics with customized decorations, lighting, and staging.',
-      color: '#007bff'
-    },
-    {
-      icon:FaUtensils,
-      title: 'Catering & Hospitality',
-      description: 'Deliver exceptional catering experiences with gourmet menus and impeccable service.',
-      color: '#007bff'
-    },
-    {
-    icon:FaMusic,
-    title: 'Entertainment',
-    description: 'Bring events to life with electrifying live music, talented DJs, and captivating cultural performances.',
-    color: '#007bff'
-  },
-    {
-    icon:FaTrophy,
-    title: 'Award-Winning Events',
-    description: ' Recognized for creativity, punctuality, disciplined and unforgettable experiences.',
-    color: '#007bff'
-    }
-  ];
-
-const stats = [
-  { number: '300+', label: 'Successful Events', icon: FaCalendarCheck },  // Calendar with check
-  { number: '150+', label: 'Corporate Clients', icon: FaBuilding },       // Building icon
-  { number: '50+', label: 'Wedding Ceremonies', icon: FaHeart },          // Heart icon
-  { number: '10+', label: 'Years of Experience', icon: FaAward }          // Award icon
-];
-
-
-  const testimonials = [
-    {
-      name: 'Joel Johnson',
-      company: 'GlobalCorp',
-      role: 'Event Coordinator',
-      content: 'Evently turned our annual gala into an unforgettable evening. Their meticulous planning impressed every guest in attendance.',
-      rating: 5,
-      image: 'images/professional.jpg'
-    },
-    {
-      name: 'Michael Chen',
-      company: 'Innovations',
-      role: 'Marketing Manager',
-      content: 'Our product launch was a flawless success thanks to Evently’s team. Their dedication and creativity exceeded our expectations.',
-      rating: 5,
-      image: 'images/professional1.jpg'
-    },
-    {
-      name: 'Emily Davis',
-      company: 'Helping Hands',
-      role: 'Director',
-      content: 'From venue to entertainment, Evently perfected every detail of our festival. Their expertise ensured a seamless, memorable event.',
-      rating: 5,
-      image: 'images/Professional2.jpg'
-    }
-  ];
+  const features = translations[language].features;
+  const stats = translations[language].stats;
+  const testimonials = translations[language].testimonials;
 
   return (
     <div className="home-page">
       {/* Hero Section */}
       <section className="hero-section">
-  <video
-    autoPlay
-    muted
-    loop
-    playsInline
-    className="hero-bg-video"
-  >
-    <source src="images/video21.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-
-  <div className="hero-overlay">
-    <div className="hero-content">
-     <h1 className="hero-title animate-slide-in">Creating Unforgettable Experiences</h1>
-<p className="hero-paragraph animate-fade-up">
-  From weddings and corporate gatherings to private celebrations, we design and manage events that leave lasting impressions. 
-  Your vision, our expertise — together we make moments memorable.
-</p>
-
-      <Link
-        to="/contact"
-        className="hero-button animate-fade-up-delayed"
-      >
-        Reach Out Today
-      </Link>
-    </div>
-  </div>
-</section>
-
+        <video autoPlay muted loop playsInline className="hero-bg-video">
+          <source src="images/video21.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <motion.h1 className="hero-title animate-slide-in" key={`title-${language}`}>
+              {translations[language].heroTitle}
+            </motion.h1>
+            <motion.p className="hero-paragraph animate-fade-up" key={`paragraph-${language}`}>
+              {translations[language].heroParagraph}
+            </motion.p>
+            <Link to="/contact" className="hero-button animate-fade-up-delayed">
+              {translations[language].reachOut}
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="section features-section">
@@ -150,18 +368,17 @@ const stats = [
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2>Why Choose ForStackly?</h2>
-            <p>We deliver comprehensive business solutions tailored to your unique needs</p>
+            <h2>{translations[language].featureTitle}</h2>
+            <p>{translations[language].featureSubtitle}</p>
           </motion.div>
-
           <div className="features-grid">
-            {features.map((feature, index) => (
+            {features.map((feature, idx) => (
               <motion.div
-                key={index}
+                key={idx}
                 className="feature-card"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
               >
@@ -178,21 +395,20 @@ const stats = [
           </div>
         </div>
       </section>
-      
 
+      {/* Continue with stats, testimonials, CTA sections similarly ... */}
       {/* Stats Section */}
-      <section className="stats">
+      <section className="stats-section">
         <div className="container">
           <div className="stats-grid">
-            {stats.map((stat, index) => (
+            {stats.map((stat, idx) => (
               <motion.div
-                key={index}
-                className="stat-item"
+                key={idx}
+                className="stat-card"
                 initial={{ opacity: 0, scale: 0.5 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}>
                 <stat.icon className="stat-icon" />
                 <h3>{stat.number}</h3>
                 <p>{stat.label}</p>
@@ -202,83 +418,27 @@ const stats = [
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section className="section services-preview">
-        <div className="container">
-          <div className="grid-2">
-            <motion.div
-              className="services-content"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h2>Comprehensive Event Management Solutions</h2>
-              <p>
-                From corporate conferences to grand celebrations, we deliver end-to-end event planning that ensures unforgettable experiences and keeps your guests delighted.
-              </p>
-              <ul className="benefits-list">
-                <li><FaCheck /> Corporate Events & Conferences</li>
-                <li><FaCheck /> Weddings & Social Celebrations</li>
-                <li><FaCheck /> Product Launches & Brand Activations</li>
-                <li><FaCheck /> Exhibitions & Trade Shows</li>
-                <li><FaCheck /> Concerts & Cultural Festivals</li>
-                <li><FaCheck /> Virtual & Hybrid Events</li>
-              </ul>
-              <div className="services-btn-container">
-  <div className="services-btn-container">
-  <Link to="/services" className="btn view-all-btn">
-    View All Services
-  </Link>
-</div>
-
-
-</div>
-
-            </motion.div>
-            
-            <motion.div
-              className="services-visual"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <div className="services-image">
-                <img 
-                  src="images/business-solutions.jpg" 
-                  alt="Team collaboration"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials Section */}
-      <section className="section testimonials-section">
+      <section className="testimonials-section">
         <div className="container">
           <motion.div
             className="section-header text-center"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2>What Our Clients Say</h2>
-            <p>Trusted by industry leaders worldwide</p>
+            viewport={{ once: true }}>
+            <h2>{translations[language].testimonialsTitle}</h2>
+            <p>{translations[language].testimonialsSubtitle}</p>
           </motion.div>
-
           <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial, idx) => (
               <motion.div
-                key={index}
+                key={idx}
                 className="testimonial-card"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}>
                 <div className="testimonial-content">
                   <div className="testimonial-rating">
                     {[...Array(testimonial.rating)].map((_, i) => (
@@ -301,32 +461,28 @@ const stats = [
       </section>
 
       {/* CTA Section */}
-<section className="cta-section">
-  <div className="cta-overlay">
-    <div className="container">
-      <motion.div
-        className="cta-content text-center"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <h2>Ready to Transform Your Business?</h2>
-        <p>
-          Get started today with a free consultation and discover how we can help you achieve your goals.
-        </p>
-        <div className="cta-buttons">
-          <Link to="/contact" className="btn btn-primary btn-large">
-            Start Your Journey <FaArrowRight />
-          </Link>
-          <Link to="/about" className="btn btn-outline btn-large">
-            Learn More About Us
-          </Link>
+      <section className="cta-section">
+        <div className="cta-overlay">
+          <div className="container">
+            <motion.div
+              className="cta-content text-center"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}>
+              <h2>{translations[language].ctaTitle}</h2>
+              <p>{translations[language].ctaParagraph}</p>
+              <Link to="/contact" className="btn btn-primary btn-large">
+                {translations[language].ctaBtnStart} <FaArrowRight />
+              </Link>
+              <Link to="/about" className="btn btn-outline btn-large">
+                {translations[language].ctaBtnLearnMore}
+              </Link>
+            </motion.div>
+          </div>
         </div>
-      </motion.div>
-    </div>
-  </div>
-</section>
+      </section>
+
 
 
       <style jsx>{`
@@ -609,7 +765,7 @@ const stats = [
           transform: translateX(5px);
         }
 
-       .stats {
+       .stats-section{
   background: var(--primary-color);
   color: #fff;
   padding: 40px 0;

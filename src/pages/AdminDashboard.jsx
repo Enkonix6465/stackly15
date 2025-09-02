@@ -27,8 +27,100 @@ import {
   BarElement,
 } from "chart.js";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context.jsx/LanguageContext"; // adjust path as per your structure
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+
+// Translations for headings and tab labels
+const translations = {
+  en: {
+    dashboard: "Event Management Dashboard",
+    overviewMsg: "Welcome Admin, here’s today’s overview.",
+    totalEvents: "Total Events",
+    registrations: "Registrations",
+    revenue: "Revenue",
+    feedbacks: "Feedbacks",
+    tabs: ["Overview", "Events", "Analytics", "Content"],
+    recentActivities: "Recent Activities",
+    upcomingEvents: "Upcoming Events",
+    ticketSalesAnalytics: "Ticket Sales Analytics",
+    salesChannels: "Sales Channels",
+    topEvents: "Top Events",
+    contentManagement: "Content Management",
+    eventName: "Event Name",
+    date: "Date",
+    location: "Location",
+    registrationsLabel: "Registrations",
+    price: "Price ($)",
+    actions: "Actions",
+    edit: "Edit",
+    delete: "Delete",
+    createEvent: "Create Event",
+    logout: "Logout",
+    addEvent: "Add Event",
+    update: "Update",
+    cancel: "Cancel",
+    manage: "Manage"
+  },
+  ar: {
+    dashboard: "لوحة إدارة الأحداث",
+    overviewMsg: "مرحبًا المشرف، إليك نظرة عامة اليوم.",
+    totalEvents: "إجمالي الأحداث",
+    registrations: "التسجيلات",
+    revenue: "الدخل",
+    feedbacks: "الملاحظات",
+    tabs: ["نظرة عامة", "الأحداث", "تحليلات", "المحتوى"],
+    recentActivities: "الأنشطة الأخيرة",
+    upcomingEvents: "الأحداث القادمة",
+    ticketSalesAnalytics: "تحليلات مبيعات التذاكر",
+    salesChannels: "قنوات المبيعات",
+    topEvents: "أفضل الأحداث",
+    contentManagement: "إدارة المحتوى",
+    eventName: "اسم الحدث",
+    date: "التاريخ",
+    location: "الموقع",
+    registrationsLabel: "عدد التسجيلات",
+    price: "السعر ($)",
+    actions: "الإجراءات",
+    edit: "تعديل",
+    delete: "حذف",
+    createEvent: "إنشاء حدث",
+    logout: "تسجيل الخروج",
+    addEvent: "إضافة حدث",
+    update: "تحديث",
+    cancel: "إلغاء",
+    manage: "إدارة"
+  },
+  he: {
+    dashboard: "לוח ניהול אירועים",
+    overviewMsg: "שלום אדמין, הנה הסקירה להיום.",
+    totalEvents: "סך האירועים",
+    registrations: "הרשמות",
+    revenue: "הכנסה",
+    feedbacks: "משוב",
+    tabs: ["סקירה", "אירועים", "אנליטיקה", "תוכן"],
+    recentActivities: "פעילויות אחרונות",
+    upcomingEvents: "אירועים קרובים",
+    ticketSalesAnalytics: "אנליטיקת מכירות כרטיסים",
+    salesChannels: "ערוצי מכירה",
+    topEvents: "אירועים מובילים",
+    contentManagement: "ניהול תוכן",
+    eventName: "שם האירוע",
+    date: "תאריך",
+    location: "מיקום",
+    registrationsLabel: "הרשמות",
+    price: "מחיר ($)",
+    actions: "פעולות",
+    edit: "ערוך",
+    delete: "מחק",
+    createEvent: "יצירת אירוע",
+    logout: "התנתקות",
+    addEvent: "הוסף אירוע",
+    update: "עדכן",
+    cancel: "בטל",
+    manage: "ניהול"
+  }
+};
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -36,9 +128,14 @@ const AdminDashboard = () => {
   const [theme, setTheme] = useState("light");
   const navigate = useNavigate();
 
+  // Language context
+  const { language, setLanguage } = useLanguage();
+  const t = translations[language];
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
+    document.documentElement.dir = language === "ar" || language === "he" ? "rtl" : "ltr";
+  }, [theme, language]);
 
   const [stats] = useState({
     totalEvents: 8,
@@ -53,7 +150,7 @@ const AdminDashboard = () => {
     { id: 3, user: "Admin", action: "Updated ticket pricing", time: "30 min ago", type: "revenue" },
   ]);
 
-  // ✅ Make events dynamic
+  // Events
   const [events, setEvents] = useState([
     { name: "Tech Summit 2025", date: "2025-09-12", location: "New York", regs: 400, price: 120 },
     { name: "Startup Expo", date: "2025-10-05", location: "San Francisco", regs: 300, price: 80 },
@@ -138,7 +235,7 @@ const AdminDashboard = () => {
     labels: analytics.salesChannels.map((c) => c.name),
     datasets: [
       {
-        label: "Sales Channels",
+        label: t.salesChannels,
         data: analytics.salesChannels.map((c) => c.value),
         backgroundColor: ["#007bff", "#28a745", "#ffc107"],
       },
@@ -149,41 +246,63 @@ const AdminDashboard = () => {
     labels: analytics.topEvents.map((t) => t.name),
     datasets: [
       {
-        label: "Tickets Sold",
+        label: t.topEvents,
         data: analytics.topEvents.map((t) => t.value),
         backgroundColor: ["#6f42c1", "#007bff", "#ff8800"],
       },
     ],
   };
 
+  // Tab mapping helper
+  const getTabKey = (i) => {
+    const tabMap = ["overview", "events", "analytics", "content"];
+    return tabMap[i];
+  };
+
   return (
     <div className="dashboard">
       {/* Header */}
       <div className="dashboard-header">
-        <h1>Event Management Dashboard</h1>
-        <p>Welcome {loggedInUser}, here’s today’s overview.</p>
+        <h1>{t.dashboard}</h1>
+        <p>{t.overviewMsg}</p>
         <div className="header-actions">
+          {/* Language Dropdown */}
+          <select
+            value={language}
+            onChange={e => setLanguage(e.target.value)}
+            className="bg-[var(--card-bg)] border border-[var(--border-color)] rounded px-2 py-1 text-[var(--text-color)]"
+            style={{ fontWeight: 500 }}
+          >
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="he">עברית</option>
+          </select>
+          {/* Theme Toggle */}
           <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
             {theme === "light" ? <FaMoon /> : <FaSun />}
           </button>
-          <button className="btn primary" onClick={() => setShowForm(true)}><FaPlus /> Create Event</button>
-          <button className="btn danger" onClick={() => navigate("/login")}><FaSignOutAlt /> Logout</button>
+          <button className="btn primary" onClick={() => setShowForm(true)}><FaPlus /> {t.createEvent}</button>
+          <button className="btn danger" onClick={() => navigate("/login")}><FaSignOutAlt /> {t.logout}</button>
         </div>
       </div>
 
       {/* Stats */}
       <div className="stats">
-        <StatCard icon={<FaCalendarAlt />} title="Total Events" value={stats.totalEvents} change={10} changeType="up" color="#007bff" />
-        <StatCard icon={<FaUsers />} title="Registrations" value={stats.registrations} change={8} changeType="up" color="#28a745" />
-        <StatCard icon={<FaDollarSign />} title="Revenue" value={stats.revenue} change={12} changeType="up" color="#ff8800" />
-        <StatCard icon={<FaFileAlt />} title="Feedbacks" value={stats.feedbacks} change={5} changeType="up" color="#6f42c1" />
+        <StatCard icon={<FaCalendarAlt />} title={t.totalEvents} value={stats.totalEvents} change={10} changeType="up" color="#007bff" />
+        <StatCard icon={<FaUsers />} title={t.registrations} value={stats.registrations} change={8} changeType="up" color="#28a745" />
+        <StatCard icon={<FaDollarSign />} title={t.revenue} value={stats.revenue} change={12} changeType="up" color="#ff8800" />
+        <StatCard icon={<FaFileAlt />} title={t.feedbacks} value={stats.feedbacks} change={5} changeType="up" color="#6f42c1" />
       </div>
 
       {/* Tabs */}
       <div className="tabs">
-        {["overview", "events", "analytics", "content"].map((tab) => (
-          <button key={tab} className={`tab ${activeTab === tab ? "active" : ""}`} onClick={() => setActiveTab(tab)}>
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+        {t.tabs.map((tab, i) => (
+          <button
+            key={tab}
+            className={`tab ${activeTab === getTabKey(i) ? "active" : ""}`}
+            onClick={() => setActiveTab(getTabKey(i))}
+          >
+            {tab}
           </button>
         ))}
       </div>
@@ -192,7 +311,7 @@ const AdminDashboard = () => {
       <div className="tab-content">
         {activeTab === "overview" && (
           <div className="overview">
-            <h2>Recent Activities</h2>
+            <h2>{t.recentActivities}</h2>
             {recentActivities.map((a) => (
               <div key={a.id} className="activity">
                 <strong>{a.user}</strong> {a.action} <span>{a.time}</span>
@@ -203,10 +322,17 @@ const AdminDashboard = () => {
 
         {activeTab === "events" && (
           <div className="events">
-            <h2>Upcoming Events</h2>
+            <h2>{t.upcomingEvents}</h2>
             <table>
               <thead>
-                <tr><th>Name</th><th>Date</th><th>Location</th><th>Registrations</th><th>Price ($)</th><th>Actions</th></tr>
+                <tr>
+                  <th>{t.eventName}</th>
+                  <th>{t.date}</th>
+                  <th>{t.location}</th>
+                  <th>{t.registrationsLabel}</th>
+                  <th>{t.price}</th>
+                  <th>{t.actions}</th>
+                </tr>
               </thead>
               <tbody>
                 {events.map((e, i) => (
@@ -217,8 +343,8 @@ const AdminDashboard = () => {
                     <td>{e.regs}</td>
                     <td>{e.price}</td>
                     <td>
-                      <button className="btn small" onClick={() => handleEdit(i)}><FaEdit /> Edit</button>
-                      <button className="btn small danger" onClick={() => handleDelete(i)}><FaTrash /> Delete</button>
+                      <button className="btn small" onClick={() => handleEdit(i)}><FaEdit /> {t.edit}</button>
+                      <button className="btn small danger" onClick={() => handleDelete(i)}><FaTrash /> {t.delete}</button>
                     </td>
                   </tr>
                 ))}
@@ -229,14 +355,14 @@ const AdminDashboard = () => {
 
         {activeTab === "analytics" && (
           <div className="analytics">
-            <h2>Ticket Sales Analytics</h2>
+            <h2>{t.ticketSalesAnalytics}</h2>
             <div className="analytics-charts">
               <div className="chart-card">
-                <h3>Sales Channels</h3>
+                <h3>{t.salesChannels}</h3>
                 <Pie data={salesChannelData} />
               </div>
               <div className="chart-card">
-                <h3>Top Events</h3>
+                <h3>{t.topEvents}</h3>
                 <Bar data={topEventsData} />
               </div>
             </div>
@@ -245,14 +371,14 @@ const AdminDashboard = () => {
 
         {activeTab === "content" && (
           <div className="content">
-            <h2>Content Management</h2>
+            <h2>{t.contentManagement}</h2>
             <div className="content-grid">
               {content.map((c, i) => (
                 <div key={i} className="content-card">
                   <div className="icon">{c.icon}</div>
                   <h3>{c.title}</h3>
                   <p>{c.desc}</p>
-                  <button className="btn primary">Manage</button>
+                  <button className="btn primary">{t.manage}</button>
                 </div>
               ))}
             </div>
@@ -260,20 +386,44 @@ const AdminDashboard = () => {
         )}
       </div>
 
-      {/* ✅ Modal for Create/Edit Event */}
+      {/* Modal for Create/Edit Event */}
       {showForm && (
         <div className="modal">
           <div className="modal-content">
-            <h2>{editIndex !== null ? "Edit Event" : "Create Event"}</h2>
+            <h2>{editIndex !== null ? t.update : t.createEvent}</h2>
             <form onSubmit={handleAddOrUpdateEvent}>
-              <input type="text" placeholder="Event Name" value={newEvent.name} onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })} />
-              <input type="date" value={newEvent.date} onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })} />
-              <input type="text" placeholder="Location" value={newEvent.location} onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })} />
-              <input type="number" placeholder="Registrations" value={newEvent.regs} onChange={(e) => setNewEvent({ ...newEvent, regs: e.target.value })} />
-              <input type="number" placeholder="Price ($)" value={newEvent.price} onChange={(e) => setNewEvent({ ...newEvent, price: e.target.value })} />
+              <input
+                type="text"
+                placeholder={t.eventName}
+                value={newEvent.name}
+                onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })}
+              />
+              <input
+                type="date"
+                value={newEvent.date}
+                onChange={(e) => setNewEvent({ ...newEvent, date: e.target.value })}
+              />
+              <input
+                type="text"
+                placeholder={t.location}
+                value={newEvent.location}
+                onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder={t.registrationsLabel}
+                value={newEvent.regs}
+                onChange={(e) => setNewEvent({ ...newEvent, regs: e.target.value })}
+              />
+              <input
+                type="number"
+                placeholder={t.price}
+                value={newEvent.price}
+                onChange={(e) => setNewEvent({ ...newEvent, price: e.target.value })}
+              />
               <div className="modal-actions">
-                <button type="submit" className="btn primary">{editIndex !== null ? "Update" : "Add Event"}</button>
-                <button type="button" className="btn danger" onClick={() => { setShowForm(false); setEditIndex(null); }}>Cancel</button>
+                <button type="submit" className="btn primary">{editIndex !== null ? t.update : t.addEvent}</button>
+                <button type="button" className="btn danger" onClick={() => { setShowForm(false); setEditIndex(null); }}>{t.cancel}</button>
               </div>
             </form>
           </div>
@@ -285,70 +435,30 @@ const AdminDashboard = () => {
         .dashboard { padding: 20px; font-family: Arial, sans-serif; background: var(--bg-color); min-height: 100vh; color: var(--text-color); }
         .dashboard-header { margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; }
         .dashboard-header h1 { font-size: 28px; color: var(--heading-color); }
-        .header-actions { display:flex; align-items:center; gap:12px; }
+        .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* INCREASED gap for separation, adjust as you like */
+}
+
+.header-actions select {
+  margin-right: 8px; /* Gives extra space between dropdown and next icon/button */
+}
+
         .btn { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; }
         .btn.primary { background: var(--primary-color); color: #fff; }
         .btn.danger { background: var(--danger-color); color: #fff; }
         .btn.small { padding: 4px 8px; font-size: 13px; margin-right: 5px; }
-        /* ✅ Stats Section */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin: 20px 0;
-}
-
-.stat-card {
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--text-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stat-card:hover {
-  box-shadow: var(--shadow-hover);
-}
-
-.stat-icon {
-  padding: 12px;
-  border-radius: 50%;
-  color: #fff;
-  font-size: 20px;
-}
-
-.stat-info h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--heading-color);
-}
-
-.stat-info p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.stat-change {
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-}
-
-.stat-change .up {
-  color: var(--accent-color);
-  margin-right: 5px;
-}
-
-.stat-change .down {
-  color: var(--danger-color);
-  margin-right: 5px;
-}
+        /* Stats Section */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 20px 0; }
+        .stat-card { background: var(--card-bg); padding: 20px; border-radius: 10px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; color: var(--text-color); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .stat-card:hover { box-shadow: var(--shadow-hover); }
+        .stat-icon { padding: 12px; border-radius: 50%; color: #fff; font-size: 20px; }
+        .stat-info h3 { margin: 0; font-size: 1.5rem; font-weight: bold; color: var(--heading-color); }
+        .stat-info p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+        .stat-change { display: flex; align-items: center; font-weight: bold; }
+        .stat-change .up { color: var(--accent-color); margin-right: 5px; }
+        .stat-change .down { color: var(--danger-color); margin-right: 5px; }
         .tabs { margin: 20px 0; }
         .tab { padding: 10px 20px; border: none; background: var(--sidebar-bg); margin-right: 10px; cursor: pointer; border-radius: 6px; color: var(--text-color); }
         .tab.active { background: var(--primary-color); color: #fff; }

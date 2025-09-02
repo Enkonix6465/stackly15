@@ -11,95 +11,150 @@ import {
   FaCameraRetro,
   FaPalette
 } from 'react-icons/fa';
+import { useLanguage } from '../context.jsx/LanguageContext';
+
+const translations = {
+  en: {
+    pageTitle: 'Birthday Celebration - Stackly Events',
+    heroTitle: 'Birthday Celebration',
+    heroParagraph: 'Make every birthday unforgettable with personalized themes, lively entertainment, and joyful moments.',
+    featuresTitle: 'Birthday Party Highlights',
+    featuresDescription: 'Exciting features and services to create a vibrant birthday atmosphere.',
+    luxuryFeatures: [
+      { icon: FaCogs, title: 'Vibrant Venue', description: 'A lively and colorful venue perfect for birthday celebrations of all ages.' },
+      { icon: FaUsers, title: 'Personalized Guest Experience', description: 'Custom guest services ensuring every attendee feels special and celebrated.' },
+      { icon: FaUtensils, title: 'Delicious Catering', description: 'Theme-inspired menus and treats crafted to delight your guests.' },
+      { icon: FaMusic, title: 'Entertainment & Activities', description: 'Live performances, DJs, games, and more to keep the party lively.' },
+      { icon: FaCameraRetro, title: 'Photobooth & Photographer', description: 'Fun photo opportunities and professional photography to capture memories.' },
+      { icon: FaPalette, title: 'Themed Décor & Styling', description: 'Custom decorations to match your birthday theme and style.' },
+    ],
+    benefitsTitle: 'Why Celebrate With Us?',
+    benefitsDescription: 'From intimate gatherings to grand celebrations, we deliver joy and personalization at every step.',
+    benefitsList: [
+      'Create an unforgettable birthday party full of joy and laughter',
+      'Customizable themes and activities for all ages',
+      'Delicious food and drinks tailored to your preferences',
+      'Interactive entertainment to engage every guest',
+      'Professional photography to capture the day’s special moments',
+      'Stress-free planning with expert event coordination',
+    ],
+    galleryTitle: 'Discover Our Stunning Properties',
+    gallerySubtitle: 'Step into a world of architectural elegance and modern living. Our handpicked collection of homes blends style, comfort, and functionality to create spaces you’ll love to call your own.',
+    faqsTitle: 'FAQs',
+    faqsSubtitle: 'Answers to common questions about birthday celebrations.',
+    faqs: [
+      { question: 'How far in advance should I book my birthday celebration?', answer: 'We recommend booking at least 2-4 months in advance to secure your preferred date and services.' },
+      { question: 'Can I customize the party theme?', answer: 'Absolutely, we offer fully customizable themes and personalized options to make your birthday truly unique.' },
+      { question: 'Are dietary restrictions accommodated?', answer: 'Yes, our catering team works with you to provide delicious options for all dietary needs.' },
+      { question: 'What entertainment options are available?', answer: 'We provide a wide array of entertainment options including live music, DJs, games, and custom activities.' },
+    ],
+    ctaTitle: 'Ready to Celebrate?',
+    ctaParagraph: 'Contact us to plan a birthday celebration that shines and delights.',
+    ctaButton: 'Book Your Celebration',
+    reachOut: 'Plan Your Celebration'
+  },
+  ar: {
+    pageTitle: 'احتفال عيد ميلاد - فعاليات ستاكلي',
+    heroTitle: 'احتفال عيد ميلاد',
+    heroParagraph: 'اجعل كل عيد ميلاد لا يُنسى مع ثيمات مخصصة، وترفيه حيوي، ولحظات مليئة بالفرح.',
+    featuresTitle: 'أبرز مميزات حفلة عيد الميلاد',
+    featuresDescription: 'ميزات وخدمات مميزة لخلق أجواء عيد ميلاد نابضة بالحياة.',
+    luxuryFeatures: [
+      { icon: FaCogs, title: 'مكان نابض بالحياة', description: 'مكان ملون وحيوي مثالي لاحتفالات أعياد الميلاد لجميع الأعمار.' },
+      { icon: FaUsers, title: 'تجربة ضيوف مخصصة', description: 'خدمات ضيوف خاصة تضمن شعور كل حاضر بالتميز والاحتفال.' },
+      { icon: FaUtensils, title: 'تموين لذيذ', description: 'قوائم مستوحاة من الثيم تقدم مع الأطعمة التي تبهج ضيوفك.' },
+      { icon: FaMusic, title: 'ترفيه وأنشطة', description: 'عروض حية، منسقو أغاني، ألعاب والمزيد لإبقاء الحفلة حيوية.' },
+      { icon: FaCameraRetro, title: 'كشك تصوير ومصور', description: 'فرص تصوير ممتعة وتصوير احترافي لالتقاط الذكريات.' },
+      { icon: FaPalette, title: 'ديكور وتصميم ثيم', description: 'زينة مخصصة تتناسب مع ثيم عيد ميلادك وأسلوبك.' },
+    ],
+    benefitsTitle: 'لماذا تحتفل معنا؟',
+    benefitsDescription: 'من اللقاءات الحميمة إلى الاحتفالات الكبرى، نقدم الفرح والتخصيص في كل خطوة.',
+    benefitsList: [
+      'خلق حفلة عيد ميلاد لا تُنسى مليئة بالفرح والضحك',
+      'ثيمات وأنشطة يمكن تخصيصها لجميع الأعمار',
+      'أطعمة ومشروبات شهية مخصصة لتفضيلاتك',
+      'ترفيه تفاعلي ليشارك فيه جميع الضيوف',
+      'تصوير محترف لالتقاط لحظات اليوم الخاصة',
+      'تخطيط خالي من التوتر مع تنسيق خبير',
+    ],
+    galleryTitle: 'اكتشف ممتلكاتنا الرائعة',
+    gallerySubtitle: 'خطوة إلى عالم من الأناقة المعمارية والعيش العصري. مجموعتنا المختارة من المنازل تمزج بين الأسلوب والراحة والوظائف لخلق مساحات تحب أن تسميها منزلك.',
+    faqsTitle: 'الأسئلة المتكررة',
+    faqsSubtitle: 'إجابات على الأسئلة الشائعة بخصوص احتفالات أعياد الميلاد.',
+    faqs: [
+      { question: 'كم من الوقت يجب أن أحجز احتفال عيد ميلادي؟', answer: 'ننصح بالحجز مقدماً من 2 إلى 4 أشهر لضمان التاريخ والخدمات.' },
+      { question: 'هل يمكنني تخصيص ثيم الحفلة؟', answer: 'نعم، نقدّم ثيمات وخيارات مخصصة بالكامل.' },
+      { question: 'هل يتم تلبية الاحتياجات الغذائية؟', answer: 'فريق التموين يوفر خيارات لجميع الاحتياجات الغذائية.' },
+      { question: 'ما هي خيارات الترفيه المتوفرة؟', answer: 'موسيقى حية، منسق أغاني، ألعاب، وأنشطة مخصصة.' },
+    ],
+    ctaTitle: 'هل أنت جاهز للاحتفال؟',
+    ctaParagraph: 'اتصل بنا لتنظيم احتفال عيد ميلاد يضيء ويُسعد الجميع.',
+    ctaButton: 'احجز احتفالك',
+    reachOut: 'خطط لاحتفالك'
+  },
+  he: {
+    pageTitle: 'חגיגת יום הולדת - אירועי סטאקלי',
+    heroTitle: 'חגיגת יום הולדת',
+    heroParagraph: 'עשו כל יום הולדת לבלתי נשכח עם עיצובים מותאמים, בידור תוסס ורגעים משמחים.',
+    featuresTitle: 'הדגשים של מסיבת יום הולדת',
+    featuresDescription: 'מאפיינים ושירותים מרגשים ליצירת אווירת יום הולדת תוססת.',
+    luxuryFeatures: [
+      { icon: FaCogs, title: 'אולם מלא חיוניות', description: 'אולם צבעוני ותוסס מושלם לחגיגות יום הולדת לכל הגילים.' },
+      { icon: FaUsers, title: 'חוויה מותאמת לאורחים', description: 'שירותי אורחים מותאמים לוודא שכל משתתף ירגיש מיוחד וחוגג.' },
+      { icon: FaUtensils, title: 'קייטרינג טעים', description: 'תפריטים נושאי נושא המותאמים להנאת האורחים.' },
+      { icon: FaMusic, title: 'בידור ופעילויות', description: 'מופעים חיים, די ג’ייז, משחקים ועוד לשמירת האווירה.' },
+      { icon: FaCameraRetro, title: 'קיר צילום ומצולם', description: 'הזדמנויות צילום מהנות וצילום מקצועי לתיעוד הזיכרונות.' },
+      { icon: FaPalette, title: 'קישוט ועיצוב בנושא', description: 'קישוטים מותאמים לנושא ועיצוב יום ההולדת שלך.' },
+    ],
+    benefitsTitle: 'למה לחגוג איתנו?',
+    benefitsDescription: 'ממפגשים אינטימיים לחגיגות גדולות, אנו מספקים שמחה והתאמה אישית בכל שלב.',
+    benefitsList: [
+      'יצירת מסיבת יום הולדת בלתי נשכחת מלאה בשמחה וצחוק',
+      'נושאים ופעילויות הניתנים להתאמה לכל הגילים',
+      'אוכל ושתייה טעימים המותאמים להעדפותיך',
+      'בידור אינטראקטיבי לכל אורח',
+      'צילום מקצועי של רגעי היום המיוחדים',
+      'תכנון נטול מתח עם תיאום מקצועי',
+    ],
+    galleryTitle: 'גלו את הנכסים המדהימים שלנו',
+    gallerySubtitle: 'צאו לעולם של אלגנטיות ארכיטקטונית וחיים מודרניים. האוספים שלנו משלבים סגנון, נוחות ופונקציונליות ליצירת מרחבים שתאהבו לקרוא בית.',
+    faqsTitle: 'שאלות נפוצות',
+    faqsSubtitle: 'תשובות לשאלות נפוצות על חגיגות יום ההולדת.',
+    faqs: [
+      { question: 'כמה זמן מראש יש להזמין את חגיגת יום ההולדת?', answer: 'מומלץ להזמין לפחות 2-4 חודשים מראש כדי להבטיח תאריך ושירותים.' },
+      { question: 'האם אפשר להתאים את הנושא?', answer: 'בוודאי, אנו מציעים נושאים ואפשרויות מלאות התאמה אישית.' },
+      { question: 'האם יש התאמות תזונתיות?', answer: 'צוות הקייטרינג שלנו יספק אופציות לכל דרישות התזונה.' },
+      { question: 'אילו אפשרויות בידור זמינות?', answer: 'מוזיקה חיה, די ג’ייז, משחקים ופעילויות מותאמות.' },
+    ],
+    ctaTitle: 'מוכנים לחגוג?',
+    ctaParagraph: 'צרו קשר לתכנון חגיגת יום הולדת בלתי נשכחת.',
+    ctaButton: 'הזמן את החגיגה שלך',
+    reachOut: 'תכנן את החגיגה שלך'
+  }
+};
 
 const Service1 = () => {
+  const { language } = useLanguage();
+  const t = translations[language] || translations.en;
+
   useEffect(() => {
-    document.title = 'Birthday Celebration - Stackly Events';
-  }, []);
-
-  const luxuryFeatures = [
-    {
-      icon: FaCogs,
-      title: "Vibrant Venue",
-      description: "A lively and colorful venue perfect for birthday celebrations of all ages."
-    },
-    {
-      icon: FaUsers,
-      title: "Personalized Guest Experience",
-      description: "Custom guest services ensuring every attendee feels special and celebrated."
-    },
-    {
-      icon: FaUtensils,
-      title: "Delicious Catering",
-      description: "Theme-inspired menus and treats crafted to delight your guests."
-    },
-    {
-      icon: FaMusic,
-      title: "Entertainment & Activities",
-      description: "Live performances, DJs, games, and more to keep the party lively."
-    },
-    {
-      icon: FaCameraRetro,
-      title: "Photobooth & Photographer",
-      description: "Fun photo opportunities and professional photography to capture memories."
-    },
-    {
-      icon: FaPalette,
-      title: "Themed Décor & Styling",
-      description: "Custom decorations to match your birthday theme and style."
-    },
-  ];
-
-  const benefits = [
-    'Create an unforgettable birthday party full of joy and laughter',
-    'Customizable themes and activities for all ages',
-    'Delicious food and drinks tailored to your preferences',
-    'Interactive entertainment to engage every guest',
-    'Professional photography to capture the day’s special moments',
-    'Stress-free planning with expert event coordination'
-  ];
-
-  const faqs = [
-    {
-      question: 'How far in advance should I book my birthday celebration?',
-      answer: 'We recommend booking at least 2-4 months in advance to secure your preferred date and services.'
-    },
-    {
-      question: 'Can I customize the party theme?',
-      answer: 'Absolutely, we offer fully customizable themes and personalized options to make your birthday truly unique.'
-    },
-    {
-      question: 'Are dietary restrictions accommodated?',
-      answer: 'Yes, our catering team works with you to provide delicious options for all dietary needs.'
-    },
-    {
-      question: 'What entertainment options are available?',
-      answer: 'We provide a wide array of entertainment options including live music, DJs, games, and custom activities.'
-    },
-  ];
+    document.title = t.pageTitle;
+  }, [t.pageTitle]);
 
   return (
     <div className="service-page">
       <div className="home-page">
         {/* Hero Section */}
         <section className="hero-section">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="hero-bg-video"
-          >
+          <video autoPlay muted loop playsInline className="hero-bg-video">
             <source src="images/video71.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
           <div className="hero-overlay">
             <div className="hero-content">
-              <h1 className="hero-title">Birthday Celebration</h1>
-              <p className="hero-paragraph">Make every birthday unforgettable with personalized themes, lively entertainment, and joyful moments.</p>
-              <Link to="/contact" className="hero-button">
-                Plan Your Celebration
-              </Link>
+              <h1 className="hero-title">{t.heroTitle}</h1>
+              <p className="hero-paragraph">{t.heroParagraph}</p>
+              <Link to="/contact" className="hero-button">{t.reachOut}</Link>
             </div>
           </div>
         </section>
@@ -107,27 +162,16 @@ const Service1 = () => {
         {/* Features Section */}
         <section className="section features-section">
           <div className="container">
-            <motion.div
-              className="section-header text-center"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2>Birthday Party Highlights</h2>
-              <p>Exciting features and services to create a vibrant birthday atmosphere.</p>
+            <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}>
+              <h2>{t.featuresTitle}</h2>
+              <p>{t.featuresDescription}</p>
             </motion.div>
             <div className="features-grid">
-              {luxuryFeatures.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  className="feature-card premium-card"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -10, scale: 1.03 }}
-                >
+              {t.luxuryFeatures.map((feature, idx) => (
+                <motion.div key={idx} className="feature-card premium-card" initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: idx * 0.1 }} viewport={{ once: true }}
+                  whileHover={{ y: -10, scale: 1.03 }}>
                   <div className="feature-icon">
                     <feature.icon />
                   </div>
@@ -137,131 +181,84 @@ const Service1 = () => {
               ))}
             </div>
             <div className="btn-learn-wrapper">
-              <Link to="/contact" className="btn-learn">
-                Learn More <FaArrowRight />
-              </Link>
+              <Link to="/contact" className="btn-learn">{t.ctaButton} <FaArrowRight /></Link>
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="section">
+        <section className="section benefits-section">
           <div className="container">
             <div className="grid-2">
-              <motion.div
-                className="benefits-content"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2>Why Celebrate With Us?</h2>
-                <p>From intimate gatherings to grand celebrations, we deliver joy and personalization at every step.</p>
+              <motion.div className="benefits-content" initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }} viewport={{ once: true }}>
+                <h2>{t.benefitsTitle}</h2>
+                <p>{t.benefitsDescription}</p>
                 <div className="benefits-list">
-                  {benefits.map((benefit, index) => (
-                    <motion.div
-                      key={index}
-                      className="benefit-item"
-                      initial={{ opacity: 0, x: -30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
+                  {t.benefitsList.map((benefit, idx) => (
+                    <motion.div key={idx} className="benefit-item" initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: idx * 0.1 }} viewport={{ once: true }}>
                       <FaCheck className="check-icon" />
                       <span>{benefit}</span>
                     </motion.div>
                   ))}
                 </div>
-                <Link to="/contact" className="btn btn-primary">
-                  Book Your Party <FaArrowRight />
-                </Link>
+                <Link to="/contact" className="btn btn-primary">{t.ctaButton} <FaArrowRight /></Link>
               </motion.div>
-              <motion.div
-                className="benefits-visual"
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
+              <motion.div className="benefits-visual" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }} viewport={{ once: true }}>
                 <div className="benefits-image">
-                  <img src="images/service3.jpg" alt="Birthday Party" />
+                  <img src="images/birthday.jpg" alt="Birthday Celebration" />
                 </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-    <section className="gallery-wrapper">
-      {/* Heading & Content */}
-      <div className="gallery-header">
-        <h2 className="gallery-title">Discover Our Stunning Properties</h2>
-        <p className="gallery-subtitle">
-          Step into a world of architectural elegance and modern living. 
-          Our handpicked collection of homes blends style, comfort, and 
-          functionality to create spaces you’ll love to call your own.
-        </p>
-      </div>
-
-      {/* Gallery Rows */}
-      <div className="gallery-container">
-        
-        {/* Row 1 */}
-        <div className="gallery-row">
-          <div className="gallery-big">
-            <img
-              src="images/wedding3.png"
-              alt="Luxury Property"
-            />
+        {/* Gallery Section */}
+        <section className="gallery-wrapper">
+          <div className="gallery-header">
+            <h2 className="gallery-title">{t.galleryTitle}</h2>
+            <p className="gallery-subtitle">{t.gallerySubtitle}</p>
           </div>
-          <div className="gallery-grid">
-            <img src="images/row12.jpg" alt="Interior 1" />
-            <img src="images/row1.jpg" alt="Interior 2" />
-            <img src="images/row11.jpg" alt="Interior 3" />
-            <img src="images/row13.jpg" alt="Interior 4" />
+          <div className="gallery-container">
+            <div className="gallery-row">
+              <div className="gallery-big">
+                <img src="images/wedding11.jpg" alt="Luxury Property" />
+              </div>
+              <div className="gallery-grid">
+                <img src="images/row12.jpg" alt="Interior 1" />
+                <img src="images/row1.jpg" alt="Interior 2" />
+                <img src="images/row11.jpg" alt="Interior 3" />
+                <img src="images/row13.jpg" alt="Interior 4" />
+              </div>
+            </div>
+            <div className="gallery-row reverse">
+              <div className="gallery-big">
+                <img src="images/wedding12.jpg" alt="Modern Home" />
+              </div>
+              <div className="gallery-grid">
+                <img src="images/row2.jpg" alt="Interior 5" />
+                <img src="images/row21.jpg" alt="Interior 6" />
+                <img src="images/row22.jpg" alt="Interior 7" />
+                <img src="images/row23.jpg" alt="Interior 8" />
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Row 2 (Zig Zag) */}
-        <div className="gallery-row reverse">
-          <div className="gallery-big">
-            <img
-              src="images/wedding2.png"
-              alt="Modern Home"
-            />
-          </div>
-          <div className="gallery-grid">
-            <img src="images/row2.jpg" alt="Interior 5" />
-            <img src="images/row21.jpg" alt="Interior 6" />
-            <img src="images/row22.jpg" alt="Interior 7" />
-            <img src="images/row23.jpg" alt="Interior 8" />
-          </div>
-        </div>
-
-      </div>
-    </section>
+        </section>
 
         {/* FAQ Section */}
         <section className="section faq-section">
           <div className="container">
-            <motion.div
-              className="section-header text-center"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2>FAQs</h2>
-              <p>Answers to common questions about birthday celebrations.</p>
+            <motion.div className="section-header text-center" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }} viewport={{ once: true }}>
+              <h2>{t.faqsTitle}</h2>
+              <p>{t.faqsSubtitle}</p>
             </motion.div>
             <div className="faq-list">
-              {faqs.map((faq, index) => (
-                <motion.div
-                  key={index}
-                  className="faq-item"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+              {t.faqs.map((faq, idx) => (
+                <motion.div key={idx} className="faq-item" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }} viewport={{ once: true }}>
                   <h4>{faq.question}</h4>
                   <p>{faq.answer}</p>
                 </motion.div>
@@ -272,26 +269,21 @@ const Service1 = () => {
 
         {/* CTA Section */}
         <section className="cta-section">
-          <div className="cta-overlay">
-            <div className="container">
-              <motion.div
-                className="cta-content"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                <h2>Ready to Celebrate?</h2>
-                <p>Contact us to plan a birthday celebration that shines and delights.</p>
-                <div className="cta-buttons">
-                  <Link to="/contact" className="btn btn-primary">
-                    Book Your Celebration <FaArrowRight />
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+  <div className="cta-overlay">
+    <div className="container">
+      <motion.div className="cta-content" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }} viewport={{ once: true }}>
+        <h2>{t.ctaTitle}</h2>
+        <p>{t.ctaParagraph}</p>
+        <div className="cta-buttons">
+          <Link to="/contact" className="btn btn-primary">{t.ctaButton} <FaArrowRight /></Link>
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+
 
       <style jsx>{`
         .home-page {
@@ -478,6 +470,32 @@ const Service1 = () => {
           margin: 0;
           font-size: 0.9rem;
         }
+
+           @media (max-width: 480px) {
+              html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-sizing: border-box !important;
+              }
+              .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+              header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+    html, body, #root, .home-page, .aboutit-section, .aboutit-grid, .hero-section, .hero-overlay {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+    .hero-title, .hero-paragraph, .hero-button { margin-right: 0 !important; }
+    header { left: 0; right: 0; width: 100vw !important; max-width: 100vw !important; }
+  }
+
+
+  
 
 .features-section {
   background: var(--sidebar-bg);
@@ -743,31 +761,103 @@ body.dark .check-icon {
   transform: scale(1.03);
 }
 
-/* Responsive */
+/* Tablet (medium screens) */
 @media (max-width: 992px) {
-  .gallery-row,
-  .gallery-row.reverse {
-    flex-direction: column;
+  .gallery-wrapper {
+    padding: 60px 20px;
   }
   .gallery-big img {
-    height: 350px;
+    height: 350px; /* already present, keeps height smaller */
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr; /* two columns (unchanged) */
+    gap: 15px;
   }
   .gallery-grid img {
     height: 180px;
   }
+  /* Stack gallery rows vertically */
+  .gallery-row,
+  .gallery-row.reverse {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
+
+/* Mobile (small screens) */
+@media (max-width: 600px) {
+  .gallery-wrapper {
+    padding: 40px 12px;
+  }
+
+  .gallery-header {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  .gallery-title {
+    font-size: 1.8rem;
+  }
+  .gallery-subtitle {
+    font-size: 1rem;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+
+  .gallery-big img {
+    height: 250px;
+    border-radius: 12px;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr; /* single column grid */
+    gap: 12px;
+  }
+  .gallery-grid img {
+    height: 200px;
+    border-radius: 10px;
+  }
+
+  /* Stack gallery rows vertically */
+  .gallery-row,
+  .gallery-row.reverse {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 400px) {
+  .gallery-wrapper {
+    padding: 30px 8px;
+  }
+  .gallery-title {
+    font-size: 1.5rem;
+  }
+  .gallery-subtitle {
+    font-size: 0.95rem;
+  }
+  .gallery-big img {
+    height: 200px;
+  }
+  .gallery-grid img {
+    height: 160px;
+  }
+}
+
 
 
 .cta-section {
   position: relative;
-  background: url('/images/professional1.jpg') center/cover no-repeat fixed; /* fixed background */
-  padding: 0 0;
-  color: white;
+  background: url('/images/professional1.jpg') center/cover no-repeat fixed;
+  color: #fff;
+  min-height: 350px;
 }
-
 .cta-overlay {
-  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
-  padding: 100px 0;
+  background: rgba(0,0,0,0.58);
+  min-height: 350px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cta-content {
@@ -777,20 +867,24 @@ body.dark .check-icon {
 }
 
 .cta-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color:#fff;
+  font-size: 2.7rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: center;
 }
 
 .cta-content p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+  font-size: 1.19rem;
+  margin-bottom: 28px;
+  color: #fff;
+  text-align: center;
 }
 
 .cta-buttons {
+  width: 100%;
   display: flex;
   justify-content: center;
-  gap: 15px;
 }
 
 .btn {
@@ -799,6 +893,28 @@ body.dark .check-icon {
   font-weight: bold;
   text-decoration: none;
   transition: 0.3s;
+}
+
+.btn.btn-primary {
+  background: #224DB7;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.16rem;
+  border-radius: 10px;
+  padding: 15px 36px;
+  border: none;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px rgba(34,77,183,0.12);
+  transition: background 0.15s;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn.btn-primary:hover {
+  background: #193682;
+  color: #fff;
 }
 
 .btn-primary {
