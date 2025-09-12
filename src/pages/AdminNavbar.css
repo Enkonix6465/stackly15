@@ -1,0 +1,129 @@
+/* Center dashboard title between logo and actions, responsive for tablet/desktop */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.dashboard-title-center {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  z-index: 1;
+}
+
+.dashboard-title-text {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--heading-color, #222);
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  .dashboard-title-text {
+    font-size: 1.5rem;
+  }
+  .dashboard-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+.admin-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 0 32px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 100;
+}
+.admin-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.admin-navbar-logo {
+  display: flex;
+  align-items: center;
+}
+.admin-navbar-logo img {
+  height: 44px;
+  width: auto;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.admin-navbar-title-group {
+  margin-left: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.admin-navbar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.admin-navbar-subtitle {
+  font-size: 1rem;
+  color: #666;
+}
+.admin-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.admin-navbar-lang {
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  color: #222;
+}
+.admin-navbar-theme {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #222;
+  margin: 0 4px;
+}
+.admin-navbar-cta {
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+@media (max-width: 700px) {
+  .admin-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 12px 10px;
+  }
+  .admin-navbar-left, .admin-navbar-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .admin-navbar-title {
+    font-size: 1.1rem;
+  }
+  .admin-navbar-subtitle {
+    font-size: 0.95rem;
+  }
+}
