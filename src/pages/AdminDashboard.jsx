@@ -1,6 +1,9 @@
 // src/pages/AdminDashboard.jsx
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
+=======
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
 import { motion } from "framer-motion";
 import {
   FaUsers,
@@ -13,6 +16,7 @@ import {
   FaSignOutAlt,
   FaMoon,
   FaSun,
+<<<<<<< HEAD
   FaEnvelope
 } from "react-icons/fa";
 
@@ -23,6 +27,25 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 import { Pie, Bar } from 'react-chartjs-2';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
+=======
+  FaEnvelope,
+  FaEdit,
+  FaTrash,
+} from "react-icons/fa";
+import { Pie, Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+} from "chart.js";
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context.jsx/LanguageContext"; // adjust path as per your structure
+
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 // Translations for headings and tab labels
@@ -143,8 +166,11 @@ const AdminDashboard = () => {
     { id: 2, user: "Admin", action: "Approved 50 new registrations", time: "10 min ago", type: "registration" },
     { id: 3, user: "Admin", action: "Updated ticket pricing", time: "30 min ago", type: "revenue" },
   ]);
+<<<<<<< HEAD
   const [showAllDropdown, setShowAllDropdown] = useState(false);
   const [viewSection, setViewSection] = useState('activities'); // 'activities', 'events', 'content'
+=======
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
 
   // Events
   const [events, setEvents] = useState([
@@ -255,6 +281,7 @@ const AdminDashboard = () => {
     return tabMap[i];
   };
 
+<<<<<<< HEAD
   const logo = '/images/logo.png';
   return (
     <div className="dashboard">
@@ -269,6 +296,15 @@ const AdminDashboard = () => {
           <span className="dashboard-title-text">{t.dashboard}</span>
         </div>
         <div className="header-actions" style={{ flex: '0 0 auto' }}>
+=======
+  return (
+    <div className="dashboard">
+      {/* Header */}
+      <div className="dashboard-header">
+        <h1>{t.dashboard}</h1>
+        <p>{t.overviewMsg}</p>
+        <div className="header-actions">
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
           {/* Language Dropdown */}
           <select
             value={language}
@@ -284,6 +320,7 @@ const AdminDashboard = () => {
           <button className="theme-toggle" onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
             {theme === "light" ? <FaMoon /> : <FaSun />}
           </button>
+<<<<<<< HEAD
           <button
             className="btn primary cta-btn"
             onClick={() => setShowForm(true)}
@@ -310,6 +347,10 @@ const AdminDashboard = () => {
             <FaSignOutAlt style={{ fontSize: 18, marginRight: 6 }} />
             <span>{t.logout}</span>
           </button>
+=======
+          <button className="btn primary" onClick={() => setShowForm(true)}><FaPlus /> {t.createEvent}</button>
+          <button className="btn danger" onClick={() => navigate("/login")}><FaSignOutAlt /> {t.logout}</button>
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
         </div>
       </div>
 
@@ -321,6 +362,7 @@ const AdminDashboard = () => {
         <StatCard icon={<FaFileAlt />} title={t.feedbacks} value={stats.feedbacks} change={5} changeType="up" color="#6f42c1" />
       </div>
 
+<<<<<<< HEAD
       {/* Recent Activities - Grouped in a single box */}
       <div className="recent-activities-box" style={{ background: 'var(--card-bg)', borderRadius: 12, boxShadow: 'var(--shadow)', padding: 24, margin: '32px 0', maxWidth: 600, position: 'relative' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -444,12 +486,35 @@ const AdminDashboard = () => {
 
       {/* Tabs */}
   {/* Main tab bar only, removed duplicate tab buttons from analytics section */}
+=======
+      {/* Tabs */}
+      <div className="tabs">
+        {t.tabs.map((tab, i) => (
+          <button
+            key={tab}
+            className={`tab ${activeTab === getTabKey(i) ? "active" : ""}`}
+            onClick={() => setActiveTab(getTabKey(i))}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
 
       {/* Tab Content */}
       <div className="tab-content">
         {activeTab === "overview" && (
           <div className="overview">
+<<<<<<< HEAD
             {/* Recent Activities already shown above as a single grouped box */}
+=======
+            <h2>{t.recentActivities}</h2>
+            {recentActivities.map((a) => (
+              <div key={a.id} className="activity">
+                <strong>{a.user}</strong> {a.action} <span>{a.time}</span>
+              </div>
+            ))}
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
           </div>
         )}
 
@@ -488,7 +553,21 @@ const AdminDashboard = () => {
 
         {activeTab === "analytics" && (
           <div className="analytics">
+<<<<<<< HEAD
             {/* Analytics graphs removed as requested. Use the dropdown for analytics view. */}
+=======
+            <h2>{t.ticketSalesAnalytics}</h2>
+            <div className="analytics-charts">
+              <div className="chart-card">
+                <h3>{t.salesChannels}</h3>
+                <Pie data={salesChannelData} />
+              </div>
+              <div className="chart-card">
+                <h3>{t.topEvents}</h3>
+                <Bar data={topEventsData} />
+              </div>
+            </div>
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
           </div>
         )}
 

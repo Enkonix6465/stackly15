@@ -11,11 +11,14 @@ const Signup = () => {
   return (
     <div className="signup-page">
       <div className="signup-container">
+<<<<<<< HEAD
         <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 2 }}>
           <a href="/">
             <img src="images/logo.png" alt="Stackly Logo" style={{ height: 48 }} />
           </a>
         </div>
+=======
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
         <motion.div
           className="signup-form"
           initial={{ opacity: 0, y: 50 }}

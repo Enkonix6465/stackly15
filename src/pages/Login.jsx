@@ -192,11 +192,14 @@ const Login = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
+<<<<<<< HEAD
             <div style={{ position: 'absolute', top: 24, left: 24, zIndex: 2 }}>
               <a href="/">
                 <img src="images/logo.png" alt="Stackly Logo" style={{ height: 48 }} />
               </a>
             </div>
+=======
+>>>>>>> 42b5dd394d9df4266f3f2f5d9a0661db26b41256
             {/* Language selector at TOP RIGHT */}
             <div className="lang-dropdown">
               <select
